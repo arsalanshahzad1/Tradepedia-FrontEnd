@@ -1,0 +1,233 @@
+<div id="profileEdit" class="bg-light h-100">
+    <div class="profiledit-bx">
+        <div class="mb-3 d-flex align-items-center justify-content-between">
+            <h1 class="pg-tlt text-start fw-bold pb-4" [translate]="'profile_edit.page_tlt'">My Account</h1>          
+            <a (click)="gotoPage('/account/change-password')" class="btn-warning sbmt-link border-0 px-4" [translate]="'profile_edit.btn_change'">Change Password</a>                       
+        </div>
+        <form [formGroup]="profileEditForm" (ngSubmit)="saveUser()">                
+            <!-- <div class="text-center pb-4">
+                <input type="file" (change)="onFileChange($event,'user_image')" id="choseimg" class="d-none" accept="image/*">
+                <input class="form-control" formControlName="user_image" type="hidden">
+                <label for="choseimg" class="rounded-circle overflow-hidden" style="width:90px;height:90px;">                    
+                    <img *ngIf="imageSrc!=''" [src]="imageSrc" class="img-fluid">
+                </label>
+            </div>  -->
+            <div class="row">
+                <!-- <div class="col-md-6">
+                    <div class="frm-bx mb-4 pt-2">
+                        <span class="d-block pb-2 fw-bold" [translate]="'profile_edit.tlt_email'">Email ID</span>   
+                        <h6>{{this.profileEditForm.value['mailid']}}</h6>            
+                    </div> 
+                </div>
+                <div class="col-md-6">
+                    <div class="frm-bx mb-4 pt-2">
+                        <!-- <span class="d-block pb-2 fw-bold" [translate]="'profile_edit.tlt_email'">Email ID</span>
+                        <input type="text" placeholder="{{ 'profile_edit.form_emailplaceholder' | translate }}" class="w-100" formControlName="mailid" [ngClass]="{ 'is-invalid': submitted && valid.mailid.errors }">
+                        <div *ngIf="submitted && valid.mailid.errors" class="invalid-feedback">
+                            <div *ngIf="valid.mailid.errors.required" [translate]="'profile_edit.error_mail1'">Please Enter Email ID</div>				
+                            <div *ngIf="valid.mailid.errors.pattern">
+                                <div *ngIf="valid.mailid.errors.pattern.requiredPattern" [translate]="'profile_edit.error_mail2'">Please Enter Valid EmailID</div>				
+                            </div>
+                        </div> --
+                    </div> 
+                </div> -->
+                <div class="row col-md-6">
+                    <div class="col-md-12">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-2 fw-bold" [translate]="'profile_edit.tlt_email'">Email ID</span>   
+                            <h6>{{this.profileEditForm.value['mailid']}}</h6>            
+                        </div> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                         <span class="d-block pb-2 fw-bold"><span [translate]="'profile_edit.tlt_fname'">First Name</span> <span style="color: red;">*</span></span>
+                            <input type="text" placeholder="{{ 'profile_edit.form_fnameplaceholder' | translate }}" class="w-100" formControlName="firstname" [ngClass]="{ 'is-invalid':submitted && valid.firstname.errors }">
+                            <div *ngIf="submitted && valid.firstname.errors" class="invalid-feedback">
+                                <div *ngIf="valid.firstname.errors.required">Please Enter First Name</div>				</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-2 fw-bold"><span [translate]="'profile_edit.tlt_lname'">Last Name</span> <span style="color: red;">*</span></span>
+                            <input type="text" placeholder="{{ 'profile_edit.form_lnameplaceholder' | translate }}" class="w-100" formControlName="lastname" [ngClass]="{ 'is-invalid':submitted && valid.lastname.errors }">
+                                                         <div *ngIf="submitted && valid.lastname.errors" class="invalid-feedback">
+                                <div *ngIf="valid.lastname.errors.required">Please Enter Last Name</div>				</div>
+                        </div> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-2 fw-bold"><span [translate]="'profile_edit.tlt_age'">Age</span> <span style="color: red;">*</span></span>
+                            <input type="number" placeholder="{{ 'profile_edit.form_ageplaceholder' | translate }}" class="w-100" formControlName="age"  [ngClass]="{ 'is-invalid':submitted && valid.age.errors }">
+                            <div *ngIf="submitted && valid.age.errors" class="invalid-feedback">
+                                <div *ngIf="valid.age.errors.required">Please Enter Age</div>				
+                                <div *ngIf="valid.age.errors.min">
+                                    <div *ngIf="valid.age.errors.min">Age Should be Greater than Zero</div>				
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-2 fw-bold" [translate]="'profile_edit.tlt_gender'">Gender</span>
+                            <!-- <input type="text" placeholder="Enter Gender" class="w-100" formControlName="gender"> -->
+                            <mat-select class="w-100 p-3" formControlName="gender">
+                                <mat-option value="Male"><span [translate]="'profile_edit.gender_mail'"></span></mat-option>
+                                <mat-option value="Female"><span [translate]="'profile_edit.gender_femail'"></span></mat-option>
+                                <mat-option value="Others"><span [translate]="'profile_edit.gender_others'"></span></mat-option>                    
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-2 fw-bold" [translate]="'profile_edit.frmtlt_country'">Country</span>                
+                            <mat-select class="w-100 p-3 ms-2 mx-2" placeholder="{{ 'profile_edit.form_countryrplaceholder' | translate }}" formControlName="country" (ngModelChange)="getCountryLang()" [ngClass]="{ 'is-invalid': submitted && valid.country.errors }">
+                                <mat-option value=""></mat-option>
+                                <mat-option *ngFor="let country of countryList;" value="{{country.country_2code}}">{{country.country_name}}</mat-option>                                
+                            </mat-select>
+                            <div *ngIf="submitted && valid.country.errors" class="invalid-feedback">
+                                <div *ngIf="valid.country.errors.required" [translate]="'profile_edit.frmcountry_error1'">Please Select Country</div>				                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-2 fw-bold" [translate]="'profile_edit.frmtlt_prelang'">Preferred Language</span>                
+                            <mat-select class="w-100 p-3 ms-2 mx-2" placeholder="{{ 'profile_edit.form_langplaceholder' | translate }}" formControlName="language">
+                                <mat-option *ngFor="let lang of langList;" value="{{lang.lang_code}}">
+                                    <!-- {{lang.lang_name}} -->
+                                    <span *ngIf="lang.lang_code=='EN'" [translate]="'profile_edit.English'"></span>
+                                    <span *ngIf="lang.lang_code=='AR'" [translate]="'profile_edit.Arabic'"></span>
+                                    <span *ngIf="lang.lang_code=='ES'" [translate]="'profile_edit.Spanish'"></span>
+                                    <span *ngIf="lang.lang_code=='PO'" [translate]="'profile_edit.Portuguese'"></span>
+                                </mat-option>                                
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="frm-bx mb-4 pt-2">
+                        <span class="d-block pb-0 fw-bold" [translate]="'profile_edit.frmtlt_timezone'">Timezone</span>                
+                        <mat-select class="w-100 p-3 ms-2 mx-2" placeholder="{{ 'profile_edit.form_timezoneplaceholder' | translate }}" formControlName="timezone">
+                            <mat-option *ngFor="let zone of timeZoneList;" value="{{zone.ctz_value}}">{{zone.ctz_timezone}} ({{zone.ctz_offset}})</mat-option>                                
+                        </mat-select>                
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center pb-4 pt-4" style="margin: 25px;">
+                        <input type="file" (change)="onFileChange($event,'user_image')" id="choseimg" class="d-none" accept=".gif,.jpg,.jpeg,.png">
+                        <input class="form-control" formControlName="user_image" type="hidden">
+                        <label for="choseimg" class="overflow-hidden" style="width:300px; height:300px; border-radius: 15px">                    
+                            <img *ngIf="imageSrc!=''" [src]="imageSrc" class="img-fluid">
+                        </label>
+                    </div> 
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <button class="btn-primary sbmt-btn border-0 mt-4" [disabled]="btnDis==1" [translate]="'profile_edit.btn_submit'">Update Profile</button>
+                    </div>
+                </div>
+            </div>          
+        </form>
+    </div>
+    <!-- <app-change-password></app-change-password> -->
+    <!-- <div class="col-bx2 h-100 bg-light">
+        <h2 class="pg-tlt fw-600 pb-2" [translate]="'profile_edit.tlt_mysubscribe'">My Subscriptions</h2>
+        <div class="subscriptions">
+            <!-- <div class="subscriptions-bx" (click)="gotoPage('/signal/my-profile')">
+                <h5 class="fw-600" [translate]="'profile_edit.right_autosignal'">Auto Signal Status</h5>
+                <div class="d-flex align-items-center justify-content-between">
+                    <span *ngIf="subscriptDets.user_autosignal_status==1" class="status"><i class="bi bi-check-circle-fill"></i></span>
+                    <span *ngIf="subscriptDets.user_autosignal_status==0" class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                    
+                    <span *ngIf="subscriptDets.user_autosignal_status==0" class="date" [translate]="'profile_edit.autosignal_error'">Not Activated</span>
+                </div>
+            </div>
+            <div class="subscriptions-bx" (click)="gotoHSC()">
+                <h5 class="fw-600" [translate]="'profile_edit.right_hscstatus'">HSC Status</h5>
+                <div class="d-flex align-items-center justify-content-between">
+                    <span *ngIf="subscriptDets.user_hsc_status==1" class="status"><i class="bi bi-check-circle-fill"></i></span>
+                    <span *ngIf="subscriptDets.user_hsc_status==0" class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>
+                    <span *ngIf="subscriptDets.user_hsc_status==1" class="date" [translate]="'profile_edit.hscstatus_noexpiry'">No Expiry</span>
+                    <span *ngIf="subscriptDets.user_hsc_status==0" class="date" [translate]="'profile_edit.hscstatus_notactivate'">Not Activated</span>
+                </div>
+            </div>
+            <div class="subscriptions-bx">
+                <div (click)="gotoPage('signalPlan')">
+                    <h5 class="fw-600" [translate]="'profile_edit.right_signalplan'">Signal Plan Status</h5>
+                    <!-- <div class="d-flex align-items-center justify-content-between">
+                        <span *ngIf="subscriptDets.user_signal_status==1" class="status"><i class="bi bi-check-circle-fill"></i></span>
+                        <span *ngIf="subscriptDets.user_signal_status==0" class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>
+                        <span *ngIf="subscriptDets.user_signal_status==1" class="date"><label [translate]="'profile_edit.signalplan_expiry'">Expire On:</label> {{subscriptDets.user_signal_expired | date:"MMM d, y"}}</span>
+                        <span *ngIf="subscriptDets.user_signal_status==0" class="date" [translate]="'profile_edit.signalplan_notactivate'">Not Activated</span>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.signalShowStatus==0">
+                        <span class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>
+                        <span class="date" [translate]="'profile_edit.signalplan_notactivate'">Not Activated</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.signalShowStatus==1">
+                        <span class="status"><i class="bi bi-check-circle-fill"></i></span>
+                        <span class="date"><label [translate]="'profile_edit.signalplan_expiry'">Expire On:</label> {{subscriptDets.user_signal_expired | date:"MMM d, y"}}</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.signalShowStatus==2">
+                        <span class="status" style="color:#9b0603;"><i class="bi bi-x-circle-fill"></i></span>
+                        <span class="date"><label [translate]="'profile_edit.signalplan_expired'">Expired On:</label> {{subscriptDets.user_signal_expired | date:"MMM d, y"}}</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2">
+                    <mat-checkbox class="example-margin" [checked]="subscriptDets.user_signal_auto==1" (change)="enableAutoRenewal($event,'signal')" [translate]="'profile_edit.enable_auto'">Enable Auto Renewal</mat-checkbox>
+                    <button type="button" *ngIf="subscriptDets.signalShowStatus==1" (click)="cancelSubPlan('signal')" [translate]="'profile_edit.cancel_plan'">Cancel Plan</button>
+                    <button type="button" *ngIf="subscriptDets.signalShowStatus!=1" (click)="gotoPage('signalPlan')" [translate]="'profile_edit.goto_plan'">Goto Plans</button>
+                </div>
+            </div>
+            <div class="subscriptions-bx">
+                <div (click)="gotoPage('reportPlan')">
+                    <h5 class="fw-600" [translate]="'profile_edit.right_specialplan'">Special Report Plan Status</h5>
+                    <!-- <div class="d-flex align-items-center justify-content-between">
+                        <span *ngIf="subscriptDets.user_splrpt_status==1" class="status"><i class="bi bi-check-circle-fill"></i></span>
+                        <span *ngIf="subscriptDets.user_splrpt_status==0" class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                        
+                        <span *ngIf="subscriptDets.user_splrpt_status==1" class="date"><label [translate]="'profile_edit.specialreport_expiry'">Expire On:</label> {{subscriptDets.user_splrpt_expired | date:"MMM d, y"}}</span>
+                        <span *ngIf="subscriptDets.user_splrpt_status==0" class="date" [translate]="'profile_edit.specialreport_notactivate'">Not Activated</span>
+                    </div> -->
+                    <!--<div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.splrptShowStatus==0">
+                        <span class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                        
+                        <span class="date" [translate]="'profile_edit.specialreport_notactivate'">Not Activated</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.splrptShowStatus==1">
+                        <span class="status"><i class="bi bi-check-circle-fill"></i></span>
+                        <span class="date"><label [translate]="'profile_edit.specialreport_expiry'">Expire On:</label> {{subscriptDets.user_splrpt_expired | date:"MMM d, y"}}</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.splrptShowStatus==2">
+                        <span class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                        
+                        <span class="date"><label [translate]="'profile_edit.specialreport_expired'">Expired On:</label> {{subscriptDets.user_splrpt_expired | date:"MMM d, y"}}</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2">
+                    <mat-checkbox class="example-margin" [checked]="subscriptDets.user_splrpt_auto==1" (change)="enableAutoRenewal($event,'report')" [translate]="'profile_edit.enable_auto'">Enable Auto Renewal</mat-checkbox>
+                    <button type="button" *ngIf="subscriptDets.splrptShowStatus==1" (click)="cancelSubPlan('report')" [translate]="'profile_edit.cancel_plan'">Cancel Plan</button>
+                    <button type="button" *ngIf="subscriptDets.splrptShowStatus!=1" (click)="gotoPage('reportPlan')" [translate]="'profile_edit.goto_plan'">Goto Plans</button>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="toolsExpList.length > 0">
+            <h2 class="pg-tlt fw-600 pb-2" [translate]="'profile_edit.tlt_toolssubscribe'">Tools Subscriptions</h2>
+            <div class="subscriptions">            
+                <div class="subscriptions-bx" *ngFor="let tool of toolsExpList">
+                    <div (click)="gotoTools(tool.usrtools_tools_id)">
+                        <h5 class="fw-600">{{tool.tools_title}}</h5>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span *ngIf="tool.showStatus==1" class="status"><i class="bi bi-check-circle-fill"></i></span>
+                            <span *ngIf="tool.showStatus==0" class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>
+                            <!-- <span class="badge"><i class="bi bi-x-circle-fill"></i></span>
+                            <span *ngIf="tool.showStatus==1" class="date"><label [translate]="'profile_edit.specialreport_expiry'">Expire On:</label> {{tool.usrtools_expiry_on | date:"MMM d, y"}}</span>
+                            <span *ngIf="tool.showStatus==0" class="date" [translate]="'profile_edit.specialreport_notactivate'">Not Activated</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between pt-2">
+                        <mat-checkbox class="example-margin" [checked]="tool.usrtools_auto==1" (change)="enableToolsAutoRenewal($event,tool)" [translate]="'profile_edit.enable_auto'">Enable Auto Renewal</mat-checkbox>
+                        <button type="button" *ngIf="tool.showStatus==1" (click)="cancelSubTools(tool)" [translate]="'profile_edit.remove_tool'">Remove Tool</button>
+                        <button type="button" *ngIf="tool.showStatus==0" (click)="gotoTools(tool.usrtools_tools_id)" [translate]="'profile_edit.buy_tool'">Buy Tool</button>
+                    </div>
+                </div>            
+            </div>
+        </ng-container>
+    </div> -->
+</div>

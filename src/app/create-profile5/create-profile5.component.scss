@@ -1,0 +1,190 @@
+#create-profile5{
+    height: 100%;
+    overflow-y: auto;
+    .create-profile5{
+        padding: 10px 15px 20px 15px;
+        z-index: 0;
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+            height: 200px;
+            background: #1f6f22;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+            z-index: -1;
+        }
+        .infobox{
+            img{
+                width: 140px;
+            }
+            h5{
+                font-size: 20px!important;
+                font-weight: 600;
+                color: var(--theme-text);
+            }
+            p{
+                font-size: 15px!important;
+                line-height: 24px;
+                color: var(--theme-text);
+                width: 325px;
+            }
+            button{
+                background: #1f6f22;
+                color: #fff;
+                padding: 7px 50px;
+                border-radius: 10px;
+                font-size: 16px;
+            }
+        }
+        .white-bx{
+            background: var(--theme-background);
+            border-radius: 20px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.10);
+            swiper{
+                h3,p{
+                    color: var(--theme-text);
+                }
+            }
+            .accordion{
+                width: 100%;
+                .accordion-button{
+                    border-radius: 10px 10px 10px 10px;
+                    &:not(.collapsed) {
+                        color: #1f6f22;
+                        background-color: rgba(31, 111, 34, 0.10);
+                        border-radius: 10px 10px 0px 0px;
+                    }
+                }
+                .accordion-item{
+                    border: 1px solid rgba(0,0,0,0.15)!important;
+                    margin-bottom: 10px;
+                    border-radius: 10px!important;
+                }
+            }
+            .pass-help{
+                span{
+                    font-size: 12px;
+                }
+                .pass-help-bx{
+                    box-shadow: 0px 6px 58px 0px #C4CBD680;
+                    border-radius: 15px;
+                    transition: all 0.3s ease-in-out;
+                    transform: scale(0);
+                    top: 5px;
+                    left: -15px;
+                    width: 350px;
+                    z-index: 1;
+                    position: relative;
+                    background: var(--theme-background);
+                    h3{
+                        color: var(--theme-text);
+                    }
+                    p{
+                        color: var(--theme-text);
+                        font-size:16px;
+                        line-height:24px;
+                    }
+                    &:before{
+                        content: "";
+                        position: absolute;
+                        top: -6px;
+                        left: 15px;
+                        width: 15px;
+                        height: 15px;
+                        background: var(--theme-background);
+                        transform: rotate(45deg);
+                    }
+                }
+                &:hover{
+                    .pass-help-bx{
+                        transform: scale(1);
+                    }
+                }
+            }
+            mat-button-toggle-group{
+                .mat-btn-grp{
+                    width: 33.30%;
+                    mat-button-toggle{
+                        //width: 100%;
+                        border: 1px solid #db3d3a;
+                        margin: 0px 1.5% 10px 1.5%;
+                        border-radius: 10px;
+                        color: #db3d3a;
+                        font-size: 17px;
+                        background: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        &.bullish-btn{
+                            border-color: #1f6f22;
+                        }
+                    }
+                    .score-bx{
+                        position: absolute;
+                        top: 50%;
+                        right: 25px;
+                        transform: translateY(-50%);
+                        mat-select{
+                            position: relative;
+                            width: 60px;
+                            background: #fff;
+                            border-radius: 5px;
+                            height: 27px;
+                            color: #000;
+                            font-size: 15px;
+                        }
+                    }
+                }
+                &.crt-prf5{
+                    mat-button-toggle{
+                        width: 30%;
+                        font-size: 17px;
+                        border: 1px solid #db3d3a;
+                        margin: 0px 1.5% 10px 1.5%;
+                        border-radius: 10px;
+                        color: #db3d3a;
+                        background: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        &:last-child{
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+            h5{
+                font-size: 18px;
+                color: var(--theme-text);
+            }
+            p{
+                font-size: 15px;
+                line-height: 24px;
+                color: var(--theme-text);
+            }
+            .nxt-btn{
+                background: #1f6f22;
+                color: #fff;
+                width: 270px;
+                border-radius: 15px;
+                font-size: 18px;
+                padding: 10px;
+            }
+        }
+    }
+
+    .hscAd{
+        margin: 15px 30px;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(90deg, #004010, #19934b);
+        padding: 5px 0px 21px;        
+        text-align: center;
+        img{
+            width: 50%;        
+            
+        }        
+    }
+}

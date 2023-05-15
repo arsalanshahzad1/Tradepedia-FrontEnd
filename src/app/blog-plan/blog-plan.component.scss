@@ -1,0 +1,75 @@
+#signal-plan{
+    padding: 10px 0px 70px;
+    min-height: calc(90vh);
+    .tlt{
+        padding: 10px 15px 0px;
+        color: var(--theme-text);
+    }
+    .signalplan1{
+        padding: 0px 10px;
+        .signalplan1-bx{
+            width: 32%;
+            background: var(--theme-background);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            padding: 20px;
+            box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.10);
+            h6{
+                font-size: 20px;
+                color: var(--theme-text);
+            }
+            span{
+                font-size: 17px;
+                //color: #e7c121;
+                color: var(--theme-text);
+                font-weight: 600;
+            }
+            p{
+                font-size: 16px;
+                padding: 8px 0px 12px;
+            }
+            button{
+                background: rgba(30, 112, 39, 0.1);
+                color: #1e7027;
+                border-radius: 10px;
+                padding: 7px 20px;
+                font-size: 15px;
+            }
+        }
+    }
+    .signal-popup{
+        background: rgba(0,0,0,0.50);
+        z-index: 3;
+        animation: 0.3s show-popup;
+        .signal-popup-bx{
+            background: var(--theme-background);
+            width: 500px;
+            border-radius: 30px;
+            padding: 40px;
+            img{
+                width: 40%;
+            }
+            h4{
+                color: #1e7027;
+                font-size: 22px;
+                font-weight: 700;
+                padding: 15px 0px 20px;
+            }
+            button{
+                padding: 12px 40px;
+                border-radius: 15px;
+                background: #1e7027;
+                color: #fff;
+                font-size: 17px;
+            }
+        }
+    }
+    @keyframes show-popup {
+        0%{
+            transform: scale(0);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+}

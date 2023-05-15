@@ -1,0 +1,97 @@
+#create-profile6{
+    height: 100%;
+    overflow-y: auto;
+    .create-profile6{
+        padding: 25px 15px 20px 15px;
+        z-index: 0;
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+            height: 200px;
+            background: #1f6f22;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+            z-index: -1;
+        }
+        .white-bx{
+            background: var(--theme-background);
+            border-radius: 20px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.10);
+            .pass-help{
+                span{
+                    font-size: 12px;
+                }
+                .pass-help-bx{
+                    box-shadow: 0px 6px 58px 0px #C4CBD680;
+                    border-radius: 15px 0px 15px 15px;
+                    transition: all 0.3s ease-in-out;
+                    transform: scale(0);
+                    top: 8px;
+                    right: 0px;
+                    width: 330px;
+                    z-index: 1;
+                    background: var(--theme-background);
+                }
+                &:hover{
+                    .pass-help-bx{
+                        transform: scale(1);
+                    }
+                }
+            }
+            h5{
+                font-size: 18px;
+                color: var(--theme-text);
+            }
+            p{
+                font-size: 15px;
+                line-height: 18px;
+                color: var(--theme-text);
+            }
+            .nxt-btn{
+                background: #1f6f22;
+                color: #fff;
+                width: 270px;
+                border-radius: 15px;
+                font-size: 18px;
+                padding: 10px;
+            }
+        }
+    }
+    .alert-popup{
+        background: rgba(0,0,0,0.50);
+        z-index: 3;
+        animation: 0.3s show-popup;
+        .alert-popup-bx{
+            background: var(--theme-background);
+            width: 500px;
+            border-radius: 30px;
+            padding: 40px;
+            img{
+                width: 40%;
+            }
+            h4{
+                color: #1e7027;
+                font-size: 22px;
+                font-weight: 700;
+                padding: 15px 0px 20px;
+            }
+            button{
+                padding: 12px 40px;
+                border-radius: 15px;
+                background: #1e7027;
+                color: #fff;
+                font-size: 17px;
+            }
+        }
+    }
+    @keyframes show-popup {
+        0%{
+            transform: scale(0);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+}

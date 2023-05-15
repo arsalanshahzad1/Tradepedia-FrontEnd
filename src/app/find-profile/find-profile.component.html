@@ -1,0 +1,282 @@
+<div id="find-profile" class="d-flex">
+	<div class="col-bx1 h-100">
+		<div class="fnd-prflbx position-relative">
+			<!-- <img src="assets/images/quiz-slide-indicator.png" class="slide-indic img-fluid"> -->
+			<!-- <div class="customprogress pb-3">
+				<mat-progress-bar mode="determinate" [value]="progressbarValue"></mat-progress-bar>
+			</div> -->
+			<h2 class="quiz-tlt fw-normal" [translate]="'find_profile.page_tlt'">Question</h2>
+			<swiper
+				[pagination]="{
+					type: 'fraction'
+				  }"
+				[grabCursor]="true"
+				[effect]="'creative'"
+				[allowTouchMove]="false"
+				[creativeEffect]="{
+					prev: {
+					shadow: true,
+					translate: [0, 0, -400]
+					},
+					next: {
+					translate: ['100%', 0, 0]
+					}
+				}" 
+			class="mySwiper mySwiper1 pt-3">
+				<ng-template swiperSlide>
+					<button [disabled]="!firstForm.value" class="swiperbtn2 end-0" (click)="swipeNext()"><i class="bi bi-chevron-right"></i></button>
+					<div class="swip-bx">
+						<h6 class="fw-600" [translate]="'find_profile.question1'">When you invest money, what is your primary goal?</h6>
+						<mat-button-toggle-group class="d-block border-0" (change)="getValue($event.value,'question1')" #firstForm="matButtonToggleGroup">
+							<mat-button-toggle value="1">{{ 'find_profile.option1' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="3">{{ 'find_profile.option2' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="5">{{ 'find_profile.option3' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="7">{{ 'find_profile.option4' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="9">{{ 'find_profile.option5' | translate }}</mat-button-toggle>
+						</mat-button-toggle-group>
+					</div>
+				</ng-template>
+				<ng-template swiperSlide>
+					<button [disabled]="!secondForm.value" class="swiperbtn2 end-0" (click)="swipeNext()"><i class="bi bi-chevron-right"></i></button>
+					<div class="swip-bx">
+						<h6 class="fw-600" [translate]="'find_profile.question2'">The degree to which the value of an investment increases and decreases is called volatility (one measure of risk). More volatile investments generally offer greater long-term growth potential than less volatile investments, but they may produce greater losses. How much volatility are you comfortable with?</h6>
+						<mat-button-toggle-group class="d-block border-0" (change)="getValue($event.value,'question2')" #secondForm="matButtonToggleGroup">
+							<mat-button-toggle value="1">{{ 'find_profile.option6' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="3">{{ 'find_profile.option7' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="7">{{ 'find_profile.option8' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="9">{{ 'find_profile.option9' | translate }}</mat-button-toggle>
+						</mat-button-toggle-group>
+					</div>
+				</ng-template>
+				<ng-template swiperSlide>
+					<button [disabled]="!threeForm.value" class="swiperbtn2 end-0" (click)="swipeNext()"><i class="bi bi-chevron-right"></i></button>
+					<div class="swip-bx">
+						<h6 class="fw-600" [translate]="'find_profile.question3'">Extremely conservative investments sometimes earn less than the inflation rate. This may result in the loss of purchasing power. With respect to your investment objectives, which of the following is most true?</h6>
+						<mat-button-toggle-group class="d-block border-0" (change)="getValue($event.value,'question3')" #threeForm="matButtonToggleGroup">
+							<mat-button-toggle value="1">{{ 'find_profile.option10' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="3">{{ 'find_profile.option11' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="7">{{ 'find_profile.option12' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="9">{{ 'find_profile.option13' | translate }}</mat-button-toggle>
+						</mat-button-toggle-group>
+					</div>
+				</ng-template>
+				<ng-template swiperSlide>
+					<button [disabled]="!fourForm.value" class="swiperbtn2 end-0" (click)="swipeNext()"><i class="bi bi-chevron-right"></i></button>
+					<div class="swip-bx">
+						<h6 class="fw-600" [translate]="'find_profile.question4'">You understand the value of investments will fluctuate over time, depending on the amount of risk taken. What is the approximate loss in any one-year period that you would be willing to accept before deciding to change your investments?</h6>
+						<mat-button-toggle-group class="d-block" (change)="getValue($event.value,'question4')" #fourForm="matButtonToggleGroup">
+							<mat-button-toggle value="1">{{ 'find_profile.option14' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="3">{{ 'find_profile.option15' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="5">{{ 'find_profile.option16' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="7">{{ 'find_profile.option17' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="9">{{ 'find_profile.option18' | translate }}</mat-button-toggle>
+						</mat-button-toggle-group>
+					</div>
+				</ng-template>
+				<ng-template swiperSlide>
+					<button [disabled]="!fiveForm.value" class="swiperbtn2 end-0" (click)="swipeNext()"><i class="bi bi-chevron-right"></i></button>
+					<div class="swip-bx">
+						<h6 class="fw-600" [translate]="'find_profile.question5'">Consider two different investments: Investment A, which provides an average annual return of 5% with a minimal risk of loss of value, and Investment B, which provides an average annual return of 10% and a potential loss of 25% or more in any year. How would you divide your investment dollars?</h6>
+						<img src="assets/images/question5-img.jpg" class="img-fluid">
+						<mat-button-toggle-group class="d-block border-0" (change)="getValue($event.value,'question5')" #fiveForm="matButtonToggleGroup">
+							<mat-button-toggle value="1">{{ 'find_profile.option19' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="3">{{ 'find_profile.option20' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="5">{{ 'find_profile.option21' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="7">{{ 'find_profile.option22' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="9">{{ 'find_profile.option23' | translate }}</mat-button-toggle>
+						</mat-button-toggle-group>
+					</div>
+				</ng-template>
+				<ng-template swiperSlide>
+					<button [disabled]="!sixForm.value" class="swiperbtn2 end-0" (click)="swipeNext()"><i class="bi bi-chevron-right"></i></button>
+					<div class="swip-bx">
+						<h6 class="fw-600" [translate]="'find_profile.question6'">If you could choose only one of the five hypothetical portfolios characterized below, which would you select?</h6>
+						<img src="assets/images/question6-img.jpg" class="img-fluid">
+						<mat-button-toggle-group class="d-block border-0" (change)="getValue($event.value,'question6')" #sixForm="matButtonToggleGroup">
+							<mat-button-toggle value="1">{{ 'find_profile.option24' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="3">{{ 'find_profile.option25' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="5">{{ 'find_profile.option26' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="7">{{ 'find_profile.option27' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="9">{{ 'find_profile.option28' | translate }}</mat-button-toggle>
+						</mat-button-toggle-group>
+					</div>
+				</ng-template>
+				<ng-template swiperSlide>
+					<button [disabled]="!sevenForm.value" class="swiperbtn2 end-0" (click)="swipeNext()"><i class="bi bi-chevron-right"></i></button>
+					<div class="swip-bx">
+						<h6 class="fw-600" [translate]="'find_profile.question7'">When is the earliest you anticipate needing all or a substantial portion of your investment assets?</h6>
+						<mat-button-toggle-group class="d-block border-0" (change)="getValue($event.value,'question7')" #sevenForm="matButtonToggleGroup">
+							<mat-button-toggle value="1">{{ 'find_profile.option29' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="2">{{ 'find_profile.option30' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="3">{{ 'find_profile.option31' | translate }}</mat-button-toggle>
+						</mat-button-toggle-group>
+					</div>
+				</ng-template>
+				<ng-template swiperSlide>
+					<button [disabled]="!eightForm.value" class="swiperbtn2 end-0" (click)="swipeNext()"><i class="bi bi-chevron-right"></i></button>
+					<div class="swip-bx">
+						<h6 class="fw-600" [translate]="'find_profile.question8'">Are your total investment assets less than $1 million?</h6>
+						<mat-button-toggle-group class="d-block border-0" (change)="getValue($event.value,'question8')" #eightForm="matButtonToggleGroup">
+							<mat-button-toggle value="1">{{ 'find_profile.option32' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="0">{{ 'find_profile.option33' | translate }}</mat-button-toggle>
+						</mat-button-toggle-group>
+					</div>
+				</ng-template>
+				<ng-template swiperSlide>
+					<div class="swip-bx">
+						<h6 class="fw-600" [translate]="'find_profile.question9'">If your response to Question 8 is No, is the amount you are investing less than 10% of your total investment assets?</h6>
+						<mat-button-toggle-group class="d-block border-0" (change)="getValue($event.value,'question9')" #nineForm="matButtonToggleGroup">
+							<mat-button-toggle value="1">{{ 'find_profile.option34' | translate }}</mat-button-toggle>
+							<mat-button-toggle value="0">{{ 'find_profile.option35' | translate }}</mat-button-toggle>
+						</mat-button-toggle-group>
+						<div class="text-center">
+							<button type="button" class="px-5 py-2 mt-5" (click)="saveQuestion()" style="background:#db3d3a;color:#fff;border-radius:10px;border:none;border-bottom:5px solid #ff4945;" [translate]="'find_profile.submit_btn'">Submit</button>
+						</div>
+					</div>
+				</ng-template>
+			</swiper>
+			<div class="nxtprv-btn d-flex align-items-center justify-content-between">
+				<button class="swiperbtn1 start-0" (click)="swipePrev()"><i class="bi bi-chevron-left"></i></button>
+			</div>
+		</div>
+	</div>
+	<div class="col-bx2 h-100">
+		<div class="rcmnd-prfl bg-light" *ngIf="showRecommended">
+			<div class="my-profile pb-0">
+				<h3 style="color:var(--theme-text);" class="font-weight-bold text-center pb-0" [innerHTML]="title"></h3>
+				<p style="color:var(--theme-text);" class="text-center pb-3" [innerHTML]="description"></p>
+				<h3 class="pb-2" style="color:var(--theme-text);" [translate]="'find_profile.recommended_profile'">Recommended Profile</h3>	
+			</div>
+			<div class="my-robots" id="myRobots">
+				<ng-container *ngIf="mainProfile!=''">    
+					<div>
+						<label class="list-bx list-bx-active">
+							<div class="img-bx d-flex align-items-center justify-content-between">
+								<div class="d-flex align-items-center justify-content-start">
+									<input type="checkbox" [checked]="mainProfile.profileChk" (change)="showSignalDets($event,mainProfile)">
+									<!-- <img [src]="mainProfile.imgSrc"> -->
+									<h1>{{mainProfile.admin_profile_name}}</h1>
+								</div>                        
+							</div>
+							<div class="list-bx-inr" [ngClass]="{'show': mainProfile.profileChk==1}" id="robotDets">
+								<div class="chart-pge-bx3 w-100 border-0">
+									<table class="table table-striped signal-data-tbl mb-0">
+										<tbody>
+											<tr>
+												<td [translate]="'find_profile.tbl_symbol'">SYMBOL</td>
+												<td>{{mainProfile.symStr}} {{ 'my_profile.sub_symbols' | translate }}</td>
+											</tr>
+											<tr>
+												<td [translate]="'find_profile.tbl_timeframe'">TIMEFRAME</td>
+												<td>{{mainProfile.tfStr}} {{ 'my_profile.sub_time' | translate }}</td>
+											</tr>
+											<!-- <tr>
+												<td [translate]="'find_profile.tbl_tools'">TOOLS</td>
+												<td>{{mainProfile.tlStr}} {{ 'my_profile.sub_tools' | translate }}</td>
+											</tr> -->
+											<tr>
+												<td [translate]="'find_profile.tbl_strategies'">STRATEGIES</td>
+												<td>{{mainProfile.stgStr}} {{ 'my_profile.sub_stratege' | translate }}</td>
+											</tr>
+											<tr>
+												<td [translate]="'find_profile.tbl_statet'">STATE T</td>
+												<td>{{mainProfile.stStr}} {{ 'my_profile.sub_statet' | translate }}</td>
+											</tr>
+											<tr>
+												<td [translate]="'find_profile.tbl_statew'">STATE W</td>
+												<td>{{mainProfile.swStr}} {{ 'my_profile.sub_statew' | translate }}</td>
+											</tr>
+											<!-- <tr>
+												<td [translate]="'find_profile.tbl_minimumscore'">MINIMUM SCORE</td>
+												<td>{{mainProfile.admin_profile_score}}</td>
+											</tr> -->
+										</tbody>
+									</table>
+								</div>
+								<div class="timeframe-bx chart-pge-bx1">
+									<div id="chartContainer" class="w-100">
+			
+									</div>
+								</div>
+								<div class="text-center">
+									<button type="button" (click)="addProfile(mainProfile)" class="btn fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#fff;font-size:14px;color:#1f6f22;" [translate]="'find_profile.addprofile_btn'">Add to MyProfile</button>
+								</div>
+							</div>
+						</label>
+					</div>
+				</ng-container>        
+			</div>
+			<div class="my-profile pt-3 pb-0">
+				<h3 class="pb-2" style="color:var(--theme-text);" [translate]="'find_profile.other_profile'">Other Profile</h3>	
+			</div>
+			<div class="my-robots" id="myRobots">
+				<ng-container *ngIf="subProfile.length>0">    
+					<div *ngFor="let profile of subProfile; let ind=index;">
+						<label class="list-bx">
+							<div class="img-bx d-flex align-items-center justify-content-between">
+								<div class="d-flex align-items-center justify-content-start">
+									<input type="checkbox" [checked]="profile.profileChk" (change)="showSignalDets2($event,profile)">
+									<!-- <img [src]="profile.imgSrc"> -->
+									<h1>{{profile.admin_profile_name}}</h1>
+								</div>                       
+							</div>
+							<div class="list-bx-inr" [ngClass]="{'show': profile.profileChk==1}" id="robotDets">
+								<div class="chart-pge-bx3 w-100 border-0">
+									<table class="table table-striped signal-data-tbl mb-0">
+										<tbody>
+											<tr>
+												<td [translate]="'find_profile.tbl_symbol'">SYMBOL</td>
+												<td>{{profile.symStr}} {{ 'my_profile.sub_symbols' | translate }}</td>
+											</tr>
+											<tr>
+												<td [translate]="'find_profile.tbl_timeframe'">TIMEFRAME</td>
+												<td>{{profile.tfStr}} {{ 'my_profile.sub_time' | translate }}</td>
+											</tr>
+											<!-- <tr>
+												<td [translate]="'find_profile.tbl_tools'">TOOLS</td>
+												<td>{{profile.tlStr}} {{ 'my_profile.sub_symbols' | translate }}</td>
+											</tr> -->
+											<tr>
+												<td [translate]="'find_profile.tbl_strategies'">STRATEGIES</td>
+												<td>{{profile.stgStr}} {{ 'my_profile.sub_stratege' | translate }}</td>
+											</tr>
+											<tr>
+												<td [translate]="'find_profile.tbl_statet'">STATE T</td>
+												<td>{{profile.stStr}} {{ 'my_profile.sub_statet' | translate }}</td>
+											</tr>
+											<tr>
+												<td [translate]="'find_profile.tbl_statew'">STATE W</td>
+												<td>{{profile.swStr}} {{ 'my_profile.sub_statew' | translate }}</td>
+											</tr>
+											<!-- <tr>
+												<td [translate]="'find_profile.tbl_minimumscore'">MINIMUM SCORE</td>
+												<td>{{profile.admin_profile_score}}</td>
+											</tr> -->
+										</tbody>
+									</table>
+								</div>
+								<div class="timeframe-bx chart-pge-bx1">
+									<div id="chartContainer" class="w-100">
+			
+									</div>
+								</div>
+								<div class="text-center">
+									<button type="button" (click)="addProfile(profile)" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" [translate]="'find_profile.addprofile_btn'">Add to MyProfile</button>
+								</div>
+							</div>
+						</label>
+					</div>
+				</ng-container>        
+			</div>
+		</div>
+	</div>
+	<div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+		<div class="alert-popup-bx text-center px-4 position-relative">
+			<div class="text-end">
+				<button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+			</div>
+			<img src="{{alertPopupImg}}" class="img-fluid" alt="">
+			<h4>{{alertPopupMsg}}</h4>            
+		</div>
+	</div>
+</div>

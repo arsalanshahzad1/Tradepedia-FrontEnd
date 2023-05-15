@@ -1,0 +1,187 @@
+<div id="chapter-list" class="bg-light">
+    <div style="background:var(--theme-gradient);">
+        <div class="banner position-relative mx-auto overflow-hidden">
+            <img src="assets/images/banner/ebook-page.jpg" class="img-fluid w-100">
+            <div class="banner-box d-flex justify-content-between align-items-start ps-3 pe-4">
+                <div class="d-flex">
+                    <img src="{{ebookDets.imgSrc}}" class="book-img img-fluid">
+                    <div class="banner-cnct ps-2">
+                        <h1 class="text-white fw-normal">{{ebookDets.ebook_title}}</h1>
+                        <p class="text-white fw-normal">{{ebookDets.ebook_description}}</p>
+                    </div>
+                </div>
+                <div class="dtls">
+                    <div *ngIf="ebookDets.stars == 1" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                    </div>
+                    <div *ngIf="ebookDets.stars == 2" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                    </div>
+                    <div *ngIf="ebookDets.stars == 3" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="chapter position-relative">
+                        <mat-progress-spinner strokeWidth="5" [mode]="mode" [value]="ebookDets.value"></mat-progress-spinner>
+                        <span>{{ebookDets.completedChapters}}/{{ebookDets.ebook_noof_chapters}}</span>
+                        <h6 class="m-0 pt-1 text-center">Chapters</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="chapter1">
+            <div class="d-flex align-items-center justify-content-between px-2 py-3">
+                <h4 class="m-0" style="font-size:19px;">Chapters</h4>
+                <button matRipple class="border-0 fs-5 shadow-sm text-dark bg-white ms-2" style="border-radius:8px;"><i class="bi bi-search"></i></button>
+            </div>
+        </div> -->
+        <div class="chapter2 px-3 pt-4 pb-2">
+            <h5 class="fw-600 mb-1">{{ebookDets.ebook_title}}</h5>
+            <p class="fw-normal">{{ebookDets.ebook_description}}</p>
+            <span>By <label>{{ebookDets.ebook_author}}</label></span>
+        </div>
+    </div>
+    <div class="chapter3 p-3 d-flex justify-content-between flex-wrap">
+        <ng-container *ngFor="let chp of chapterList;let ind=index;">
+            <a matRipple *ngIf="ind <= this.chapterCompleted" class="chptr3-bx d-flex align-items-center justify-content-between">
+                <div (click)="showChapterDets(chp.chapter_id)">
+                    <p><span class="me-1">{{ind+1}}.</span>{{chp.chapter_title}}</p>
+                    <div class="d-flex align-items-center pt-1">
+                        <span class="page me-3 fw-500"><i class="bi bi-journal-text me-1"></i> {{chp.chapter_noof_pages}} Pages</span>
+                        <span class="time"><i class="bi bi-clock me-1"></i> {{chp.chapter_reading_time}}</span>
+                    </div>
+                </div>
+                <div *ngIf="chp.stars==0" class="dtls text-center" (click)="gotoQuiz(chp)">
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                        <i class="bi bi-book-half"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">Start Test</h6>
+                </div>
+                <div *ngIf="chp.stars>0" class="dtls text-center" (click)="gotoQuiz(chp)">
+                    <div *ngIf="chp.stars==1" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                    </div>
+                    <div *ngIf="chp.stars==2" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                    </div>
+                    <div *ngIf="chp.stars==3" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">{{chp.stars}} Star(s)</h6>
+                </div>
+            </a>
+            <a *ngIf="ind > this.chapterCompleted" class="chptr3-bx d-flex align-items-center justify-content-between disable" (click)="disableChapter(chp.chapter_id)">
+                <div>
+                    <p><span class="me-1">{{ind+1}}.</span>{{chp.chapter_title}}</p>
+                    <div class="d-flex align-items-center pt-1">
+                        <span class="page me-3 fw-500"><i class="bi bi-journal-text me-1"></i> {{chp.chapter_noof_pages}} Pages</span>
+                        <span class="time"><i class="bi bi-clock me-1"></i> {{chp.chapter_reading_time}}</span>
+                    </div>
+                </div>
+                <div class="dtls text-center">
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                        <i class="bi bi-lock-fill"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">Locked</h6>
+                </div>
+                <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center" *ngIf="visibleIndex === chp.chapter_id">
+                    <i class="bi bi-x"></i>
+                    <p>Get atleast 1 star in all above chapter to unlock this!</p>
+                    <span class="py-2 rounded d-inline-block w-100 mt-2">LOCKED</span>
+                </div>
+            </a>
+        </ng-container>
+        <!-- <a matRipple routerLink="#" class="chptr3-bx d-flex align-items-center justify-content-between">
+            <div>
+                <p class="fw-600"><span class="me-1">1.</span>Foreword about the author</p>
+                <div class="d-flex align-items-center pt-1">
+                    <span class="page me-3 fw-500"><i class="bi bi-journal-text me-1"></i> 4 Pages</span>
+                    <span class="time"><i class="bi bi-clock me-1"></i> 20 mins</span>
+                </div>
+            </div>
+            <div class="dtls text-center">
+                <div class="stars mb-2 d-flex justify-content-center">
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                </div>
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                    <i class="bi bi-check-lg"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">1 Star</h6>
+            </div>
+        </a>
+        <a matRipple routerLink="#" class="chptr3-bx d-flex align-items-center justify-content-between">
+            <div>
+                <p><span class="me-1">2.</span>Introduction to the financial markets</p>
+                <div class="d-flex align-items-center pt-1">
+                    <span class="page me-3 fw-500"><i class="bi bi-journal-text me-1"></i> 2 Pages</span>
+                    <span class="time"><i class="bi bi-clock me-1"></i> 35 mins</span>
+                </div>
+            </div>
+            <div class="dtls text-center">
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                    <i class="bi bi-book-half"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">Start Test</h6>
+            </div>
+        </a>
+        <a routerLink="#" class="chptr3-bx d-flex align-items-center justify-content-between disable">
+            <div>
+                <p><span class="me-1">3.</span>Forex: the world's biggest market</p>
+                <div class="d-flex align-items-center pt-1">
+                    <span class="page me-3 fw-500"><i class="bi bi-journal-text me-1"></i> 4 Pages</span>
+                    <span class="time"><i class="bi bi-clock me-1"></i> 40 mins</span>
+                </div>
+            </div>
+            <div class="dtls text-center">
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">Locked</h6>
+            </div>
+            <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center">
+                <p>Get atleast 1 Star in all sills above to unlock this!</p>
+                <span class="py-2 rounded d-inline-block w-100 mt-2">LOCKED</span>
+            </div>
+        </a>
+        <a routerLink="#" class="chptr3-bx d-flex align-items-center justify-content-between disable">
+            <div>
+                <p><span class="me-1">4.</span>Forex: the world's biggest market</p>
+                <div class="d-flex align-items-center pt-1">
+                    <span class="page me-3 fw-500"><i class="bi bi-journal-text me-1"></i> 4 Pages</span>
+                    <span class="time"><i class="bi bi-clock me-1"></i> 40 mins</span>
+                </div>
+            </div>
+            <div class="dtls text-center">
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">Locked</h6>
+            </div>
+            <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center">
+                <p>Get atleast 1 Star in all sills above to unlock this!</p>
+                <span class="py-2 rounded d-inline-block w-100 mt-2">LOCKED</span>
+            </div>
+        </a>
+        <a routerLink="#" class="chptr3-bx d-flex align-items-center justify-content-between disable">
+            <div>
+                <p><span class="me-1">5.</span>Forex: the world's biggest market</p>
+                <div class="d-flex align-items-center pt-1">
+                    <span class="page me-3 fw-500"><i class="bi bi-journal-text me-1"></i> 4 Pages</span>
+                    <span class="time"><i class="bi bi-clock me-1"></i> 40 mins</span>
+                </div>
+            </div>
+            <div class="dtls text-center">
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">Locked</h6>
+            </div>
+            <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center">
+                <p>Get atleast 1 Star in all sills above to unlock this!</p>
+                <span class="py-2 rounded d-inline-block w-100 mt-2">LOCKED</span>
+            </div>
+        </a> -->
+    </div>
+</div>

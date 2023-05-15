@@ -1,0 +1,149 @@
+#share-point{
+    height: 100%;
+    padding: 80px 0px 50px;
+    overflow-y: auto;
+    background-image: url('/assets/images/login/login-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    .share-pointbx{
+        width: 500px;
+        margin: 0px auto;
+        border-radius: 30px;
+        background: var(--theme-background);
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08);
+        .share-point1{
+            .img{
+                width: 50px;
+                height: 50px;
+                border: 2px solid #c1c1c1;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            h6, h5, p{
+                color: var(--theme-text);
+            }
+        }
+        .share-point2{
+            //background: #268a2a;
+            border-radius: 15px;
+            padding: 20px;
+            background-image: url('/assets/images/green-abstract.jpg');
+            margin-top: 15px;
+            .bi-star-fill{
+                position: absolute;
+                top: -49px;
+                color: #f2c74f;
+                font-size: 35px;
+            }
+            h4{
+                color: #fff;
+                margin: 0px;
+                font-weight: 600;
+                padding-bottom: 2px;
+            }
+            span{
+                color: rgb(255, 255, 255, 0.80);
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+        }
+        .share-point3{
+            h4{
+                font-size: 17px;
+                color: var(--theme-text);
+            }
+            .share-point3-bx{
+                input{
+                    border-radius: 14px;
+                    border: 1px solid #D8E0F0;
+                    box-shadow: 0px 1px 2px 0px #B8C8E039;
+                    font-size: 15px;
+                    color: #1B0E08;
+                    padding: 12px;
+                }
+                h6{
+                    color: var(--theme-text);
+                }
+                .sbmt-btn{
+                    border-radius: 14px;
+                    font-size: 17px;
+                    padding: 12px 50px;
+                    background: #1f6f22;
+                }
+            }
+        }
+    }
+    .alert-popup{
+        background: rgba(0,0,0,0.50);
+        z-index: 3;
+        animation: 0.3s show-popup;
+        .alert-popup-bx{
+            background: var(--theme-background);
+            width: 500px;
+            border-radius: 15px;
+            padding: 30px;
+            img{
+                width: 40%;
+            }
+            h4{
+                color: #1e7027;
+                font-size: 17px;
+                font-weight: 700;
+                padding: 10px 0px;
+            }
+            button{
+                padding: 7px 30px;
+                border-radius: 10px;
+                background: #1e7027;
+                color: #fff;
+                font-size: 15px;
+            }
+        }
+    }
+    @keyframes show-popup {
+        0%{
+            transform: scale(0);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+    .signal-popup{
+        background: rgba(0,0,0,0.50);
+        z-index: 3;
+        animation: 0.3s show-popup;
+        .signal-popup-bx{
+            background: var(--theme-background);
+            width: 500px;
+            border-radius: 30px;
+            padding: 40px;
+            img{
+                width: 40%;
+            }
+            h4{
+                color: #1e7027;
+                font-size: 22px;
+                font-weight: 700;
+                padding: 15px 0px 20px;
+            }
+            button{
+                padding: 12px 40px;
+                border-radius: 15px;
+                background: #1e7027;
+                color: #fff;
+                font-size: 17px;
+            }
+        }
+    }
+    @keyframes show-popup {
+        0%{
+            transform: scale(0);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+}

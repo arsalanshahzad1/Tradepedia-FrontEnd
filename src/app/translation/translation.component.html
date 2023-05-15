@@ -1,0 +1,13 @@
+<div id="translation">
+    <!-- <h1>sdasd</h1> -->
+    <!-- <h6 class="fw-600 pb-2" [translate]="'translations.page_tlt'">Select Language</h6> -->
+    <button class="d-flex align-items-center justify-content-between" *ngFor="let lang of languageList" (click)="changelang(lang.lang_code)" [ngClass]="getActiveClass(lang.lang_code)">
+        <div class="d-flex align-items-center">
+            <span>{{lang.lang_code}}</span>
+            {{lang.lang_name}}
+        </div>
+        <i class="bi bi-circle" style="color:#ddd;"></i>
+        <i class="bi bi-check2-circle" style="color:#db3d3a;"></i>
+    </button>
+    <button class="cls-btn text-white text-center" mat-dialog-close [translate]="'translations.close_btn'">Close</button>
+</div>

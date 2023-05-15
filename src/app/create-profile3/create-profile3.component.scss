@@ -1,0 +1,42 @@
+#create-profile3{
+    height: 100%;
+    overflow-y: auto;
+    .create-profile3{
+        padding: 10px 15px 20px 15px;
+        z-index: 0;
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+            height: 200px;
+            background: #1f6f22;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+            z-index: -1;
+        }
+        .white-bx{
+            background: var(--theme-background);
+            border-radius: 20px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.10);
+            mat-button-toggle-group{
+                mat-button-toggle{
+                    width: 17%;
+                    border: 1px solid #db3d3a;
+                    margin: 0px 1.5% 10px 1.5%;
+                    border-radius: 10px;
+                    color: #db3d3a;
+                    background: none;
+                }
+            }
+            .nxt-btn{
+                background: #1f6f22;
+                color: #fff;
+                width: 270px;
+                border-radius: 15px;
+                font-size: 18px;
+                padding: 10px;
+            }
+        }
+    }
+}

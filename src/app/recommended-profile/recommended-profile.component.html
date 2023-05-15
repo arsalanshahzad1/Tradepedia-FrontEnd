@@ -1,0 +1,132 @@
+<div id="recommended-profile" class="d-flex">
+    <div class="col-bx1 h-100 pt-3">
+        <div class="my-profile pb-0">
+            <h3 class="text-dark font-weight-bold text-center pb-0" [innerHTML]="title"></h3>
+            <p class="text-center" [innerHTML]="description"></p>
+            <h3 class="pb-2" style="color:var(--theme-text);">Recommended Profile</h3>	
+        </div>
+        <div class="my-robots" id="myRobots">
+            <ng-container *ngIf="mainProfile!=''">    
+                <div>
+                    <label class="list-bx list-bx-active">
+                        <div class="img-bx d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center justify-content-start">
+                                <input type="checkbox" [checked]="mainProfile.profileChk" (change)="showSignalDets($event,mainProfile)">
+                                <!-- <img [src]="mainProfile.imgSrc"> -->
+                                <h1>{{mainProfile.admin_profile_name}}</h1>
+                            </div>                        
+                        </div>
+                        <div class="list-bx-inr" [ngClass]="{'show': mainProfile.profileChk==1}" id="robotDets">
+                            <div class="chart-pge-bx3 w-100 border-0">
+                                <table class="table table-striped signal-data-tbl mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>SYMBOL</td>
+                                            <td>{{mainProfile.symStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>TIMEFRAME</td>
+                                            <td>{{mainProfile.tfStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>TOOLS</td>
+                                            <td>{{mainProfile.tlStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>STRATEGIES</td>
+                                            <td>{{mainProfile.stgStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>STATE T</td>
+                                            <td>{{mainProfile.stStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>STATE W</td>
+                                            <td>{{mainProfile.swStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MINIMUM SCORE</td>
+                                            <td>{{mainProfile.admin_profile_score}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="timeframe-bx chart-pge-bx1">
+                                <div id="chartContainer" class="w-100">
+        
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" (click)="addProfile(mainProfile)" class="btn fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#fff;font-size:14px;color:#1f6f22;">Add to MyProfile</button>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </ng-container>        
+        </div>
+    </div>
+    <div class="col-bx2 h-100 pt-3">
+        <div class="my-profile pt-3 pb-0">
+            <h3 class="pb-2" style="color:var(--theme-text);">Other Profile</h3>	
+        </div>
+        <div class="my-robots" id="myRobots">
+            <ng-container *ngIf="subProfile.length>0">    
+                <div *ngFor="let profile of subProfile; let ind=index;">
+                    <label class="list-bx">
+                        <div class="img-bx d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center justify-content-start">
+                                <input type="checkbox" [checked]="profile.profileChk" (change)="showSignalDets2($event,profile)">
+                                <!-- <img [src]="profile.imgSrc"> -->
+                                <h1>{{profile.admin_profile_name}}</h1>
+                            </div>                       
+                        </div>
+                        <div class="list-bx-inr" [ngClass]="{'show': profile.profileChk==1}" id="robotDets">
+                            <div class="chart-pge-bx3 w-100 border-0">
+                                <table class="table table-striped signal-data-tbl mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>SYMBOL</td>
+                                            <td>{{profile.symStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>TIMEFRAME</td>
+                                            <td>{{profile.tfStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>TOOLS</td>
+                                            <td>{{profile.tlStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>STRATEGIES</td>
+                                            <td>{{profile.stgStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>STATE T</td>
+                                            <td>{{profile.stStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>STATE W</td>
+                                            <td>{{profile.swStr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MINIMUM SCORE</td>
+                                            <td>{{profile.admin_profile_score}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="timeframe-bx chart-pge-bx1">
+                                <div id="chartContainer" class="w-100">
+        
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" (click)="addProfile(profile)" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;">Add to MyProfile</button>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </ng-container>        
+        </div>
+    </div>
+</div>

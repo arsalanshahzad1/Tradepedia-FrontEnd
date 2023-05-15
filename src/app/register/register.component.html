@@ -1,0 +1,209 @@
+<div id="register" class="d-flex position-fixed top-0 end-0 bottom-0 start-0">
+    <div class="login-bx1 d-flex justify-content-center">
+        <div class="log-bx">
+            <div class="d-flex align-items-end justify-content-between">
+                <!-- <img src="assets/images/login-logo.png" class="img-fluid mb-3" alt="" style="width:75px;" *ngIf="loginthemeLogo==1">
+                <img src="assets/images/login-logodark.png" class="img-fluid mb-3" alt="" style="width:75px;" *ngIf="loginthemeLogo==0"> -->
+                <h1 class="pg-tlt fw-bold pb-4" [translate]="'register.tlt_createacount'">Create Account</h1>
+                <img src="assets/images/login/message-caricature.png" class="img-fluid" style="width:150px;">
+            </div>
+            <!-- <div class="d-flex align-items-center justify-content-center">
+                <button class="social-btn text-white bg-primary border-0 mb-3 p-3"><img src="assets/images/log-facebook.svg" class="img-fluid me-2" alt=""></button>
+                <button (click)="loginWithGoogle()" class="social-btn text-dark bg-white mb-3 p-3"><img src="assets/images/log-google.svg" class="img-fluid me-2" alt=""></button>
+                <button class="social-btn text-white bg-dark border-0 mb-3 p-3"><img src="assets/images/log-apple.svg" class="img-fluid me-2" alt=""></button>
+            </div>
+            <div class="log-or position-relative mt-4 d-flex align-items-center justify-content-center">
+                <hr class="m-0 w-100">
+                <span class="d-inline-block position-absolute px-3" [translate]="'register.tlt_or'">OR</span>
+            </div>       -->
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="frm-bx mt-4 mb-4 pt-2">
+                            <span class="d-block pb-2 fw-bold"><span [translate]="'register.frmtlt_email'">Email ID</span> <span style="color: red;">*</span></span>
+                            <input type="text" placeholder="{{ 'register.form_emailplaceholder' | translate }}" class="w-100" formControlName="mailid" (blur)="convertToLower()" [ngClass]="{ 'is-invalid': submitted && valid.mailid.errors }">
+                            <div *ngIf="submitted && valid.mailid.errors" class="invalid-feedback">
+                                <div *ngIf="valid.mailid.errors.required" [translate]="'register.frmmail_error1'">Please Enter Email ID</div>				
+                                <div *ngIf="valid.mailid.errors.pattern">
+                                    <div *ngIf="valid.mailid.errors.pattern.requiredPattern" [translate]="'register.frmmail_error12'">Please Enter Valid EmailID</div>				
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <div class="frm-bx mt-4 mb-4">
+                            <span class="d-block pb-2 fw-bold">Username</span>
+                            <input type="text" placeholder="Enter Username" class="w-100" formControlName="username" [ngClass]="{ 'is-invalid': submitted && valid.username.errors }">
+                            <div *ngIf="submitted && valid.username.errors" class="invalid-feedback">
+                                <div *ngIf="valid.username.errors.required">Please Enter Username</div>				                   
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-md-6">
+                        <div class="frm-bx mt-4 mb-4 pt-2 position-relative">
+                            <span class="d-block pb-2 fw-bold"><span [translate]="'register.frmtlt_pass'">Password</span> <span style="color: red;">*</span></span>
+                            <input [type]="hide ? 'password' : 'text'" placeholder="{{ 'register.form_passplaceholder' | translate }}" class="w-100" formControlName="password" [ngClass]="{ 'is-invalid': submitted && valid.password.errors }">
+                            <a class="position-absolute bg-transparent border-0 eye-btn" (click)="hide = !hide">
+                                <i [ngClass]="hide ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+                            </a>
+                            <div *ngIf="submitted && valid.password.errors" class="invalid-feedback">                        
+                                <div *ngIf="valid.password.errors.required" [translate]="'register.frmpass_error1'">Please Enter Password</div>                    
+                                <!-- <div *ngIf="valid.password.errors.passwordStrength"><span [translate]="'register.frmpass_error2'">Password not in valid partern :</span><br>
+                                    <span *ngIf="valid.password.errors['passwordStrength']=='Upper'">{{ 'register.frmpass_error21' | translate }}</span>
+                                    <span *ngIf="valid.password.errors['passwordStrength']=='Lower'">{{ 'register.frmpass_error22' | translate }}</span>
+                                    <span *ngIf="valid.password.errors['passwordStrength']=='Number'">{{ 'register.frmpass_error23' | translate }}</span>
+                                    <span *ngIf="valid.password.errors['passwordStrength']=='Special'">{{ 'register.frmpass_error24' | translate }}</span>
+                                </div>-->
+                                <div *ngIf="valid.password.errors.passwordStrength">
+                                    <span *ngIf="valid.password.errors['passwordStrength'][0]=='Upper'" style="font-size: 1em; color: #dc3545;">{{ 'register.frmpass_error21' | translate }}<br></span>
+                                    <span *ngIf="valid.password.errors['passwordStrength'][1]=='Lower'" style="font-size: 1em; color: #dc3545;">{{ 'register.frmpass_error22' | translate }}<br></span>
+                                    <span *ngIf="valid.password.errors['passwordStrength'][2]=='Number'" style="font-size: 1em; color: #dc3545;">{{ 'register.frmpass_error23' | translate }}<br></span>
+                                    <span *ngIf="valid.password.errors['passwordStrength'][3]=='Special'" style="font-size: 1em; color: #dc3545;">{{ 'register.frmpass_error24' | translate }}</span>
+                                </div>
+                                <div *ngIf="valid.password.errors.minlength">                        
+                                    <div *ngIf="valid.password.errors.minlength.requiredLength" [translate]="'register.frmpass_error3'">Password must be at least 8 characters</div>
+                                </div>                        
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+ 
+                    
+                    
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                        <span class="d-block pb-2 fw-bold"><span [translate]="'register.frmtlt_fname'">First Name</span> <span style="color: red;">*</span></span>
+                            <input type="text" placeholder="{{ 'register.form_fnameplaceholder' | translate }}" class="w-100" 
+                            formControlName="firstname" [ngClass]="{ 'is-invalid':submitted && valid.firstname.errors }">
+                                <div *ngIf="submitted && valid.firstname.errors" class="invalid-feedback">
+                                <div *ngIf="valid.firstname.errors.required">Please Enter First Name</div>				</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                        <span class="d-block pb-2 fw-bold"><span [translate]="'register.frmtlt_lname'">Last Name</span> <span style="color: red;">*</span></span>
+                            <input type="text" placeholder="{{ 'register.form_lnameaplaceholder' | translate }}" class="w-100" formControlName="lastname" [ngClass]="{ 'is-invalid':submitted && valid.lastname.errors }">
+                             <div *ngIf="submitted && valid.lastname.errors" class="invalid-feedback">
+                                <div *ngIf="valid.lastname.errors.required">Please Enter Last Name</div>				</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                             <span class="d-block pb-2 fw-bold"><span [translate]="'register.frmtlt_age'">Age</span> <span style="color: red;">*</span></span>
+                            <input type="number" placeholder="{{ 'register.form_ageplaceholder' | translate }}" class="w-100 mt-2" formControlName="age" maxlength="2" mask="00" [ngClass]="{ 'is-invalid':submitted && valid.age.errors }">
+                            <div *ngIf="submitted && valid.age.errors" class="invalid-feedback">
+                                <div *ngIf="valid.age.errors.required">Please Enter Age</div>				
+                                <div *ngIf="valid.age.errors.min">
+                                    <div *ngIf="valid.age.errors.min">Age Should be Greater than Zero</div>				
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-2 fw-bold" [translate]="'register.frmtlt_gender'">Gender</span>
+                            <!-- <input type="text" placeholder="Enter Gender" class="w-100" formControlName="gender"> -->
+                            <mat-select class="w-100 p-3 ms-2 mx-2" placeholder="{{ 'register.form_genderplaceholder' | translate }}" formControlName="gender">
+                                <mat-option value="Male">{{ 'register.form_gendermale' | translate }}</mat-option>
+                                <mat-option value="Female">{{ 'register.form_genderfemale' | translate }}</mat-option>
+                                <mat-option value="Others">{{ 'register.form_genderother' | translate }}</mat-option>                    
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-0 fw-bold"><span [translate]="'register.frmtlt_country'">Country</span> <span style="color: #be1e2d;">*</span></span>
+                            <!-- <input type="text" placeholder="Enter Gender" class="w-100" formControlName="gender"> -->
+                            <mat-select class="w-100 p-3 ms-2 mx-2" placeholder="{{ 'register.form_countryrplaceholder' | translate }}" formControlName="country" (ngModelChange)="getCountryLang()" [ngClass]="{ 'is-invalid': submitted && valid.country.errors }">
+                                <mat-option *ngFor="let country of countryList;" value="{{country.country_2code}}">{{country.country_name}}</mat-option>                                
+                            </mat-select>
+                            <div *ngIf="submitted && valid.country.errors" class="invalid-feedback">
+                                <div *ngIf="valid.country.errors.required" [translate]="'register.frmcountry_error1'">Please Select Country</div>				                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-0 fw-bold" [translate]="'register.frmtlt_prelang'">Preferred Language</span>
+                            <!-- <input type="text" placeholder="Enter Gender" class="w-100" formControlName="gender"> -->
+                            <mat-select class="w-100 p-3 ms-2 mx-2" placeholder="{{ 'register.form_langplaceholder' | translate }}" formControlName="language">
+                                <mat-option *ngFor="let lang of langList;" value="{{lang.lang_code}}">
+                                    <!-- {{lang.lang_name}} -->
+                                    <span *ngIf="lang.lang_code=='EN'" [translate]="'register.English'"></span>
+                                    <span *ngIf="lang.lang_code=='AR'" [translate]="'register.Arabic'"></span>
+                                    <span *ngIf="lang.lang_code=='ES'" [translate]="'register.Spanish'"></span>
+                                    <span *ngIf="lang.lang_code=='PO'" [translate]="'register.Portuguese'"></span>
+                                </mat-option>                                
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frm-bx mb-4 pt-2">
+                            <span class="d-block pb-0 fw-bold" [translate]="'register.frmtlt_timezone'">Timezone</span>                
+                            <mat-select class="w-100 p-3 ms-2 mx-2" placeholder="{{ 'register.form_timezoneplaceholder' | translate }}" formControlName="timezone">
+                                <mat-option *ngFor="let zone of timeZoneList;" value="{{zone.ctz_value}}">{{zone.ctz_timezone}} ({{zone.ctz_offset}})</mat-option>                                
+                            </mat-select>                
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="frm-bx mb-4 pt-2">
+                            <!-- <mat-checkbox class="agreebx" formControlName="agree" [ngClass]="{ 'is-invalid': submitted && valid.agree.errors }">I accept the <a href="https://www.tradepedia.com/terms-and-conditions" target="_blank" class="fw-bold" style="color:#1f6f22;">Terms of Use</a>. I have read and understood the <a href="https://www.tradepedia.com/privacy-policy" target="_blank" class="fw-bold" style="color:#1f6f22;">Privacy Policy</a> and <a href="" class="fw-bold" style="color:#1f6f22;">Cookies Policy</a>. </mat-checkbox>-->
+                            <mat-checkbox  style="color:var(--theme-text);" class="agreebx" formControlName="agree" [ngClass]="{ 'is-invalid': submitted && valid.agree.errors }"><span [translate]="'register.frmagree_accept'">I accept the</span> <a href="https://www.tradepedia.com/terms-and-conditions" target="_blank" class="fw-bold ms-1" style="color:#2d8f31;" [translate]="'register.frmagree_terms'">Terms of Use</a>. <span [translate]="'register.frmagree_ihaveread'">I have read and understood the</span> <a href="https://www.tradepedia.com/privacy-policy" target="_blank" class="fw-bold ms-1" style="color:#2d8f31;" [translate]="'register.frmagree_policy'">Privacy Policy</a>.</mat-checkbox>                
+                            <div *ngIf="submitted && valid.agree.errors" class="invalid-feedback ps-4 ms-1">
+                                <div *ngIf="valid.agree.errors.required" [translate]="'register.frmagree_error'">Please agree Terms & Conditions and Policies</div>				                   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="text-center pb-5">
+                            <button class="btn-primary sbmt-btn border-0 mt-4" [disabled]="btnDis==1" [translate]="'register.formdnothave_signup'">Sign Up</button>
+                        </div>
+                        <!-- <div class="text-center pt-4">
+                            <span style="color:var(--theme-text);"><span [translate]="'register.frm_already'">Already have account?</span> <a style="color:#2d8f31;" class="fw-bold ms-1" (click)="customerSignupbtn()" [translate]="'register.frm_alreadylink'">Login</a></span>
+                        </div> -->
+                    </div>
+                </div> 
+            </form>
+        </div>
+    </div>
+    <div class="login-bx2 d-flex align-items-center justify-content-center">
+        <div>
+            <h5 class="fw-600 text-white text-center fs-5 pb-3" [translate]="'register.orsignup'">or Sign In Using</h5>
+            <div class="d-flex align-items-center justify-content-center">
+                <button (click)="loginWithFacebook()" class="social-btn"><img src="assets/images/login/facebook.svg" class="img-fluid" alt=""></button>
+                <button (click)="loginWithGoogle()" class="social-btn"><img src="assets/images/login/google.svg" class="img-fluid" alt=""></button>
+                <button class="social-btn"><img src="assets/images/login/apple.svg" class="img-fluid" alt=""></button>
+            </div>
+            <div class="text-center mx-auto" style="width:270px;">
+                <h4 class="text-white pt-4 mt-2 fw-600" [translate]="'register.new_here'">If Have Account?</h4>
+                <p class="text-white" [translate]="'register.formdnothave'">Sign in and use the great amount of new opportunities!</p>
+                <a style="background:#be1e2d;" class="fw-bold text-white rounded-pill px-4 py-2 d-inline-block mt-4 shadow" (click)="customerSignupbtn()" [translate]="'register.frm_alreadylink'">Login</a>
+            </div>
+            <div class="text-center pt-2">
+                <p class="text-white text-center pb-3" style="cursor:pointer;" [translate]="'login.formchglang'" (click)="translationbtn()">Switch Language</p>                
+            </div>
+            <!-- <div class="text-center pt-4 mt-2">
+                <span style="color:var(--theme-text);" [translate]="'login.formdnothave'">Don't have an account? <a style="color:#2d8f31;" class="fw-bold ms-1" (click)="gotoSignup()" [translate]="'login.formdnothave_signup'">Sign up</a></span>
+            </div> -->
+        </div>
+    </div>
+    <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+        <div class="alert-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closePaynowpopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4 class="text-center">{{showPopupMsg}}</h4>  
+            <div class="d-flex align-items-center justify-content-center" *ngIf="showBtn==1">                
+                <button (click)="resendMail()" class="border-0" [translate]="'login.resend'">Resend Mail</button>                
+            </div>           
+        </div>
+    </div>
+    <!-- <div class="auth-load d-flex align-items-center justify-content-center position-fixed top-0 end-0 bottom-0 start-0" *ngIf="authLoader">
+        <div class="text-center">
+            <mat-progress-spinner class="example-margin" mode="indeterminate"></mat-progress-spinner>
+            <h5 class="text-white pt-4" [translate]="'login.loading'">Loading...</h5>
+        </div>
+    </div> -->
+</div>

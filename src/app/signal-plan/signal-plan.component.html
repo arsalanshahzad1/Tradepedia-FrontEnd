@@ -1,0 +1,37 @@
+<div id="signal-plan" class="bg-light">
+    <h4 class="pb-1 tlt fw-600" [translate]="'signal_plan.page_tlt'">Signal Subscription Plan</h4>
+    <div class="signalplan1 d-flex align-items-center justify-content-between flex-wrap">
+        <ng-container *ngIf="signalPlanList.length > 0">
+            <div class="signalplan1-bx mb-3" *ngFor="let plan of signalPlanList">
+                <h6 class="mb-0 fw-600">{{plan.price_user_label}}</h6>
+                <p class="text-secondary">{{plan.price_description}}</p>
+                <div class="d-flex align-items-center justify-content-between">
+                    <span class="d-flex align-items-center"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-1" style="width:21px;"> {{plan.price_rate | number}} <sub class="ms-1" style="color:#e7c121;">{{currCode}}</sub></span>
+                    <button class="border-0 fw-600" (click)="gotoPaynowPopup(plan)" [translate]="'signal_plan.paynow_btn'">Pay Now</button>
+                </div> 
+            </div>            
+        </ng-container>
+        <!-- <div class="signalplan1-bx mb-3">
+            <h6 class="mb-0 fw-600">Some Title</h6>
+            <p class="text-secondary">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+            <div class="d-flex align-items-center justify-content-between">
+                <span class="d-flex align-items-center"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-1" style="width:20px;"> 200</span>   
+                <button class="border-0 fw-600" (click)="gotoPaynowPopup()">Pay Now</button>
+            </div> 
+        </div> -->
+    </div>
+    <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+        <div class="signal-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closePaynowpopup()"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4>{{payMsg}}</h4>
+            <div class="d-flex align-items-center justify-content-center">
+                <button class="border-0 bg-light text-dark ms-2 me-2" (click)="closePaynowpopup()" [translate]="'signal_plan.popup_close'">Close</button>
+                <button *ngIf="payBtn==1" (click)="saveSignalPayment()" class="border-0" [translate]="'signal_plan.popup_paynow'">Pay Now</button>
+                <button *ngIf="payBtn==0" (click)="gotoAddMoney()" class="border-0" [translate]="'signal_plan.popup_addmoney'">Add Money</button>
+            </div>
+        </div>
+    </div>
+</div>

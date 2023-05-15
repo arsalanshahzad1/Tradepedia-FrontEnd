@@ -1,0 +1,118 @@
+<div id="my-subscriptions" class="bg-light">
+    <div class="col-bx1 p-3">
+        <h4 class="pg-tlt fw-600 pb-2" [translate]="'profile_edit.tlt_mysubscribe'">My Subscriptions</h4>
+        <div class="subscriptions d-flex flex-wrap justify-content-between">
+            <!-- <div class="subscriptions-bx" (click)="gotoPage('/signal/my-profile')">
+                <h5 class="fw-600">Auto Signal Status</h5>
+                <div class="d-flex align-items-center justify-content-between">
+                    <span *ngIf="subscriptDets.user_autosignal_status==1" class="status"><i class="bi bi-check-circle-fill"></i></span>
+                    <span *ngIf="subscriptDets.user_autosignal_status==0" class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                    
+                    <span *ngIf="subscriptDets.user_autosignal_status==0" class="date">Not Activated</span>
+                </div>
+            </div> -->
+            <div class="subscriptions-bx" (click)="gotoHSC()">
+                <h5 class="fw-600" [translate]="'profile_edit.right_hscstatus'">HSC Status</h5>
+                <div class="d-flex align-items-center justify-content-between">
+                    <span *ngIf="subscriptDets.user_hsc_status==1" class="status"><i class="bi bi-check-circle-fill"></i></span>
+                    <span *ngIf="subscriptDets.user_hsc_status==0" class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>
+                    <span *ngIf="subscriptDets.user_hsc_status==1" class="date" [translate]="'profile_edit.hscstatus_noexpiry'">No Expiry</span>
+                    <span *ngIf="subscriptDets.user_hsc_status==0" class="date" [translate]="'profile_edit.hscstatus_notactivate'">Not Activated</span>
+                </div>
+            </div>
+            <div class="subscriptions-bx">
+                <div (click)="gotoPage('signalPlan')">
+                    <h5 class="fw-600" [translate]="'profile_edit.right_signalplan'">Signal Plan Status</h5>
+                    <!-- <div class="d-flex align-items-center justify-content-between">
+                        <span *ngIf="subscriptDets.user_signal_status==1" class="status"><i class="bi bi-check-circle-fill"></i></span>
+                        <span *ngIf="subscriptDets.user_signal_status==0" class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                    
+                        <span *ngIf="subscriptDets.user_signal_status==1" class="date"><label>Expire On:</label> {{subscriptDets.user_signal_expired | date:"MMM d, y"}}</span>
+                        <span *ngIf="subscriptDets.user_signal_status==0" class="date">Not Activated</span>
+                    </div> -->
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.signalShowStatus==0">
+                        <span class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>
+                        <span class="date" [translate]="'profile_edit.signalplan_notactivate'">Not Activated</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.signalShowStatus==1">
+                        <span class="status"><i class="bi bi-check-circle-fill"></i></span>
+                        <span class="date"><label [translate]="'profile_edit.signalplan_expiry'">Expire On:</label> {{subscriptDets.user_signal_expired2 | date:"MMM d, y":timeZone}}</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.signalShowStatus==2">
+                        <span class="status" style="color:#9b0603;"><i class="bi bi-x-circle-fill"></i></span>
+                        <span class="date"><label [translate]="'profile_edit.signalplan_expired'">Expired On:</label> {{subscriptDets.user_signal_expired2 | date:"MMM d, y":timeZone}}</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2">
+                    <mat-checkbox class="example-margin" [checked]="subscriptDets.user_signal_auto==1" (change)="enableAutoRenewal($event,'signal')">{{ 'profile_edit.enable_auto' | translate }}</mat-checkbox>
+                    <button type="button" *ngIf="subscriptDets.signalShowStatus==1" (click)="cancelSubPlan('signal')" [translate]="'profile_edit.cancel_plan'">Cancel Plan</button>
+                    <button type="button" *ngIf="subscriptDets.signalShowStatus!=1" (click)="gotoPage('signalPlan')" [translate]="'profile_edit.goto_plan'">Goto Plans</button>
+                </div>
+            </div>
+            <div class="subscriptions-bx">
+                <div (click)="gotoPage('reportPlan')">
+                    <h5 class="fw-600" [translate]="'profile_edit.right_specialplan'">Special Report Plan Status</h5>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.splrptShowStatus==0">
+                        <span class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                        
+                        <span class="date" [translate]="'profile_edit.specialreport_notactivate'">Not Activated</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.splrptShowStatus==1">
+                        <span class="status"><i class="bi bi-check-circle-fill"></i></span>
+                        <span class="date"><label [translate]="'profile_edit.specialreport_expiry'">Expire On:</label> {{subscriptDets.user_splrpt_expired2 | date:"MMM d, y":timeZone}}</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.splrptShowStatus==2">
+                        <span class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                        
+                        <span class="date"><label [translate]="'profile_edit.specialreport_expired'">Expired On:</label> {{subscriptDets.user_splrpt_expired2 | date:"MMM d, y":timeZone}}</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2">
+                    <mat-checkbox class="example-margin" [checked]="subscriptDets.user_splrpt_auto==1" (change)="enableAutoRenewal($event,'report')">{{ 'profile_edit.enable_auto' | translate }}</mat-checkbox>
+                    <button type="button" *ngIf="subscriptDets.splrptShowStatus==1" (click)="cancelSubPlan('report')" [translate]="'profile_edit.cancel_plan'">Cancel Plan</button>
+                    <button type="button" *ngIf="subscriptDets.splrptShowStatus!=1" (click)="gotoPage('reportPlan')" [translate]="'profile_edit.goto_plan'">Goto Plans</button>
+                </div>                
+            </div>
+            <div class="subscriptions-bx">
+                <div (click)="gotoPage('squawkPlan')">
+                    <h5 class="fw-600" [translate]="'profile_edit.right_squawkplan'">Squawk Room Report Plan Status</h5>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.squawkShowStatus==0">
+                        <span class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                        
+                        <span class="date" [translate]="'profile_edit.specialreport_notactivate'">Not Activated</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.squawkShowStatus==1">
+                        <span class="status"><i class="bi bi-check-circle-fill"></i></span>
+                        <span class="date"><label [translate]="'profile_edit.specialreport_expiry'">Expire On:</label> {{subscriptDets.user_squawk_expired2 | date:"MMM d, y":timeZone}}</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between" *ngIf="subscriptDets.squawkShowStatus==2">
+                        <span class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>                        
+                        <span class="date"><label [translate]="'profile_edit.specialreport_expired'">Expired On:</label> {{subscriptDets.user_squawk_expired2 | date:"MMM d, y":timeZone}}</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2">
+                    <mat-checkbox class="example-margin" [checked]="subscriptDets.user_squawk_auto==1" (change)="enableAutoRenewal($event,'squawk')">{{ 'profile_edit.enable_auto' | translate }}</mat-checkbox>
+                    <button type="button" *ngIf="subscriptDets.squawkShowStatus==1" (click)="cancelSubPlan('squawk')" [translate]="'profile_edit.cancel_plan'">Cancel Plan</button>
+                    <button type="button" *ngIf="subscriptDets.squawkShowStatus!=1" (click)="gotoPage('squawkPlan')" [translate]="'profile_edit.goto_plan'">Goto Plans</button>
+                </div>                
+            </div>
+        </div>
+    </div> 
+    <div class="col-bx1 p-3 pt-0" *ngIf="toolsExpList.length > 0">
+        <h4 class="pg-tlt fw-600 pb-2" [translate]="'profile_edit.tlt_toolssubscribe'">Tools Subscriptions</h4>
+        <div class="subscriptions d-flex flex-wrap justify-content-between">            
+            <div class="subscriptions-bx" *ngFor="let tool of toolsExpList">
+                <div (click)="gotoTools(tool)">
+                    <h5 class="fw-600">{{tool.tools_title}}</h5>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span *ngIf="tool.showStatus==1" class="status"><i class="bi bi-check-circle-fill"></i></span>
+                        <span *ngIf="tool.showStatus==0" class="status" style="color:#db3d3a;"><i class="bi bi-x-circle-fill"></i></span>
+                        <!-- <span class="badge"><i class="bi bi-x-circle-fill"></i></span> -->
+                        <span *ngIf="tool.showStatus==1" class="date"><label [translate]="'profile_edit.specialreport_expiry'">Expire On:</label> {{tool.usrtools_expiry_on2 | date:"MMM d, y":timeZone}}</span>
+                        <span *ngIf="tool.showStatus==0" class="date" [translate]="'profile_edit.specialreport_notactivate'">Not Activated</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2">
+                    <mat-checkbox class="example-margin" [checked]="tool.usrtools_auto==1" (change)="enableToolsAutoRenewal($event,tool)">{{ 'profile_edit.enable_auto' | translate }}</mat-checkbox>
+                    <button type="button" *ngIf="tool.showStatus==1" (click)="cancelSubTools(tool)" [translate]="'profile_edit.remove_tool'">Remove Tool</button>
+                    <button type="button" *ngIf="tool.showStatus==0" (click)="gotoTools(tool)" [translate]="'profile_edit.buy_tool'">Buy Tool</button>
+                </div>
+            </div>            
+        </div>    
+    </div>
+</div>

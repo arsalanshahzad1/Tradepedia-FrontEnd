@@ -1,0 +1,49 @@
+<div id="notification-setting" class="h-100 p-4">
+    <h4 class="sec-tlt fw-600 pb-2" style="color:var(--theme-text);" [translate]="'notification_setting.page_tlt'">Notification Settings</h4>
+    <form class="example-form d-flex flex-wrap justify-content-between position-relative" [formGroup]="notificationForm" (ngSubmit)="saveNotification()">
+        <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.new_signal'">New Signals</h5>
+            <mat-slide-toggle formControlName="newsignal"></mat-slide-toggle>
+        </div>
+        <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.cancelled'">Cancelled</h5>
+            <mat-slide-toggle formControlName="cancelled"></mat-slide-toggle>
+        </div>
+        <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.activated'">Activated</h5>
+            <mat-slide-toggle formControlName="activated"></mat-slide-toggle>
+        </div>
+        <!-- <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.get_ready'">Get Ready</h5>
+            <mat-slide-toggle formControlName="getready"></mat-slide-toggle>
+        </div> -->
+        <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.taget_one'">Target 1</h5>
+            <mat-slide-toggle formControlName="target1"></mat-slide-toggle>
+        </div>
+        <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.target_two'">Target 2</h5>
+            <mat-slide-toggle formControlName="target2"></mat-slide-toggle>
+        </div>
+        <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.target_three'">Target 3</h5>
+            <mat-slide-toggle formControlName="target3"></mat-slide-toggle>
+        </div>
+        <!-- <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.stop_loss'">Stop / Loss</h5>
+            <mat-slide-toggle formControlName="stoploss"></mat-slide-toggle>
+        </div>  -->
+        <!-- <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.offer_msg'">Offer Messages</h5>
+            <mat-slide-toggle formControlName="offer"></mat-slide-toggle>
+        </div>
+        <div class="noti-bx1 d-flex align-items-center justify-content-between">
+            <h5 [translate]="'notification_setting.special_news'">Special News</h5>
+            <mat-slide-toggle formControlName="news"></mat-slide-toggle>
+        </div>  -->
+        <div class="noti-bx1 text-center mt-4 border-0 w-100" style="background:var(--theme-background);z-index:1;">
+            <button mat-raised-button type="submit" class="subm-btn shadow-none">{{ 'notification_setting.save_btn' | translate }}</button>
+        </div>
+        <hr class="position-absolute h-100 border-0 start-50 top-0 bottom-0">
+    </form>
+</div>

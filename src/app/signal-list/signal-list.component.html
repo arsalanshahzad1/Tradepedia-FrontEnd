@@ -1,0 +1,519 @@
+<div id="signal-list" class="bg-light">
+	<form class="m-auto normal-form example-form">
+		<mat-tab-group mat-align-tabs="center">
+			<mat-tab label="Pending">
+				<div class="signal-tab">
+                    <div class="tab-head">
+                        <ul class="nav nav-pills" role="tablist">                            
+                            <li class="nav-item" role="presentation" *ngFor="let cat of symbolRootNameArr">
+                                <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadPendingSignalList(cat)" type="button" role="tab">{{cat}}</button>
+                            </li>
+                            <!-- <li class="nav-item" role="presentation">
+                              <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#pending1" type="button" role="tab">All</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pending2" type="button" role="tab">Forex</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pending3" type="button" role="tab">Metals</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pending4" type="button" role="tab">Crypto</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pending5" type="button" role="tab">Stocks</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pending6" type="button" role="tab">Indices</button>
+                            </li> -->
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="pending1" role="tabpanel">
+                            <ng-container *ngIf="pendingData == 0 && filterFunction(pendingDataList,this.selPendingCategory).length > 0">
+                                <div class="signal-bx" *ngFor="let pend of filterFunction(pendingDataList,this.selPendingCategory)" matRipple>
+                                    <div *ngIf="this.userSignalStatus==0">
+                                        <div class="d-flex align-items-center justify-content-between">                                        
+                                            <span class="buy" *ngIf="pend.mode=='BUY'"><i class="bi bi-caret-up-fill"></i> {{pend.mode}}</span>
+                                            <span class="buy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;"><i class="bi bi-caret-down-fill"></i> {{pend.mode}}</span>
+                                            <span class="buy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;"><i class="bi bi-dash-lg"></i> {{pend.mode}}</span>
+                                            <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> {{pend.symbol}}</span>
+                                            <!-- <span class="stratergy">{{pend.currentStatus}}</span> -->
+                                        </div>
+                                        <div class="border-top text-center pt-3 mt-3">
+                                            <button class="unlock-signalbtn border-0 fw-600"  (click)="gotoPaynowpopup()">Unlock Signal Data</button>
+                                        </div>                                        
+                                    </div>
+                                    <div *ngIf="this.userSignalStatus==1" (click)="gotoSignaldetails(pend.uid)">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="buy" *ngIf="pend.mode=='BUY'"><i class="bi bi-caret-up-fill"></i> {{pend.mode}}</span>
+                                            <span class="buy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;"><i class="bi bi-caret-down-fill"></i> {{pend.mode}}</span>
+                                            <span class="buy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;"><i class="bi bi-dash-lg"></i> {{pend.mode}}</span>
+                                            <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> {{pend.symbol}}</span>
+                                            <span class="stratergy">{{pend.currentStatus}}</span>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-3">
+                                            <div class="signal-bx1 text-start">
+                                                <h5>Stop Loss</h5>
+                                                <span style="background:#db3d3a;" class="text-white">{{pend.STOP}}</span>
+                                            </div>
+                                            <div class="signal-bx1 text-center">
+                                                <h5>Entry</h5>
+                                                <span style="background:#e7e7e7;">{{pend.ENT}}</span>
+                                            </div>
+                                            <div class="signal-bx1 text-end">
+                                                <h5>Take Profit</h5>
+                                                <span style="background:#1e7027;" class="text-white">{{pend.T3}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="pendingMoreShow == true">
+                                <div class="text-center">
+                                    <button class="btn-primary sbmt-btn border-0 mt-5 mb-6" (click)="loadPendingSignalList(this.selPendingCategory)">Load More Signals</button>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="pendingData == 1">
+                                <div class="text-center p-4">
+                                    <h4>Please Select Symbols and Timeframes from filters</h4>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="pendingData == 2">
+                                <div class="text-center p-4">
+                                    <mat-spinner></mat-spinner>
+                                    <h4 class="pt-4">Signal Loading Please Wait</h4>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="pendingData != 1 && pendingData != 2 && pendingData == 3">
+                                <div class="text-center p-4">
+                                    <img src="assets/images/no-record-found.png" class="img-fluid">
+                                    <h4 class="pt-4">No Pending Signal Found</h4>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="pendingData == 0 && filterFunction(pendingDataList,this.selPendingCategory).length == 0">
+                                <div class="text-center p-4">
+                                    <img src="assets/images/no-record-found.png" class="img-fluid">
+                                    <h4 class="pt-4">No Pending Signal Found</h4>
+                                </div>
+                            </ng-container>
+                        </div>                        
+                    </div>
+                </div>
+			</mat-tab>
+			<mat-tab label="Active">
+				<div class="signal-tab">
+                    <div class="tab-head">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li class="nav-item" role="presentation" *ngFor="let cat of symbolRootNameArr">
+                                <button class="nav-link" data-bs-toggle="pill" [ngClass]="{'active': cat == 'All'}" data-bs-target="#pending1" (click)="loadActiveSignalList(cat)" type="button" role="tab">{{cat}}</button>
+                            </li>
+                            <!-- <li class="nav-item" role="presentation">
+                              <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#active1" type="button" role="tab">All</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#active2" type="button" role="tab">Forex</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#active3" type="button" role="tab">Metals</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#active4" type="button" role="tab">Crypto</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#active5" type="button" role="tab">Stocks</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#active6" type="button" role="tab">Indices</button>
+                            </li> -->
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="active1" role="tabpanel">
+                            <ng-container *ngIf="activeData == 0 && filterFunction(activeDataList,this.selActiveCategory).length > 0">
+                                <div class="signal-bx" *ngFor="let active of filterFunction(activeDataList,this.selActiveCategory)" matRipple>
+                                    <div *ngIf="this.userSignalStatus==0">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="buy" *ngIf="active.mode=='BUY'"><i class="bi bi-caret-up-fill"></i> {{active.mode}}</span>
+                                            <span class="buy" *ngIf="active.mode=='SELL'" style="color:#db3d3a;"><i class="bi bi-caret-down-fill"></i> {{active.mode}}</span>
+                                            <span class="buy" *ngIf="active.mode=='NEUTRAL'" style="color:#f58c64;"><i class="bi bi-dash-lg"></i> {{active.mode}}</span>
+                                            <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> {{active.symbol}}</span>
+                                            <!-- <span class="stratergy">{{active.currentStatus}}</span> -->
+                                        </div>
+                                        <div class="border-top text-center pt-3 mt-3">
+                                            <button class="unlock-signalbtn border-0 fw-600"  (click)="gotoPaynowpopup()">Unlock Signal Data</button>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="this.userSignalStatus==1" (click)="gotoSignaldetails(active.uid)">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="buy" *ngIf="active.mode=='BUY'"><i class="bi bi-caret-up-fill"></i> {{active.mode}}</span>
+                                            <span class="buy" *ngIf="active.mode=='SELL'" style="color:#db3d3a;"><i class="bi bi-caret-down-fill"></i> {{active.mode}}</span>
+                                            <span class="buy" *ngIf="active.mode=='NEUTRAL'" style="color:#f58c64;"><i class="bi bi-dash-lg"></i> {{active.mode}}</span>
+                                            <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> {{active.symbol}}</span>
+                                            <span class="stratergy">{{active.currentStatus}}</span>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-3">
+                                            <div class="signal-bx1 text-start">
+                                                <h5>Stop Loss</h5>
+                                                <span style="background:#db3d3a;" class="text-white">{{active.STOP}}</span>
+                                            </div>
+                                            <div class="signal-bx1 text-center">
+                                                <h5>Entry</h5>
+                                                <span style="background:#e7e7e7;">{{active.ENT}}</span>
+                                            </div>
+                                            <div class="signal-bx1 text-end">
+                                                <h5>Take Profit</h5>
+                                                <span style="background:#1e7027;" class="text-white">{{active.T3}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>     
+                            <ng-container *ngIf="activeMoreShow == true">
+                                <div class="text-center">
+                                    <button class="btn-primary sbmt-btn border-0 mt-5 mb-5" (click)="loadActiveSignalList(this.selActiveCategory)">Load More Signals</button>
+                                </div>
+                            </ng-container>                         
+                            <ng-container *ngIf="activeData == 1">
+                                <div class="text-center p-4">
+                                    <h4>Please Select Symbols and Timeframes from filters</h4>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="activeData == 2">
+                                <div class="text-center p-4">
+                                    <mat-spinner></mat-spinner>
+                                    <h4 class="pt-4">Signal Loading Please Wait</h4>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="activeData != 1 && activeData != 2 && activeData == 3">
+                                <div class="text-center p-4">
+                                    <img src="assets/images/no-record-found.png" class="img-fluid">
+                                    <h4 class="pt-4">No Active Signal Found</h4>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="activeData == 0 && filterFunction(activeDataList,this.selActiveCategory).length == 0">
+                                <div class="text-center p-4">
+                                    <img src="assets/images/no-record-found.png" class="img-fluid">
+                                    <h4 class="pt-4">No Active Signal Found</h4>
+                                </div>
+                            </ng-container>
+                        </div>                        
+                    </div>
+                </div>
+			</mat-tab>
+			<mat-tab label="Canceled">
+				<div class="signal-tab">
+                    <ng-container *ngIf="cancelData == 3">
+                        <div class="text-center p-4">
+                            <img src="assets/images/no-record-found.png" class="img-fluid">
+                            <h4 class="pt-4">No Canceled Signal Found</h4>
+                        </div>
+                    </ng-container>
+                    <!-- <div class="tab-head">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#cancel1" type="button" role="tab">All</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cancel2" type="button" role="tab">Forex</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cancel3" type="button" role="tab">Metals</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cancel4" type="button" role="tab">Crypto</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cancel5" type="button" role="tab">Stocks</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cancel6" type="button" role="tab">Indices</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="cancel1" role="tabpanel">
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="cancel2" role="tabpanel">
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="cancel3" role="tabpanel">
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-bx" (click)="gotoSignaldetails()" matRipple>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="buy"><i class="bi bi-caret-up-fill"></i> BUY</span>
+                                    <span class="flag"><img src="assets/images/create-robot-flag.png" class="img-fluid"> BTSUDE</span>
+                                    <span class="stratergy">Bullish Trend Reversal</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div class="signal-bx1 text-start">
+                                        <h5>Stop Loss</h5>
+                                        <span style="background:#db3d3a;" class="text-white">None</span>
+                                    </div>
+                                    <div class="signal-bx1 text-center">
+                                        <h5>Entry</h5>
+                                        <span style="background:#e7e7e7;">23.65856865</span>
+                                    </div>
+                                    <div class="signal-bx1 text-end">
+                                        <h5>Take Profit</h5>
+                                        <span style="background:#1e7027;" class="text-white">00.05</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+			</mat-tab>
+		</mat-tab-group>
+		<!-- <div class="pagintion">
+			<button type="button" name="btnPrevious" id="btnPrevious" [disabled]="(btnPrevious==0)" (click)="filter('','','','','',-10)"><i class="las la-angle-left"></i></button>
+			<select name="signalCount" id="signalCount" (change)="filter('','','','','',0)">
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+				<option value="40">40</option>
+				<option value="50">50</option>
+			</select>
+			<button type="button" name="btnNext" id="btnNext" [disabled]="btnNext==0" (click)="filter('','','','','',10)"><i class="las la-angle-right"></i></button>
+		</div> -->
+	</form>
+    <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+        <div class="signal-popup-bx text-center px-5 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3" (click)="closePaynowpopup()"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4>Make payment to unlock signal data.</h4>
+            <button class="border-0" (click)="gotoSignalplan()">View Plans</button>
+        </div>
+    </div>
+</div>

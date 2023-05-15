@@ -1,0 +1,129 @@
+#profileEdit{
+    padding: 40px 40px;
+    overflow-y: auto;
+    .profiledit-bx{
+        width: 100%;
+        //padding: 40px 40px;
+        //overflow-y: auto;
+        .pg-tlt{
+            font-size: 35px;
+            color: var(--theme-text);
+        }
+        .sbmt-link{
+            border-radius: 14px;
+            font-size: 14px;
+            padding: 10px;
+            background:#ffd15c;
+            font-weight: 600;
+        }
+        .social-btn{
+            border-radius: 14px;
+            border: 2px solid #212529;
+        }
+        form{
+            .frm-bx{
+                h6{
+                    margin: 0px;
+                    border-radius: 14px;
+                    padding: 14px;
+                    border-radius: 14px;
+                    border: 1px solid var(--light-grey);
+                    background: var(--theme-background);
+                    box-shadow: 0px 1px 2px 0px #b8c8e039;
+                    color: var(--theme-text);
+                }
+                span{
+                    font-size: 17px;
+                    color: var(--theme-text);
+                }
+                input, mat-select{
+                    border-radius: 14px;
+                    border: 1px solid var(--light-grey);
+                    background: var(--theme-background);
+                    box-shadow: 0px 1px 2px 0px #B8C8E039;
+                    font-size: 15px;
+                    color: var(--theme-text);
+                    padding: 12px;
+                }
+                .eye-btn{
+                    right: 10px;
+                    top: 50px;
+                    font-size: 22px;
+                    color: #1f6f22;
+                }
+            }
+            .sbmt-btn{
+                border-radius: 14px;
+                font-size: 17px;
+                padding: 15px 61px;
+                background: #1f6f22;
+            }
+        }
+    }
+    .col-bx2{
+        width: 35%;
+        padding: 20px;
+        overflow-y: auto;
+        .pg-tlt{
+            color: var(--theme-text);
+            font-size: 22px;
+        }
+        .subscriptions{
+            .subscriptions-bx{
+                background: var(--theme-background);
+                border-radius: 20px;
+                box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08);
+                justify-content: space-between;
+                padding: 12px 18px;
+                margin-bottom: 12px;
+                h5{
+                    font-size: 17px;
+                    color: var(--theme-text);
+                }
+                .status{
+                    font-size: 20px;
+                    color: #1f6f22;
+                }
+                .date{
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: var(--theme-text);
+                    label{
+                        font-weight: 100;
+                        color: #888;
+                    }
+                }
+                mat-checkbox{
+                    font-size: 14px;
+                    color: var(--theme-text);
+                }  
+                button{
+                    padding: 3px 8px;
+                    font-size: 13px;
+                    background: #db3d3a;
+                    color: #fff;
+                    border-radius: 6px;
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+#register-pop{
+    P{
+        font-size: 17px;
+        a{
+            font-weight: 600;
+            color: var(--theme-text);
+        }
+    }
+    button{
+        border: 0px;
+        border-radius: 10px;
+        padding: 10px 9px;
+        font-size: 14px;
+        font-weight: 600;
+        background: none;
+    }
+}

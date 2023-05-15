@@ -1,0 +1,68 @@
+<div id="blog" class="d-flex bg-light">
+    <div class="col-bx1">
+        <div class="blog1 px-3 py-4">
+            <h5 class="m-0 fw-600" [translate]="'blog.page_tlt'">Special Report</h5>
+        </div>
+        <div class="blog2 px-3">
+            <ng-container *ngFor="let blog of blogList;let ind=index;">
+                <a matRipple *ngIf="(ind%2==0)" (click)="gotoDetails(blog)" class="blog2-bx d-flex mb-3">
+                    <div class="img">
+                        <img src="{{blog.imgSrc}}" class="img-fluid w-100">
+                    </div>
+                    <div class="dtls w-100 d-flex justify-content-between flex-column">
+                        <!-- <h6 class="mb-0 fw-600">{{blog.blog_title}}</h6> -->
+                        <h6 class="mb-0 fw-600">{{ (blog.blog_title.length>75)? (blog.blog_title | slice:0:75)+'...':(blog.blog_title) }}</h6>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <span class="me-3"><i class="bi bi-calendar2-week-fill mx-1"></i> {{blog.blog_published_on2 | date:'mediumDate':timeZone}}</span>
+                            <span style="color:#e4b037;"><i class="bi bi-clock-fill mx-1"></i> {{blog.blog_published_on2 | date:'shortTime':timeZone}}</span>
+                        </div>
+                    </div>
+                </a>
+                <a matRipple *ngIf="(ind%2==1)" (click)="gotoDetails(blog)" class="blog2-bx d-flex mb-3">
+                    <div class="img">
+                        <img src="{{blog.imgSrc}}" class="img-fluid w-100">
+                    </div>
+                    <div class="dtls w-100 d-flex justify-content-between flex-column">
+                        <h6 class="mb-0 fw-600">{{ (blog.blog_title.length>75)? (blog.blog_title | slice:0:75)+'...':(blog.blog_title) }}</h6>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <span class="me-3"><i class="bi bi-calendar2-week-fill mx-1"></i> {{blog.blog_published_on2 | date:'mediumDate':timeZone}}</span>
+                            <span style="color:#e4b037;"><i class="bi bi-clock-fill mx-1"></i> {{blog.blog_published_on2 | date:'shortTime':timeZone}}</span>
+                        </div>
+                    </div>
+                </a>
+            </ng-container>            
+        </div>
+    </div>
+    <div class="col-bx2">
+        <div class="blog-details1 px-3" *ngIf="userSplRptStatus==1">
+            <div class="img d-flex align-items-center justify-content-center">
+                <img src="{{blogDets.imgSrc}}" class="img-fluid w-100">
+            </div>
+            <div class="dtls ps-2">
+                <h6 class="mb-0 fw-600">{{blogDets.blog_title}}</h6>
+                <div class="d-flex align-items-center justify-content-end">
+                    <span class="me-3"><i class="bi bi-calendar2-week-fill mx-1"></i> {{blogDets.blog_published_on2 | date:'mediumDate':timeZone}}</span>
+                    <span style="color:#e4b037;"><i class="bi bi-clock-fill mx-1"></i> {{blogDets.blog_published_on2 | date:'shortTime':timeZone}}</span>
+                </div>
+                <div class="content" [innerHTML]="blogDets.blog_description"></div>                
+            </div>
+        </div>
+        <div class="blog-details1 alert px-3 pt-5" *ngIf="userSplRptStatus==0">
+            <div class="img text-center">
+                <img src="assets/images/validation-error.png" class="img-fluid shadow-none border-0" alt="">
+                <h4 style="width:340px;" class="mx-auto text-center" [translate]="'blog.msg_unlock'">Make payment to unlock special reports.</h4>
+                <button class="border-0" (click)="gotoblogPlan()" [translate]="'blog.viewplan_btn'">View Plans</button>             
+            </div>            
+        </div>
+    </div>
+    <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+        <div class="signal-popup-bx text-center px-5 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3" style="color:var(--theme-text);" (click)="closePaynowpopup()"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4 [translate]="'blog.popup_content'" class="text-center">Make payment to unlock special reports.</h4>
+            <button class="border-0" (click)="gotoblogPlan()" [translate]="'blog.popup_btn'">View Plans</button>
+        </div>
+    </div>
+</div>

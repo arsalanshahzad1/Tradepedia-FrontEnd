@@ -1,0 +1,384 @@
+<div id="heatmap" class="px-3 pt-4 bg-light">
+    <div id="heatmapchart" class="mb-3">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [dataLabels]="chartOptions.dataLabels"
+          [plotOptions]="chartOptions.plotOptions"
+          [title]="chartOptions.title"
+          [legend]="chartOptions.legend"
+          [colors]="chartOptions.colors"
+        ></apx-chart>
+    </div>
+    <div class="heatmap2 mb-4">
+      <h1 class="text-center fw-600 pb-2" [translate]="'heatmap.tlt_crypto'">Crypto Market Perfomance Overview</h1>
+      <h2 class="text-center mb-3 bg-light" style="color:var(--theme-text);" [translate]="'heatmap.subtlt_largest'">Largest Market Cap</h2>
+      <div class="table-bx">
+        <table class="w-100">
+          <tr>
+            <th [translate]="'heatmap.tbltd_desc'">DESCRIPTION</th>
+            <th [translate]="'heatmap.tbltd_price'">PRICE $</th>
+            <th>1D CHG %</th>
+            <th>1W CHG %</th>
+            <th>1M CHG %</th>
+            <th>1Q CHG %</th>
+            <th>MKT CAP $</th>
+            <th [translate]="'heatmap.tbltd_volum'">VOLUME $</th>
+          </tr>
+          <tr *ngFor="let cap of markCupList;">
+            <td>{{cap.name}}</td>
+            <td>{{cap.price}}$</td>
+            <td *ngIf="cap.day>=0" class="text-green">{{cap.day}}% </td>
+            <td *ngIf="cap.day<0" class="text-red">{{cap.day}}% </td>
+            <td *ngIf="cap.week>=0" class="text-green">{{cap.week}}% </td>
+            <td *ngIf="cap.week<0" class="text-red">{{cap.week}}% </td>
+            <td *ngIf="cap.month>=0" class="text-green">{{cap.month}}% </td>
+            <td *ngIf="cap.month<0" class="text-red">{{cap.month}}% </td>
+            <td *ngIf="cap.qutor>=0" class="text-green">{{cap.qutor}}% </td>
+            <td *ngIf="cap.qutor<0" class="text-red">{{cap.qutor}}% </td>
+            <td>{{cap.mkt_cap}}B$</td>
+            <td>{{cap.vol}}B$</td>
+          </tr>
+          <!-- <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-red">-5.91% </td>
+            <td class="text-green">-15.29% </td>
+            <td class="text-red">4.35% </td>
+            <td class="text-green">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr>
+          <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-red">-5.91% </td>
+            <td class="text-red">-15.29% </td>
+            <td class="text-green">4.35% </td>
+            <td class="text-red">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr>
+          <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-red">-5.91% </td>
+            <td class="text-green">-15.29% </td>
+            <td class="text-red">4.35% </td>
+            <td class="text-green">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr>
+          <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-green">-5.91% </td>
+            <td class="text-red">-15.29% </td>
+            <td class="text-red">4.35% </td>
+            <td class="text-green">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr>
+          <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-red">-5.91% </td>
+            <td class="text-green">-15.29% </td>
+            <td class="text-red">4.35% </td>
+            <td class="text-green">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr> -->
+        </table>
+      </div>
+      <h2 class="text-center mb-3 mt-4 bg-light" style="color:var(--theme-text);" [translate]="'heatmap.tlt_bestperform'">Best Performers (24H)</h2>
+      <div class="table-bx">
+        <table class="w-100">
+          <tr>
+            <th [translate]="'heatmap.tbltd_desc'">DESCRIPTION</th>
+            <th [translate]="'heatmap.tbltd_price'">PRICE $</th>
+            <th>1D CHG %</th>
+            <th>1W CHG %</th>
+            <th>1M CHG %</th>
+            <th>1Q CHG %</th>
+            <th>MKT CAP $</th>
+            <th [translate]="'heatmap.tbltd_volum'">VOLUME $</th>
+          </tr>
+          <tr *ngFor="let best of bestPerformList;">
+            <td>{{best.name}}</td>
+            <td>{{best.price}}$</td>
+            <td *ngIf="best.day>=0" class="text-green">{{best.day}}% </td>
+            <td *ngIf="best.day<0" class="text-red">{{best.day}}% </td>
+            <td *ngIf="best.week>=0" class="text-green">{{best.week}}% </td>
+            <td *ngIf="best.week<0" class="text-red">{{best.week}}% </td>
+            <td *ngIf="best.month>=0" class="text-green">{{best.month}}% </td>
+            <td *ngIf="best.month<0" class="text-red">{{best.month}}% </td>
+            <td *ngIf="best.qutor>=0" class="text-green">{{best.qutor}}% </td>
+            <td *ngIf="best.qutor<=0" class="text-red">{{best.qutor}}% </td>
+            <td style="text-align: right;">{{best.mkt_cap}}B$</td>
+            <td style="text-align: right;">{{best.vol}}B$</td>
+          </tr>
+          <!-- <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-red">-5.91% </td>
+            <td class="text-green">-15.29% </td>
+            <td class="text-red">4.35% </td>
+            <td class="text-green">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr>
+          <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-red">-5.91% </td>
+            <td class="text-red">-15.29% </td>
+            <td class="text-green">4.35% </td>
+            <td class="text-red">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr>
+          <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-red">-5.91% </td>
+            <td class="text-green">-15.29% </td>
+            <td class="text-red">4.35% </td>
+            <td class="text-green">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr>
+          <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-green">-5.91% </td>
+            <td class="text-red">-15.29% </td>
+            <td class="text-red">4.35% </td>
+            <td class="text-green">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr>
+          <tr>
+            <td>BTCUSD</td>
+            <td>36924.9718$</td>
+            <td class="text-red">-5.91% </td>
+            <td class="text-green">-15.29% </td>
+            <td class="text-red">4.35% </td>
+            <td class="text-green">-34.86% </td>
+            <td>700.28B$</td>
+            <td>31.77B$</td>
+          </tr> -->
+        </table>
+      </div>
+    </div>
+    <div class="heatmap3 mb-4">
+      <h1 class="text-center fw-600 pb-2" [translate]="'heatmap.tlt_crypto'">Crypto Market Perfomance Overview</h1>
+      <h2 class="text-center mb-3 bg-light" style="color:var(--theme-text);" [translate]="'heatmap.subtlt_largest'">Largest Market Cap</h2>
+      <h5 class="pb-2 fs-6 ps-1" [translate]="'heatmap.slct_timeframe'">Select Timeframe:</h5>
+      <mat-button-toggle-group multiple class="d-flex border-0 flex-wrap">
+        <mat-button-toggle *ngFor="let time of this.timeFrames" [checked]="time==selectedTF" (click)="resetIndList(time)">{{time}}</mat-button-toggle><!-- (click)="selectTime(time)"-->
+      </mat-button-toggle-group>
+      <div class="table-bx mt-3">
+        <table class="w-100">
+          <thead>
+            <tr class="preheader">
+              <th>--</th>
+              <th colspan="6" [translate]="'heatmap.trend_indic'">TREND INDICATORS</th>
+              <th colspan="7" [translate]="'heatmap.momentum_indic'">MOMENTUM INDICATORS</th>
+              <th colspan="3" [translate]="'heatmap.extreme_indic'">EXTREMES INDICATORS</th>
+            </tr>
+            <tr>
+              <th [translate]="'heatmap.tblth_instrument'">Instrument</th>
+              <th [translate]="'heatmap.tblth_trnds'">Trend</th>
+              <th>SMA(200)</th>
+              <th>SMA(100)</th>
+              <th>EMA55</th>
+              <th>MACD(0)</th>
+              <!-- <th>Kumo</th> -->
+              <th>LNR</th>
+              <!-- <th>Signal</th> -->
+              <th>MACD(S)</th>
+              <th>EMA20</th>
+              <th>RSI</th>
+              <th>IMI</th>
+              <th>ROC</th>
+              <th>CCI</th>
+              <th>STO</th>
+              <!-- <th>Signal</th> -->
+              <th>RSI</th>
+              <th>IMI</th>
+              <th>CCI</th>
+              <!-- <th>Signal</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ind of markIndList">
+              <td>{{ind.symbol}}</td>
+              <td><i *ngIf="ind.swingDir==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.swingDir==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.swingDir==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.sma200==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.sma200==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.sma200==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.sma100==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.sma100==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.sma100==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.ema55==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.ema55==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.ema55==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.macd==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.macd==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.macd==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <!-- <td><i class="bi bi-arrow-down-short text-red"></i></td> -->
+              <td><i *ngIf="ind.lnrr==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.lnrr==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.lnrr==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <!-- <td>Strongly Bearish</td> -->
+              <td><i *ngIf="ind.macdSma==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.macdSma==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.macdSma==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.ema20==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.ema20==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.ema20==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.rsiSma==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.rsiSma==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.rsiSma==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.imiSma==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.imiSma==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.imiSma==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.rocSma==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.rocSma==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.rocSma==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.cci==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.cci==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.cci==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.stoch==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.stoch==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.stoch==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <!-- <td>Bearish</td> -->
+              <td><i *ngIf="ind.rsiExt==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.rsiExt==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.rsiExt==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.imiExt==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.imiExt==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.imiExt==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i *ngIf="ind.cciExt==1" class="bi bi-arrow-up-short text-green"></i><i *ngIf="ind.cciExt==0" class="bi bi-arrow-right-short"></i><i *ngIf="ind.cciExt==-1" class="bi bi-arrow-down-short text-red"></i></td>
+              <!-- <td>Neutral</td> -->
+            </tr>
+
+            <!-- <tr>
+              <td>LTCUSDT</td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td>Strongly Bearish</td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-up-short text-green"></i></td>
+              <td>Bearish</td>
+              <td><i class="bi bi-arrow-right-short"></i></td>
+              <td><i class="bi bi-arrow-up-short text-green"></i></td>
+              <td><i class="bi bi-arrow-right-short"></i></td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td>LTCUSDT</td>
+              <td><i class="bi bi-arrow-down-short text-green"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-green"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-green"></i></td>
+              <td>Strongly Bearish</td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-green"></i></td>
+              <td><i class="bi bi-arrow-down-short text-green"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-down-short text-red"></i></td>
+              <td><i class="bi bi-arrow-up-short text-green"></i></td>
+              <td>Bearish</td>
+              <td><i class="bi bi-arrow-right-short"></i></td>
+              <td><i class="bi bi-arrow-up-short text-green"></i></td>
+              <td><i class="bi bi-arrow-right-short"></i></td>
+              <td>Neutral</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="heatmap3 mb-4">
+      <h1 class="text-center fw-600 pb-2" [translate]="'heatmap.bitcoin_indic'">Bitcoin Indicators Overview</h1>
+      <h2 class="text-center mb-3 bg-light" style="color:var(--theme-text);" [translate]="'heatmap.week_indic'">Weekly Indicators</h2>
+      <div class="row mx-0">
+        <!-- <h2 class="text-center mb-3 bg-light" style="color:var(--theme-text);" [translate]="'heatmap.chart_under'">Chart Under Process</h2> -->
+        <!-- <div class="col-md-4">
+          <div class="table-bx">
+            <table class="w-100">
+              <thead>
+                <tr class="preheader">
+                  <th colspan="7">TREND INDICATORS</th>
+                </tr>
+                <tr>
+                  <th>Trend</th>
+                  <th>SMA(200)</th>
+                  <th>SMA(100)</th>
+                  <th>EMA55</th>
+                  <th>MACD(0)</th>
+                  <th>Kumo</th>
+                  <th>LNR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i class="bi bi-arrow-up-short text-green"></i></td>
+                  <td><i class="bi bi-arrow-right-short"></i></td>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="table-bx">
+            <table class="w-100">
+              <thead>
+                <tr class="preheader">
+                  <th colspan="7">MOMENTUM INDICATORS</th>
+                </tr>
+                <tr>
+                  <th>MACD(S)</th>
+                  <th>EMA20</th>
+                  <th>RSI</th>
+                  <th>IMI</th>
+                  <th>ROC</th>
+                  <th>CCI</th>
+                  <th>STO</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                  <td><i class="bi bi-arrow-up-short text-green"></i></td>
+                  <td><i class="bi bi-arrow-right-short"></i></td>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                  <td><i class="bi bi-arrow-down-short text-red"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="table-bx">
+            <table class="w-100">
+              <thead>
+                <tr class="preheader">
+                  <th colspan="3">EXTREMES INDICATORS</th>
+                </tr>
+                <tr>
+                  <th>RSI</th>
+                  <th>IMI</th>
+                  <th>CCI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i class="bi bi-arrow-right-short"></i></td>
+                  <td><i class="bi bi-arrow-up-short text-green"></i></td>
+                  <td><i class="bi bi-arrow-right-short"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="heatmap4 pb-4">
+      <iframe src="assets/files/heatmap-tradingchart.html" frameborder="0" class="w-100" style="height:620px;"></iframe>
+    </div>
+</div>

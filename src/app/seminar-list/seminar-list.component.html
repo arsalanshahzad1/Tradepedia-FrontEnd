@@ -1,0 +1,104 @@
+<div id="seminar-list" class="d-flex bg-light">
+    <div class="col-bx1">
+        <div class="seminar-list1 p-3">
+            <div class="pb-3">
+                <h4 class="m-0 fw-600" style="font-size:19px;color:var(--theme-text);" [translate]="'seminar_list.page_tlt'">Topics</h4>
+            </div>
+            <div class="">
+                <ng-container *ngFor="let sem of seminarList;let ind=index;">
+                    <a matRipple class="seminarlist1-bx" (click)="gotoSeminardetails(sem)">
+                        <div class="img overflow-hidden d-flex align-items-start justify-content-center">
+                            <img src="{{sem.imgSrc}}" class="img-fluid">
+                        </div>
+                        <div class="content">
+                            <h4 class="mb-1 text-capitalize fw-600">{{sem.seminar_topic}}</h4>
+                            <p class="mb-1 text-capitalize fw-200"><i>{{sem.seminar_type}} ({{sem.seminar_location}})</i></p>
+                            <!-- <p class="m-0 text-secondary">{{sem.seminar_short_description}}</p> -->
+                            <div class="d-flex align-items-center flex-wrap lang pt-1">
+                                <span *ngFor="let lang of sem.langList">{{lang.lang_name}}</span>                            
+                            </div>
+                            <div class="d-flex align-items-center justify-content-end pt-2">
+                                <span class="duration fw-600 me-4">{{ 'seminar_list.duration' | translate }} {{sem.seminar_duration}}</span>
+                                <span class="price fw-600" *ngIf="sem.seminar_amount > 0">{{ 'seminar_list.fees' | translate }} {{currCode}} {{sem.seminar_amount | number}}</span>
+                                <span class="price fw-600" *ngIf="sem.seminar_amount == 0">{{ 'seminar_list.fees' | translate }} {{ 'seminar_list.free' | translate }}</span>
+                            </div>
+                        </div>
+                    </a>
+                </ng-container>                                
+            </div>
+        </div>
+    </div>
+    <div class="col-bx2" *ngIf="!seminarDets==false">
+        <div class="semi-dtls1 px-3 pt-3">
+            <div class="img d-flex align-items-center justify-content-center mb-3">
+                <img src="{{seminarDets.imgSrc}}" class="img-fluid w-100">
+            </div>
+            <h4 class="mb-1 text-capitalize fw-600">{{seminarDets.seminar_topic}}</h4>
+            <p class="mb-1 text-capitalize fw-200"><i>{{seminarDets.seminar_type}} ({{seminarDets.seminar_location}})</i></p>        
+            <p class="m-0 text-secondary">{{seminarDets.seminar_short_description}}</p>
+            <span *ngIf="seminarDets.seminar_type=='Group'" class="text-secondary d-block py-1"><b [translate]="'seminar_list.data_time'">Date & Time: </b><label class="fw-500 ms-1" style="color:#2da94f;">{{seminarDets.seminar_dateandtime}}</label></span>
+            <span *ngIf="seminarDets.seminar_location=='Venue'" class="text-secondary d-block py-1"><b [translate]="'seminar_list.place'">Place: </b><label class="fw-500 ms-1" style="color:#2da94f;">{{seminarDets.seminar_place}}</label></span>        
+            <span class="text-secondary d-block py-1"><b [translate]="'seminar_list.about_tutor'">About Tutor: </b><label class="fw-500 ms-1" style="color:#2da94f;">{{seminarDets.seminar_about_tutor}}</label></span>
+            <div class="d-flex align-items-center flex-wrap lang pt-1">
+                <span *ngFor="let lang of seminarDets.langList">{{lang.lang_name}}</span>                            
+            </div>
+            <div class="d-flex align-items-center justify-content-start pt-3">
+                <span class="duration fw-600 me-4">{{ 'seminar_list.duration' | translate }} {{seminarDets.seminar_duration}}</span>
+                <span class="price fw-600" *ngIf="seminarDets.seminar_amount > 0">{{ 'seminar_list.fees' | translate }} {{currCode}} {{seminarDets.seminar_amount | number}}</span>
+                <span class="price fw-600" *ngIf="seminarDets.seminar_amount == 0">{{ 'seminar_list.fees' | translate }} {{ 'seminar_list.free' | translate }}</span>
+            </div>
+        </div>
+        <div class="semi-dtls2 px-3" *ngIf="!seminarDets.bookDets==true">
+            <form [formGroup]="bookingForm" (ngSubmit)="gotoPaynowPopup()">    
+                <div class="frm-bx mb-4 pt-3">
+                    <span class="d-block pb-2 fw-bold" [translate]="'seminar_list.tlt_language'">Language</span>
+                    <mat-select class="p-3" style="color:var(--theme-text);" *ngIf="this.langLength > 1" formControlName="selectedLangCode" [ngClass]="{ 'is-invalid': submitted && valid.selectedLangCode.errors }">             
+                        <mat-option *ngFor="let lang of seminarDets.langList" value="{{lang.lang_code}}">
+                            <!-- {{lang.lang_name}} -->
+                            <span *ngIf="lang.lang_code=='EN'">{{ 'seminar_list.English' | translate }}</span>
+                            <span *ngIf="lang.lang_code=='AR'">{{ 'seminar_list.Arabic' | translate }}</span>
+                            <span *ngIf="lang.lang_code=='ES'">{{ 'seminar_list.Spanish' | translate }}</span>
+                            <span *ngIf="lang.lang_code=='PO'">{{ 'seminar_list.Portuguese' | translate }}</span>
+                        </mat-option>                                   
+                    </mat-select>
+                    <span *ngIf="this.langLength == 1" class="d-block pb-2 fw-bold">{{this.selectedLang}}</span>
+                    <div *ngIf="submitted && valid.selectedLangCode.errors" class="invalid-feedback">
+                        <div *ngIf="valid.selectedLangCode.errors.required" [translate]="'seminar_list.msg_language'">Please Select Language</div>				                            
+                    </div>
+                </div>
+                <p class="m-0 p-0">{{dateTime}}</p>
+                <mat-button-toggle-group formControlName="selectedDateTime" (click)="selectDT()" aria-label="Font Style" class="d-flex flex-wrap border-0 mt-3 mb-4">
+                    <mat-button-toggle *ngFor="let slot of seminarSlots" [value]="slot">{{slot.sslot_date2 | date:'dd/MM/yyyy':timeZone}} {{slot.sslot_date2 | date:'shortTime':timeZone}}</mat-button-toggle>                    
+                </mat-button-toggle-group>
+                <div class="frm-bx mb-4 pt-2 text-center">
+                    <button [translate]="'seminar_list.enroll_btn'">Enroll Now</button>
+                </div>
+            </form>
+        </div>
+        <div class="semi-dtls2 px-3" *ngIf="!seminarDets.bookDets==false">
+            <h4 class="mt-2 mb-1 text-capitalize fw-600 duration" style="text-align: center;"><span [translate]="'seminar_list.booked'">Already Enrolled</span></h4>
+            <span class="d-block py-1" style="color:var(--theme-text);"><b [translate]="'seminar_list.data_time'">Date & Time</b> : <label class="fw-500 ms-1" style="color:#2da94f;">{{seminarDets.bookDets.sembook_date | date:'dd/MM/yyyy'}} - {{seminarDets.bookDets.sembook_time}}</label></span>
+            <span class="d-block py-1" style="color:var(--theme-text);"><b [translate]="'seminar_list.tlt_language'">Language</b> : <label class="fw-500 ms-1" style="color:#2da94f;">{{seminarDets.bookDets.lang_name}}</label></span>                      
+            <div class="frm-bx mb-4 pt-4 text-center" *ngIf="seminarDets.seminar_location=='Webinar'">
+                <button type="button" (click)="goback()" [translate]="'seminar_list.goback'">Go Back</button>
+            </div>
+            <div class="frm-bx mb-4 pt-4 text-center" *ngIf="seminarDets.seminar_location!='Webinar'">
+                
+            </div>
+        </div>
+        <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+            <div class="signal-popup-bx text-center px-4 position-relative">
+                <div class="text-end">
+                    <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closePaynowpopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+                </div>
+                <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+                <h4 class="text-center">{{payMsg}}</h4>
+                <div class="d-flex align-items-center justify-content-center">
+                    <button class="border-0 bg-light me-2" (click)="closePaynowpopup()" style="color:var(--theme-text);" [translate]="'seminar_list.close_btn'">Close</button>
+                    <button *ngIf="payBtn==1" (click)="makeBooking()" class="border-0" [translate]="'seminar_list.paynow_btn'">Pay Now</button>
+                    <button *ngIf="payBtn==0" (click)="gotoAddMoney()" class="border-0" [translate]="'seminar_list.addmoney_btn'">Add Money</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

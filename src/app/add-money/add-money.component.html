@@ -1,0 +1,78 @@
+<div id="share-point" class="bg-light">
+    <!--<div class="share-pointbx p-5">
+        <div class="share-point1 d-flex align-items-center pb-1">            
+            <h5 class="m-0 ps-2 fw-600 pb-1" style="color:var(--theme-text);">Buy {{currCode}} Points</h5>
+        </div>
+        <div class="share-point1 d-flex align-items-center py-1">
+            <p class="m-0 ps-2 fw-400">If you want more {{currCode}} means you can pay and buy on hrer. 1 Doller = 1 {{currCode}} add equalant amount for buy.</p>
+        </div>
+        <div class="share-point2">
+            <div class="d-flex align-items-center justify-content-between position-relative">
+                <i class="bi bi-star-fill"></i>
+                <div>
+                    <h4>23 Points</h4>
+                    <span>Balance Points</span>
+                </div>
+                <img src="assets/images/tradepediam-coins.svg" class="img-fluid" style="width:50px;">
+            </div>
+        </div> 
+        <div class="share-point3 pt-4">
+            <div class="share-point3-bx">
+                <h4 class="fw-600 pb-3">Current Balance : <b>{{userPoints}} {{currCode}}</b></h4>
+                <h4 class="fw-600">Amount to Pay (In Dollars)</h4>
+                <input type="text" placeholder="Amount to Pay" [(ngModel)]="buyAmount" (blur)="setPoints()" class="w-100">                        
+                <div class="position-relative d-flex pt-4">
+                    <h6 style="color:var(--theme-text);">1 Doller = 1 {{currCode}}</h6>
+                </div>
+                <h4 class="fw-600 pt-2" *ngIf="receivePoints!=''">Receiving Points : {{receivePoints}} {{currCode}}</h4>
+                
+                <div class="text-center">
+                    <button type="button" (click)="buyPoints()" class="sbmt-btn border-0 text-white mt-3" [disabled]="btnStatus==0">Add Points</button>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <h4 class="tlt fw-600 mt-3 mb-4" [translate]="'add_money.page_tlt'">Tradepedium Buy Plan(s)</h4>
+    <div class="wallet2 mb-4 text-center">
+        <div class="flex align-items-center justify-content-between position-relative pt-1">
+            <div class="text-center">
+                <h4 [translate]="'add_money.xmacc_title'">Are you an XM Client?</h4>
+                <span [translate]="'add_money.xmacc_msg'">You could be eligible for complientary Tradepedium</span>
+            </div>            
+        </div>
+        <div class="flex align-items-center ad-btns pt-2 text-center">
+            <button class="border-0 fw-600" (click)="openXmPopup()" [translate]="'add_money.xmacc_regbtn'">Click to Register</button>
+        </div>
+    </div>
+    <div class="packageplan1 d-flex align-items-center justify-content-center flex-wrap">
+        <ng-container *ngIf="rcPlansList.length > 0">
+            <div class="packageplan1-bx text-center" *ngFor="let plan of rcPlansList;let ind=index;">
+                <span class="plan"><label  [translate]="'add_money.plan'">PLAN</label> {{ind+1}}</span>
+                <h6 class="mb-0 fw-600 pb-3 text-center">{{plan.plan_title}}</h6>
+                <!-- <p class="text-secondary">{{plan.price_description}}</p> -->
+                <!-- <span class="d-flex align-items-center"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-1" style="width:20px;"> ${{plan.rate}}</span>    -->
+                <span class="price text-center"><label>$</label>{{plan.plan_rate}}</span>
+                <p class=" text-center"><label  [translate]="'add_money.buy'">Buy</label> {{plan.plan_points}} {{currCode}}</p>
+                <button type="button" class="border-0 fw-600" (click)="makePayment(plan)" [disabled]="plan.showStatus==1" [translate]="'add_money.btn_buynow'">Buy Now</button>
+            </div>  
+        </ng-container>        
+    </div>
+    <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="msgPopup">
+        <div class="signal-popup-bx text-center px-2 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeMsgPopup()"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4 class="text-center" [translate]="'add_money.popupmsg'">Every 1st of the month you will be gifted Tradepedium based on  your net deposits 1 USD = 1 TRP</h4>
+            <label *ngIf="languageSelected!='AR'" [translate]="'tools.xmacc_lab'">XM Account No :</label>
+            <label *ngIf="languageSelected=='AR'" style="float: right;" [translate]="'tools.xmacc_lab'">XM Account No :</label>
+            <input type="text" placeholder="{{ 'tools.form_text' | translate }}" [(ngModel)]="xmacno" class="mx-auto mb-2">
+            <p class="text-center"><span [translate]="'tools.link1'">If you do not have an MT4/MT5 account yet,</span> <a (click)="openExternalLink(this.xmacurl)" style="color: #0d6efd;"><span [translate]="'tools.link2'">you can click here to open</span></a>.</p>
+            <div class="d-flex align-items-center justify-content-center">
+                <button class="border-0 bg-light ms-2 me-2" (click)="closeMsgPopup()" style="color:var(--theme-text);" [translate]="'tools.close_btn'">Close</button>
+                <button (click)="registerXmcode()" [disabled]="!xmacno" class="border-0" [translate]="'add_money.register'">Register</button>                
+            </div>
+        </div>
+    </div>
+</div>

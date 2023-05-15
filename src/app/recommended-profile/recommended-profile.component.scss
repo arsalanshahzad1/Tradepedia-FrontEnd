@@ -1,0 +1,155 @@
+#recommended-profile{
+    height: 100%;
+    .col-bx1,.col-bx2{
+        height: 100%;
+        width: 50%;
+        padding: 0px 20px 10px;
+        overflow-y: auto;
+    }
+    h3{
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #222;
+        padding-bottom: 15px;
+    }
+    .list-bx {
+        border-radius: 10px;
+        margin-bottom: 10px;
+        padding: 15px;
+        width: 100%;
+        background: var(--theme-background);
+        box-shadow: 0px 5px 10px rgba(0,0,0,0.10);
+        border: 1px solid rgba(0,0,0,0.04);
+        input[type="checkbox"]{
+            position: relative;
+            border: none;
+            margin-bottom: -4px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            margin-right: 10px;
+            &:after{
+                content: "";
+                display: block;
+                width: 18px;
+                height: 18px;
+                border: 1px solid #bbb;
+                border-radius: 5px;
+                -webkit-transition: 240ms;
+                transition: 240ms;
+            }
+            &:checked{
+                &:before{
+                    content: "";
+                    position: absolute;
+                    top: 2px;
+                    left: 6px;
+                    display: table;
+                    width: 6px;
+                    height: 12px;
+                    border: 2px solid #fff;
+                    border-top-width: 0;
+                    border-left-width: 0;
+                    -webkit-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                }
+                &:after{
+                    background: #1f6f22;
+                    border-color: #1f6f22;
+                    animation: 0.3s checkboxanimation;	
+                }
+            }
+        }
+        &.list-bx-active{
+            background: #1f6f22;
+            input[type="checkbox"]{
+                &:after{
+                    border: 1px solid #fff;	
+                }
+                &:checked{
+                    &:before{
+                        border-color: #3f6dc5;
+                    }
+                    &:after{
+                        background: #fff;	
+                    }
+                }
+            }
+            h1, a{
+                color: #fff!important;
+            }
+            .signal-data-tbl{
+                background: #fff;
+            }
+        }
+        h2 {
+            font-size: 17px;
+            font-weight: 700;
+        }
+        .img-bx{
+            img {
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                margin: 0px 6px;
+            }
+            h1 {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #1f6f22;
+                margin: 0px;
+            }
+            span {
+                font-size: 1.2rem;
+                padding-left: 20px;
+            }
+        }
+        .amunt-splt {
+            padding: 15px 0px 0px 0px;
+            span {
+                font-size: 11px;
+                color: #1f6f22;
+                display: block;
+                padding-bottom: 5px;
+            }
+            h6 {
+                font-size: 17px;
+                color: #222;
+            }
+        }
+        .list-bx-inr{
+            height: 0px;
+            overflow: hidden;
+            .chart-pge-bx3{
+                table{
+                    margin-top: 15px;
+                    border-radius: 15px;
+                    overflow: hidden;
+                    tr{
+                        td{
+                            color:var(--theme-text);
+                            padding: 0.7rem 1rem;
+                            border: none;
+                            &:last-child {
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+            }
+            &.show{
+                height: auto;
+                animation: 0.3s singletableshow;
+            }
+            @keyframes singletableshow{
+                0%{
+                    transform: translateY(30px);
+                }
+                100%{
+                    transform: translateY(0px);
+                }
+            }
+        }
+    }
+}

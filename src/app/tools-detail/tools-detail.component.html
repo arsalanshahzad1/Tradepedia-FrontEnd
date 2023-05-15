@@ -1,0 +1,45 @@
+<div id="tool-details">
+    <div class="tool-details2 px-3 pt-1">
+        <iframe [src]="toolsDets.videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="tool-details1 px-3 pt-4 pb-2">
+        <h5 class="fw-600 mb-1">{{toolsDets.tools_title}}</h5>
+        <div class="content" [innerHTML]="toolsDets.tools_description"></div>
+        <!-- <p class="fw-normal">Identifying the trend is half the story, the other half is its clarity, its strength and breadth. In order to measure speed and how the market is moving we use Avramis Rivers. By combining moving averages, volatility and market sentiment we can determine by observing angle, separation and price in relation to them, speed and clarity of a trend.</p>
+        <ul class="p-0 pt-4">
+            <li class="d-flex"><i class="bi bi-check-circle-fill me-2"></i> Identify the correct tops and bottoms in Real time</li>
+            <li class="d-flex"><i class="bi bi-check-circle-fill me-2"></i> Trade reliable price reversals in all timeframes</li>
+            <li class="d-flex"><i class="bi bi-check-circle-fill me-2"></i> No customization, no repainting, automatic across timeframes</li>
+        </ul> -->
+    </div>   
+    <a *ngIf="toolsPayStatus==1" [href]="toolsDets.tools_download_link" class="download-btn d-flex align-items-center border-0 position-relative">
+        <img src="assets/images/exe-file.svg" class="img-fluid">
+        <div class="text-start ps-3">
+            <h6 class="text-white fw-600">{{toolsDets.tools_download_name}}</h6>
+            <span>File Size: {{toolsDets.tools_download_size}}</span>
+        </div>
+        <i class="bi bi-download text-white"></i>
+    </a>
+
+    <a *ngIf="toolsPayStatus==0" (click)="gotoPaynowPopup()" class="download-btn d-flex align-items-center border-0 position-relative">
+        <img src="assets/images/tradepediam-coin.svg" class="img-fluid" style="filter: none;">
+        <div class="text-start ps-3">
+            <h6 class="text-white fw-600">Buy Now</h6>
+            <span>{{currCode}} {{toolsDets.tools_price}} Points</span>
+        </div>        
+    </a>
+    <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+        <div class="signal-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closePaynowpopup()"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4 class="text-center">{{payMsg}}</h4>
+            <div class="d-flex align-items-center">
+                <button class="border-0 bg-light text-dark me-2" (click)="closePaynowpopup()">Close</button>
+                <button *ngIf="payBtn==1" (click)="buyUserTools()" class="border-0">Pay Now</button>
+                <button *ngIf="payBtn==0" (click)="gotoAddMoney()" class="border-0">Add Money</button>
+            </div>
+        </div>
+    </div>
+</div>

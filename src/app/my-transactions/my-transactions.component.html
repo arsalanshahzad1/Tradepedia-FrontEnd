@@ -1,0 +1,241 @@
+<div id="my-transaction">    
+    <div class="mb-2">        
+
+        <div class="mb-3 d-flex align-items-center justify-content-between">
+            <h4 class="fw-600" style="color:var(--theme-text);" [translate]="'my_transaction.tlt_transsummary'">Transaction Summary</h4>
+            <a class="btn-warning sbmt-link border-0 px-4" (click)="gotoWallet(1)" [translate]="'wallet.goto_wallet'">Goto Wallet</a>
+        </div>
+    </div>
+    <div style="column-count:1;">
+        <div class="my-transaction1 pt-2">
+            <div class="mb-2">
+                <h4 class="fw-600" [translate]="'my_transaction.tlt_quiztradepedium'">Quiz Tradepedium</h4>
+            </div>
+            <div class="my-transaction1-bx">
+                <div class="row mx-0" *ngIf="quizList.length > 0">
+                    <div class="col-md-4 px-0" *ngFor="let log of quizList;let ind=index;">
+                        <div class="list-bx d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                            </div>
+                            <h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points | number}} <sub>{{currCode}}</sub></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-0" *ngIf="quizList.length == 0">
+                    <div class="col-md-12 px-0">
+                        <h6 class="text-center mt-3 mb-3 fw-600" style="color:#fff;" [translate]="'my_transaction.msg_noquiz'">No Quiz Tradepedium</h6>
+                    </div>
+                </div>
+                <!-- <table class="w-100">
+                    <tbody *ngIf="quizList.length > 0">
+                        <ng-container *ngFor="let log of quizList;let ind=index;">
+                            <tr>
+                                <td>                                    
+                                    <div>
+                                        <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                        <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                                    </div>
+                                </td>
+                                <td><h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points}} <sub>{{currCode}}</sub></h6></td>                                
+                            </tr>
+                        </ng-container>                       
+                    </tbody>
+                    <tbody *ngIf="quizList.length == 0">
+                        <tr>
+                            <td colspan="2"><h6 class="d-flex align-items-center" [translate]="'my_transaction.msg_noquiz'">No Quiz Tradepedium</h6></td>                        
+                        </tr>                    
+                    </tbody>
+                </table> -->
+            </div>
+        </div>
+        <div class="my-transaction1 pt-4">
+            <div class="mb-2">
+                <h4 class="fw-600" [translate]="'my_transaction.tlt_gifttradepedium'">Admin Gifted Tradepedium</h4>
+            </div>
+            <div class="my-transaction1-bx">
+                <div class="row mx-0" *ngIf="giftList.length > 0">
+                    <div class="col-md-4 px-0" *ngFor="let log of giftList;let ind=index;">
+                        <div class="list-bx d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                            </div>
+                            <h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points | number}} <sub>{{currCode}}</sub></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-0" *ngIf="giftList.length == 0">
+                    <div class="col-md-12 px-0">
+                        <h6 class="text-center mt-3 mb-3 fw-600" style="color:#fff;" [translate]="'my_transaction.msg_nogift'">No Gifted Tradepedium</h6>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="my-transaction1 pt-4">
+            <div class="mb-2">
+                <h4 class="fw-600" [translate]="'my_transaction.tlt_refertradepedium'">Referral Tradepedium</h4>
+            </div>
+            <div class="my-transaction1-bx">
+                <div class="row mx-0" *ngIf="referArr.length > 0">
+                    <div class="col-md-4 px-0" *ngFor="let log of referArr;let ind=index;">
+                        <div class="list-bx d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                            </div>
+                            <h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points | number}} <sub>{{currCode}}</sub></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-0" *ngIf="referArr.length == 0">
+                    <div class="col-md-12 px-0">
+                        <h6 class="text-center mt-3 mb-3 fw-600" style="color:#fff;" [translate]="'my_transaction.msg_norefer'">No Referral(s) Tradepedium</h6>
+                    </div>
+                </div>
+                <!-- <table class="w-100">
+                    <tbody *ngIf="referArr.length > 0">
+                        <tr *ngFor="let log of referArr">
+                            <td>
+                                <div>
+                                    <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                    <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                                </div>
+                            </td>
+                            <td><h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points}} <sub>{{currCode}}</sub></h6></td>
+                        </tr>                        
+                    </tbody>
+                    <tbody *ngIf="referArr.length == 0">
+                        <tr>
+                            <td colspan="2"><h6 class="d-flex align-items-center" [translate]="'my_transaction.msg_norefer'">No Referral(s) Tradepedium</h6></td>                        
+                        </tr>                    
+                    </tbody>
+                </table> -->
+            </div>
+        </div>
+        <div class="my-transaction1 pt-4">
+            <div class="mb-2">
+                <h4 class="fw-600" [translate]="'my_transaction.tlt_sharetradepedium'">Sharing Tradepedium</h4>
+            </div>
+            <div class="my-transaction1-bx">
+                <div class="row mx-0" *ngIf="tnxList.length > 0">
+                    <div class="col-md-4 px-0" *ngFor="let log of tnxList;let ind=index;">
+                        <div class="list-bx d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                            </div>
+                            <h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points | number}} <sub>{{currCode}}</sub></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-0" *ngIf="tnxList.length == 0">
+                    <div class="col-md-12 px-0">
+                        <h6 class="text-center mt-3 mb-3 fw-600" style="color:#fff;" [translate]="'my_transaction.msg_notransc'">No Transaction(s) Tradepedium</h6>
+                    </div>
+                </div>
+                <!-- <table class="w-100">
+                    <tbody *ngIf="tnxList.length > 0">
+                        <tr *ngFor="let log of tnxList">
+                            <td>
+                                <div>
+                                    <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                    <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                                </div>
+                            </td>
+                            <td><h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points}} <sub>{{currCode}}</sub></h6></td>
+                        </tr>                       
+                    </tbody>
+                    <tbody *ngIf="tnxList.length == 0">
+                        <tr>
+                            <td colspan="2"><h6 class="d-flex align-items-center" [translate]="'my_transaction.msg_notransc'">No Transaction(s) Tradepedium</h6></td>                        
+                        </tr>                    
+                    </tbody>
+                </table> -->
+            </div>
+        </div>
+        <div class="my-transaction1 pt-4">
+            <div class="mb-2">
+                <h4 class="fw-600" [translate]="'my_transaction.tlt_purchasetradepedium'">Purchased Tradepedium</h4>
+            </div>
+            <div class="my-transaction1-bx">
+                <div class="row mx-0" *ngIf="buyList.length > 0">
+                    <div class="col-md-4 px-0" *ngFor="let log of buyList;let ind=index;">
+                        <div class="list-bx d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                            </div>
+                            <h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points | number}} <sub>{{currCode}}</sub></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-0" *ngIf="buyList.length == 0">
+                    <div class="col-md-12 px-0">
+                        <h6 class="text-center mt-3 mb-3 fw-600" style="color:#fff;" [translate]="'my_transaction.msg_notradepedium'">No Tradepedium Purchased</h6>
+                    </div>
+                </div>
+                <!-- <table class="w-100">
+                    <tbody *ngIf="buyList.length > 0">
+                        <tr *ngFor="let log of buyList">
+                            <td>
+                                <div>
+                                    <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                    <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                                </div>
+                            </td>
+                            <td><h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points}} <sub>{{currCode}}</sub></h6></td>
+                        </tr>                        
+                    </tbody>
+                    <tbody *ngIf="buyList.length == 0">
+                        <tr>
+                            <td colspan="2"><h6 class="d-flex align-items-center" [translate]="'my_transaction.msg_notradepedium'">No Tradepedium Purchased</h6></td>                        
+                        </tr>                    
+                    </tbody>
+                </table> -->
+            </div>
+        </div>
+        <div class="my-transaction1 pt-4 pb-4">
+            <div class="mb-2">
+                <h4 class="fw-600" [translate]="'my_transaction.tlt_usedtradepedium'">Used Tradepedium</h4>
+            </div>
+            <div class="my-transaction1-bx">
+                <div class="row mx-0" *ngIf="purList.length > 0">
+                    <div class="col-md-4 px-0" *ngFor="let log of purList;let ind=index;">
+                        <div class="list-bx d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                            </div>
+                            <h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points | number}} <sub>{{currCode}}</sub></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-0" *ngIf="purList.length == 0">
+                    <div class="col-md-12 px-0">
+                        <h6 class="text-center mt-3 mb-3 fw-600" style="color:#fff;" [translate]="'my_transaction.msg_notradepurchase'">No Tradepedium Used</h6>
+                    </div>
+                </div>
+                <!-- <table class="w-100">
+                    <tbody *ngIf="purList.length > 0">
+                        <tr *ngFor="let log of purList">
+                            <td>
+                                <div>
+                                    <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                    <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                                </div>
+                            </td>
+                            <td><h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points}} <sub>{{currCode}}</sub></h6></td>
+                        </tr>                        
+                    </tbody>
+                    <tbody *ngIf="purList.length == 0">
+                        <tr>
+                            <td colspan="2"><h6 class="d-flex align-items-center" [translate]="'my_transaction.msg_notradepurchase'">No Tradepedium Used</h6></td>                        
+                        </tr>                    
+                    </tbody>
+                </table> -->
+            </div>
+        </div>
+    </div>
+</div>

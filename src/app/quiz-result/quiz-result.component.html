@@ -1,0 +1,81 @@
+<div id="quiz-result">    
+    <div class="quiz-result quiz-result1 position-relative mx-auto" *ngIf="resultID!=''">
+        <div class="px-4 pt-5 pb-4 text-center">
+            <div class="ribbon position-relative text-center">
+                <div class="rating-bx d-flex justify-content-center w-100">
+                    <span [class.active] = "resultDets.stars >= 1"><i class="bi bi-star-fill"></i></span>                   
+                    <span [class.active] = "resultDets.stars >= 2"><i class="bi bi-star-fill"></i></span>                   
+                    <span [class.active] = "resultDets.stars == 3"><i class="bi bi-star-fill"></i></span>                   
+                </div>
+                <img src="assets/images/quiz/ribbon.png" class="img-fluid" style="width:70%;">
+                <div class="text-center mt-1 mb-4">
+                    <img src="assets/images/quiz/success.png" class="img-fluid" style="width:40%;">
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center justify-content-start pt-2 pb-4 mb-2 earn-point w-50" *ngIf="resultDets.points>0">
+                        <img src="assets/images/tradepediam-coin.svg" class="img-fluid">
+                        <div class="ps-2">
+                            <span class="d-block tlt" [translate]="'quiz_result.earned'">Earned</span>
+                            <span class="d-block fw-600 point">{{resultDets.points}} <sub>{{currCode}}</sub></span>
+                        </div>                    
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end pt-2 pb-4 mb-2 earn-point w-50 position-relative ps-4" *ngIf="resultDets.points>0">
+                        <img src="assets/images/tradepediam-coins.svg" class="img-fluid" style="width:40px;">
+                        <div class="ps-2">
+                            <span class="d-block tlt" [translate]="'quiz_result.total'">Total</span>
+                            <span class="d-block fw-600 point">{{userPoints}} <sub>{{currCode}}</sub></span>
+                        </div>                    
+                    </div>
+                </div>
+                <!-- <h5 class="m-0 position-absolute start-0 end-0 text-center text-white fw-600">Congratulations</h5> -->
+            </div>
+            <!-- <h4 class="mb-2 text-capitalize fw-600" style="text-align: center;">{{resultDets.cresult_total_stars}} Stars</h4> -->
+            <h5 class="m-0 text-center fw-600 pt-1 pb-4" style="color:#4ca12c;" [translate]="'quiz_result.quiz_completed'">Quiz Completed Successfully</h5>
+            <!-- <div class="d-flex align-items-center justify-content-center pt-2 pb-4 mb-2 earn-point" *ngIf="resultDets.points>0">
+                <img src="assets/images/tradepediam-coin.svg" class="img-fluid">
+                <div class="ps-2">
+                    <span class="d-block tlt">Total</span>
+                    <span class="d-block fw-600 point">{{userPoints}} <sub>Points</sub></span>
+                </div>                    
+            </div> -->
+            <!-- <h6 class="m-0 text-center fw-600 pt-4">Your Total Points : {{userPoints}}</h6> -->
+            <!-- <button (click)="gotoChapter()" class="text-white mt-2 fw-600 px-5">{{ 'quiz_result.next' | translate }} {{this.type}}</button> -->
+            <button *ngIf="this.type!='Extra' && btnLab!=''" (click)="gotoChapter()" class="text-white mt-2 fw-600 px-5">{{this.btnLab}}</button>
+            <button *ngIf="this.type=='Extra'" (click)="gotoChapter()" class="w-100 text-white mt-2 fw-600" [translate]="'quiz_result.go_back'">Go Back</button>
+            <!-- <button *ngIf="resultID==''" (click)="retakeQuiz()" class="w-100 text-white mt-5 fw-600">Retry Quiz</button> -->
+        </div>
+        <div class="clr-paper position-absolute top-0 end-0 bottom-0 start-0">
+            <img src="assets/images/quiz/color-paper.gif" class="img-fluid">
+            <img src="assets/images/quiz/color-paper.gif" class="img-fluid">
+            <img src="assets/images/quiz/color-paper.gif" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="quiz-result text-center px-4 pt-5 " *ngIf="resultID==''">
+        <div class="text-center mb-3">
+            <img src="assets/images/fail.png" class="img-fluid" style="width:250px;">
+        </div>
+        <h4 class="m-0 pt-3 fw-600 text-center" style="color:#e12a02;" [translate]="'quiz_result.oops'">Oop..!</h4>
+        <!-- <h4 class="mb-2 text-capitalize fw-600" style="text-align: center;">{{resultDets.cresult_total_stars}} Stars</h4> -->
+        <h5 class="m-0 text-center fw-600 pt-3" style="color:var(--theme-text);" [translate]="'quiz_result.not_pass'">You Did Not Pass Quiz</h5>
+        <button *ngIf="resultID!=''" (click)="gotoHome()" class="text-white mt-5 fw-600 px-5 mx-2" [translate]="'quiz_result.goto_home'">Goto Home</button>
+        <button *ngIf="resultID=='' && this.type=='Chapter'" (click)="goBack()" class="text-white mt-5 fw-600 px-5 mx-2" [translate]="'quiz_result.watch_again1'">Read Chapter Again</button>
+        <button *ngIf="resultID=='' && this.type!='Chapter'" (click)="goBack()" class="text-white mt-5 fw-600 px-5 mx-2" [translate]="'quiz_result.watch_again2'">Watch Video Again</button>
+        <button *ngIf="resultID==''" (click)="retakeQuiz()" class="text-white mt-5 fw-600 px-5 mx-2" [translate]="'quiz_result.retake_quiz'">Retake Quiz</button>
+        <!-- <button (click)="gotoChapter()" class="w-100 text-white mt-5 fw-600">Goto Chapters</button> -->
+    </div>
+
+    <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+        <div class="alert-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="{{alertPopupImg}}" class="img-fluid" alt="">
+            <h4 class="text-center">{{alertPopupTitle}}</h4>  
+            <p class="text-center">{{alertPopupMsg}}</p>  
+            <!-- <div class="d-flex align-items-center justify-content-center" *ngIf="showBtn==1">                
+                <button (click)="resendMail()" class="border-0" [translate]="'login.resend'">Resend Mail</button>                
+            </div>           -->
+        </div>
+    </div>
+</div>

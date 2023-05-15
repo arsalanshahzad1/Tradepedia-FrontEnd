@@ -1,0 +1,196 @@
+#chapter-details{
+    padding: 0px 0px 70px;
+    min-height: calc(90vh);
+    .banner{
+        border-radius: 20px;
+        width: 92%;
+        .banner-box{
+            position: absolute;
+            top: 50%;
+            right: 0px;
+            left: 0px;
+            transform: translateY(-50%);
+            .book-img{
+                width: 100px;
+            }
+            .banner-cnct{
+                h1 {
+                    font-size: 4.2vmin;
+                }
+                p {
+                    font-size: 3.3vmin;
+                    line-height: 15px;
+                }
+            }
+            .dtls{
+                min-width: 55px;
+                max-width: 55px;
+                .stars{
+                    i{
+                        color: #feca58;
+                        margin: 0px 1px;
+                        font-size: 11px;
+                    }
+                }
+                .chapter{
+                    mat-progress-spinner{
+                        width: 40px!important;
+                        height: 40px!important;
+                        margin: 0 auto;
+                    }
+                    span{
+                        font-size: 13px;
+                        font-weight: 500;
+                        position: absolute;
+                        top: 36%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        display: inline-block;
+                        color: #fff;
+                    }
+                    h6{
+                        font-size: 11px;
+                        color: #fff;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+    .chapter2{
+        h5{
+            font-size: 17px;
+            color: var(--theme-text);
+        }
+        p{
+            font-size: 14px;
+            color: #777;
+            line-height: 18px;
+        }
+        span{
+            color: #777;
+            font-size: 13px;
+            label{
+                color: #ea4335;
+                font-weight: 500;
+                margin-left: 3px;
+            }
+        }
+        .page{
+            font-size: 12px;
+            color: #ea6735;
+        }
+        .time{
+            font-size: 12px;
+            color: #2da94f;
+        }
+    }
+    .chapter3{
+        pdf-viewer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(5px 5px 5px #222222);
+        }
+       
+        .chptr3-bx{
+            display: block;
+            padding: 8px 13px 9px;
+            background: #fff;
+            box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            margin-bottom: 12px;
+            p{
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 19px;
+                text-transform: capitalize;
+                display: flex;
+            }
+            .dtls{
+                min-width: 53px;
+                margin-left: 5px;
+                .stars{
+                    i{
+                        color: #feca58;
+                        margin: 0px 1px;
+                        font-size: 11px;
+                    }
+                }
+                .circle{
+                    width: 25px;
+                    height: 25px;
+                    border: 2px solid #000;
+                    border-radius: 50%;
+                    i{
+                        font-size: 11px;
+                        line-height: 0px;
+                    }
+                }
+                h6{
+                    font-size: 11px;
+                    color: #111;
+                    font-weight: 600;
+                }
+            }
+            &.disable{
+                position: relative;
+                h6,p,span{
+                    color: #999!important;
+                }
+                .tooltp{
+                    display: none;
+                    z-index: 1;
+                    border-radius: 20px;
+                    border: 2px solid #e1e1e1;
+                    margin: 10px auto;
+                    width: 70%;
+                    animation: 0.5s baloon-anim;
+                    &:before{
+                        content: "";
+                        position: absolute;
+                        top: -10px;
+                        left: 50%;
+                        transform: translateX(-50%) rotate(45deg);
+                        height: 20px;
+                        width: 20px;
+                        background: #f0f1f2;
+                        border-left: 2px solid #e1e1e1;
+                        border-top: 2px solid #e1e1e1;
+                        border-radius: 5px;
+                    }
+                    span{
+                        background: #e1e1e1;
+                    }
+                }
+                &:hover{
+                    overflow: inherit;
+                    .tooltp{
+                        display: block;
+                    }
+                }
+            }
+        }
+        #scaled-frame{
+            width: 95%;
+        }
+    }
+    @keyframes baloon-anim {
+        0%{
+            transform: scale(0);
+        }
+        25%{
+            transform: scale(1.3);
+        }
+        50%{
+            transform: scale(0.8);
+        }
+        75%{
+            transform: scale(1.2);
+        }
+        75%{
+            transform: scale(1);
+        }
+    }
+}

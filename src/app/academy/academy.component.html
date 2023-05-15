@@ -1,0 +1,66 @@
+<div id="academy" class="bg-light">
+	<div class="p-3 pt-4" style="background:var(--theme-gradient);">
+		<swiper
+			[effect]="'fade'"
+			[pagination]="{
+			dynamicBullets: true
+			}"
+			class="mySwiper mySwiper2"
+		>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/ebook.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">Ebook</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/video-guide.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">Video Guides</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/home-study.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">Avramis Swing Masterclass</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/seminar.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">Seminar</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+		</swiper>
+	</div>
+	<div class="academy1 d-flex justify-content-between flex-wrap p-3">
+		<a routerLink="/academy/ebooks" class="academy1-bx text-center p-4 mb-3">
+            <img src="assets/images/home/ebook.svg">
+			<h6 class="pt-3">Ebooks</h6>
+		</a>
+		<a routerLink="/academy/video-chapter-list" class="academy1-bx text-center p-4 mb-3">
+            <img src="assets/images/home/video.svg">
+			<h6 class="pt-3">Video Guides</h6>
+		</a>
+		<a routerLink="/academy/hsc-chapter-list" class="academy1-bx text-center p-4 mb-3">
+            <img src="assets/images/home/course.svg">
+			<h6 class="pt-3">Avramis Swing Masterclass</h6>
+		</a>
+		<a routerLink="/academy/seminar-list" class="academy1-bx text-center p-4 mb-3">
+            <img src="assets/images/home/seminar.svg">
+			<h6 class="pt-3">Seminars</h6>
+		</a>
+	</div>
+</div>

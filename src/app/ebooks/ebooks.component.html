@@ -1,0 +1,145 @@
+<div id="ebook" class="d-flex bg-light">
+    <div class="col-bx1" [ngStyle]="{'width': listWidth ? '0%' : '40%'}">
+        <!-- <div class="banner position-relative mx-auto overflow-hidden">
+            <img src="assets/images/banner/ebook.jpg" class="img-fluid w-100 h-100">
+            <div class="banner-cnct">
+                <h1 class="text-white fw-normal">Ebooks</h1>
+                <p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+            </div>
+        </div> -->
+        <div class="ebook1">
+            <div class="px-3 py-4">
+                <h4 class="m-0 fw-600" style="font-size:19px;color:var(--theme-text);" [translate]="'ebook.page_tlt'">Trending Books</h4>
+            </div>
+            <div class="px-3">
+                <ng-container *ngFor="let book of ebooklist;let ind=index;">
+                    <!-- <a *ngIf="ind <= this.chapterCompleted" class="ebook1-bx" [ngStyle]="{'background-color': book.ebook_bg_color}">[ngStyle]="{'background-color': book.ebook_bg_color}" -->
+                    <a class="ebook1-bx" [ngStyle]="{'background-color': book.ebook_bg_color}"><!--[ngStyle]="{'background-color': book.ebook_bg_color}"-->
+                        <div matRipple class="accr-btn" (click)="gotoChapter(book)">
+                            <div class="img overflow-hidden d-flex align-items-center justify-content-center">
+                                <img src="{{book.imgSrc}}" class="img-fluid">
+                            </div>
+                            <div class="content">
+                                <h4 class="mb-1 text-capitalize fw-600">{{book.ebook_title}}</h4>
+                                <h5 class="mb-1 fw-normal"><span class="me-2" style="opacity:0.7;color:var(--theme-text);" [translate]="'ebook.left_by'">By</span> <span>{{book.ebook_author}}</span></h5>
+                                <p class="m-0">{{book.ebook_description}}</p>
+                            </div>
+                            <div *ngIf="book.stars==0" class="dtls">
+                                <div class="stars mb-2 d-flex justify-content-center">
+                                    <!-- <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i> -->
+                                </div>
+                                <div class="chapter position-relative">
+                                    <mat-progress-spinner strokeWidth="5" [mode]="mode" [value]="book.value"></mat-progress-spinner>
+                                    <span>{{book.completedChapters}}/{{book.ebook_noof_chapters}}</span>
+                                    <h6 class="m-0 pt-1 text-center" [translate]="'ebook.left_chapter'">Chapters</h6>
+                                </div>
+                            </div>
+                            <div *ngIf="book.stars>0" class="dtls">
+                                <div *ngIf="book.stars==1" class="stars mb-2 d-flex justify-content-center">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                </div>
+                                <div *ngIf="book.stars==2" class="stars mb-2 d-flex justify-content-center">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                </div>
+                                <div *ngIf="book.stars==3" class="stars mb-2 d-flex justify-content-center">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <div class="chapter position-relative">
+                                    <mat-progress-spinner strokeWidth="5" [mode]="mode" [value]="book.value"></mat-progress-spinner>
+                                    <span>{{book.completedChapters}}/{{book.ebook_noof_chapters}}</span>
+                                    <h6 class="m-0 pt-1 text-center" [translate]="'ebook.left_chapter'">Chapters</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div [@slideUpDown] class="accr-body" *ngIf="book.showchplist==1">
+                            <ng-container *ngFor="let chp of book.chapterList;let ind=index;">
+                                <a *ngIf="ind <= book.chapterList.length" class="chptr3-bx d-flex align-items-center justify-content-between disable" (click)="chp.show===1 ? showChapterDets(chp) : disableChapter(chp.chapter_id)">                                                                     
+                                    <div>
+                                        <p><span class="me-1">{{ind}}.</span>{{chp.chapter_title}}</p>
+                                        <div class="d-flex align-items-center pt-1">
+                                            <span class="page me-3 fw-500" *ngIf="chp.chapter_noof_pages > 0"><i class="bi bi-journal-text me-1"></i> {{chp.chapter_noof_pages}} {{ 'ebook.left_pages' | translate }}</span>
+                                            <span class="time" *ngIf="chp.chapter_reading_time != 0"><i class="bi bi-clock me-1"></i> {{chp.chapter_reading_time}} {{ 'ebook.left_mins' | translate }}</span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="chp.show==1 && chp.chapter_quiz_code!=0 && chp.stars==0" class="dtls text-center" (click)="gotoQuiz(chp)">
+                                        <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                                            <i class="bi bi-book-half"></i>
+                                        </div>
+                                        <h6 class="m-0 pt-1 text-center" [translate]="'ebook.start_test'">Start Test</h6>
+                                    </div>
+                                    <div *ngIf="chp.show == 1 && chp.chapter_quiz_code != 0 && chp.stars > 0" class="dtls text-center" (click)="gotoQuiz(chp)">
+                                        <div *ngIf="chp.stars==1" class="stars mb-2 d-flex justify-content-center">
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                        </div>
+                                        <div *ngIf="chp.stars==2" class="stars mb-2 d-flex justify-content-center">
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                        </div>
+                                        <div *ngIf="chp.stars==3" class="stars mb-2 d-flex justify-content-center">
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        </div>
+                                        <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                                            <i class="bi bi-check-lg"></i>
+                                        </div>
+                                        <h6 class="m-0 pt-1 text-center">{{chp.stars}} {{ 'ebook.rating_Stars' | translate }}</h6>
+                                    </div>
+                                    <div *ngIf="chp.show != 1">
+                                        <div class="dtls text-center">
+                                            <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#db3d3a;color:#db3d3a;">
+                                                <i class="bi bi-lock-fill"></i>
+                                            </div>
+                                            <h6 class="m-0 pt-1 text-center" [translate]="'ebook.locked_tlt'">Locked</h6>
+                                        </div>
+                                        <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto p-3 text-center" *ngIf="visibleIndex2 === chp.chapter_id">
+                                            <i class="bi bi-x"></i>
+                                            <p [translate]="'ebook.locked_desc'" class="text-center">Get atleast 1 star in all above chapter to unlock this!</p>
+                                            <span class="py-2 rounded d-inline-block w-100 mt-2 text-center" [translate]="'ebook.locked_btn'">LOCKED</span>
+                                        </div>
+                                    </div>
+                                </a>                            
+                            </ng-container>
+                        </div>
+                    </a>
+                    <!-- <a *ngIf="ind > this.chapterCompleted" class="ebook1-bx" (click)="disableEbook(book.ebook_id)" [ngStyle]="{'background-color': book.ebook_bg_color}">
+                        <div class="accr-btn disable">
+                            <div class="img overflow-hidden">
+                                <img src="{{book.imgSrc}}" class="img-fluid">
+                            </div>
+                            <div class="content">
+                                <h4 class="mb-1 text-capitalize fw-600">{{book.ebook_title}}</h4>
+                                <h5 class="mb-1 fw-normal"><span class="me-2" style="opacity:0.7;color:var(--theme-text);" [translate]="'ebook.left_by'">By</span> <span>{{book.ebook_author}}</span></h5>
+                                <p class="m-0">{{book.ebook_description}}</p>
+                            </div>
+                            <div class="dtls d-flex align-items-center justify-content-center">
+                                <div class="chapter text-center">
+                                    <i class="bi bi-lock-fill fs-4" style="color:#db3d3a;"></i>
+                                    <h6 class="m-0 pt-1 text-center" [translate]="'ebook.locked_tlt'">Locked</h6>
+                                </div>
+                            </div>
+                            <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto p-3 text-center" *ngIf="visibleIndex === book.ebook_id">
+                                <i class="bi bi-x"></i>
+                                <p [translate]="'ebook.locked_chapterdesc'" class="text-center">Get atleast 1 star in all above Ebook to unlock this!</p>
+                                <span class="py-2 rounded d-inline-block w-100 mt-2 text-center" [translate]="'ebook.locked_btn'">LOCKED</span>
+                            </div>
+                        </div>
+                    </a> -->
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="col-bx2" [ngStyle]="{'width': pdfWidth ? '100%' : '60%'}">
+        <div class="chapter2 px-3 pt-4 pb-2 align-items-center justify-content-between">
+            <div>
+                <h5 class="fw-600 mb-1">{{chapterDets.chapter_title}}</h5>
+                <div class="d-flex align-items-center pt-1">
+                    <span class="page me-3 fw-500" *ngIf="chapterDets.chapter_noof_pages > 0"><i class="bi bi-journal-text me-1"></i> {{chapterDets.chapter_noof_pages}} {{ 'ebook.left_pages' | translate }}</span>
+                    <span class="time" *ngIf="chapterDets.chapter_reading_time != 0"><i class="bi bi-clock me-1"></i> {{chapterDets.chapter_reading_time}} {{ 'ebook.left_mins' | translate }}</span>
+                </div>
+            </div>
+            <button mat-raised-button class="shadow-none fs-5 p-0" (click)="fullscreenBtn()"><i [ngClass]="pdfWidth ? 'bi bi-fullscreen-exit' : 'bi bi-fullscreen'"></i><span *ngIf="pdfWidth == 0">{{ 'ebook.btn_expand' | translate }}</span><span *ngIf="pdfWidth == 1">{{ 'ebook.btn_collapse' | translate }}</span></button>
+        </div>
+        <div class="chapter3 text-center position-relative" *ngIf="chapterDets.contentHTML!=''">
+            <!-- <button [ngStyle]="{'display': pdfWidth ? 'block' : 'none'}" mat-raised-button class="shadow fs-5 position-absolute top-0 mt-2" style="min-width:auto;width:40px;right:2.2%;padding: 0px 0px 1px;" (click)="fullscreenBtn()"><i class="bi bi-fullscreen-exit"></i></button> -->
+            <iframe id="scaled-frame" class="h-100" frameBorder="0"  [src]="chapterDets.contentHTML"></iframe>
+        </div>
+    </div>
+</div>

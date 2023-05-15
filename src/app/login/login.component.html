@@ -1,0 +1,97 @@
+<div id="login" class="d-flex position-fixed top-0 end-0 bottom-0 start-0">
+    <div class="login-bx1 d-flex align-items-center justify-content-center">
+        <div class="log-bx">
+            <div class="d-flex align-items-end justify-content-between">
+                <!-- <img src="assets/images/login-logo.png" class="img-fluid mb-3" alt="" style="width:75px;" *ngIf="loginthemeLogo==1">
+                <img src="assets/images/login-logodark.png" class="img-fluid mb-3" alt="" style="width:75px;" *ngIf="loginthemeLogo==0"> -->
+                <h1 class="pg-tlt fw-bold m-0" [translate]="'login.tlt_login'">Login</h1>
+                <img src="assets/images/login/message-caricature.png" class="img-fluid" style="width:150px;">
+            </div>
+            <!-- <div class="log-or position-relative mt-4 d-flex align-items-center justify-content-center">
+                <hr class="m-0 w-100">
+                <span class="d-inline-block position-absolute px-3" [translate]="'login.tlt_or'">OR</span>
+            </div> -->
+            <form [formGroup]="registerForm" (ngSubmit)="userLogin()">    
+                <div class="frm-bx mt-4 mb-4 pt-2 position-relative">
+                    <img src="assets/images/login/user.svg" class="img-fluid position-absolute" style="top:50px;">
+                    <span class="d-block pb-2 fw-bold" [translate]="'login.form_email'">Email ID <span style="color: red;">*</span></span>
+                    <input type="text" placeholder="{{ 'login.form_emailplaceholder' | translate }}" class="w-100" formControlName="username" (blur)="convertToLower()" [ngClass]="{ 'is-invalid': submitted && valid.username.errors }">
+                    <div *ngIf="submitted && valid.username.errors" class="invalid-feedback">
+                        <div *ngIf="valid.username.errors.required" [translate]="'login.form_emailvalidation1'">Please Enter Email ID</div>				
+                        <div *ngIf="valid.username.errors.pattern">
+                            <div *ngIf="valid.username.errors.pattern.requiredPattern" [translate]="'login.form_emailvalidation2'">Please Enter Valid Email ID</div>				
+                        </div>
+                    </div>
+                </div>
+                <div class="frm-bx mb-2 pt-2 position-relative">
+                    <img src="assets/images/login/lock.svg" class="img-fluid position-absolute" style="top:50px;">
+                    <span class="d-block pb-2 fw-bold" [translate]="'login.form_password'">Password <span style="color: red;">*</span></span>
+                    <input [type]="hide ? 'password' : 'text'" placeholder="{{ 'login.form_passplaceholder' | translate }}" class="w-100" formControlName="password" [ngClass]="{ 'is-invalid': submitted && valid.password.errors }">
+                    <a class="position-absolute bg-transparent border-0 eye-btn" (click)="hide = !hide">
+                        <i [ngClass]="hide ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+                    </a>
+                    <div *ngIf="submitted && valid.password.errors" class="invalid-feedback">                        
+                        <div *ngIf="valid.password.errors.required" [translate]="'login.formpass_valid1'">Please Enter Password</div>                    
+                        <!-- <div *ngIf="valid.password.errors.passwordStrength" [translate]="'login.formpass_valid2'">Password not in valid pattern</div>				 -->
+                        <div *ngIf="valid.password.errors.minlength && !valid.password.errors.passwordStrength==true">                        
+                            <div *ngIf="valid.password.errors.minlength.requiredLength" [translate]="'login.formpass_valid3'">Password must be at least 8 characters</div>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="text-end">
+                    <a class="fw-bold" (click)="gotoForgotPass()" style="color:#2d8f31;" [translate]="'login.form_forgotpass'">Forgot Password?</a>
+                </div>
+                <div class="text-center">
+                    <button class="btn-primary sbmt-btn border-0 mt-4" [translate]="'login.formbtn_signin'">Sign In</button>
+                </div>
+            </form>
+            <div class="valid-error position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center d-none">
+                <div class="valid-error-bx text-center px-5">
+                    <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+                    <h4 [translate]="'login.form_validerror'">Something error in login, Try again.</h4>
+                    <button class="border-0" [translate]="'login.form_validbtnok'">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-bx2 d-flex align-items-center justify-content-center">
+        <div>
+            <h5 class="fw-600 text-white text-center fs-5 pb-3" [translate]="'login.orsignup'">or Sign Up Using</h5>
+            <div class="d-flex align-items-center justify-content-center">
+                <button (click)="loginWithFacebook()" class="social-btn"><img src="assets/images/login/facebook.svg" class="img-fluid" alt=""></button>
+                <button (click)="loginWithGoogle()" class="social-btn"><img src="assets/images/login/google.svg" class="img-fluid" alt=""></button>
+                <button class="social-btn"><img src="assets/images/login/apple.svg" class="img-fluid" alt=""></button>
+            </div>
+            <div class="text-center mx-auto" style="width:270px;">
+                <h4 class="text-white pt-4 mt-2 fw-600" [translate]="'login.new_here'">New here?</h4>
+                <p class="text-white" [translate]="'login.formdnothave'">Sign up and discover a great amount of new opportunities!</p>
+                <a style="background:#be1e2d;" class="fw-bold text-white rounded-pill px-4 py-2 d-inline-block mt-4 shadow" (click)="gotoSignup()" [translate]="'login.formdnothave_signup'">Sign up</a>
+            </div>
+            <div class="text-center pt-2">
+                <p class="text-white text-center pb-3" style="cursor:pointer;" [translate]="'login.formchglang'" (click)="translationbtn()">Switch Language</p>                
+            </div>
+            <!-- <div class="text-center pt-4 mt-2">
+                <span style="color:var(--theme-text);" [translate]="'login.formdnothave'">Don't have an account? <a style="color:#2d8f31;" class="fw-bold ms-1" (click)="gotoSignup()" [translate]="'login.formdnothave_signup'">Sign up</a></span>
+            </div> -->
+        </div>
+    </div>
+    <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+        <div class="alert-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="{{alertPopupImg}}" class="img-fluid" alt="">
+            <h4 class="text-center">{{alertPopupMsg}}</h4>   
+            <div class="d-flex align-items-center justify-content-center" *ngIf="showBtn==1">
+                <button class="border-0 bg-light me-2" style="color:var(--theme-text);" (click)="closeAlertPopup()" [translate]="'blog_plan.popup_close'">Close</button>
+                <button (click)="resendMail()" class="border-0" [translate]="'login.resend'">Resend Mail</button>                
+            </div>         
+        </div>
+    </div>
+    <div class="auth-load d-flex align-items-center justify-content-center position-fixed top-0 end-0 bottom-0 start-0" *ngIf="authLoader">
+        <div class="text-center">
+            <mat-progress-spinner class="example-margin" mode="indeterminate"></mat-progress-spinner>
+            <h5 class="text-white pt-4" [translate]="'login.loading'">Loading...</h5>
+        </div>
+    </div>
+</div>

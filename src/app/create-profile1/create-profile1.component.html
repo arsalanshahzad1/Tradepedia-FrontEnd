@@ -1,0 +1,177 @@
+<div id="create-profile1" class="bg-light position-relative">
+    <!-- <div class="createprofile-stepper">
+        <hr>
+        <a routerLink="/signal/create-profile1" class="active">1</a>
+        <a routerLink="/signal/create-profile2">2</a>
+        <a routerLink="/signal/create-profile3">3</a>
+        <a routerLink="/signal/create-profile5">4</a>
+        <a routerLink="/signal/create-profile6">5</a>
+    </div> -->
+    <div class="nxtprv-btn d-flex align-items-center justify-content-between position-absolute pt-1">
+        <button class="swiperbtn1 me-2 border-0" (click)="swipePrev()" [translate]="'crtprf_one.prev_btn'">Prev</button>
+        <button class="swiperbtn2 border-0" (click)="swipeNext()" [translate]="'crtprf_one.next_btn'">Next</button>
+    </div>
+    <div class="position-absolute top-0 start-0 end-0 bottom-0">
+        <!-- <button (click)="opendalog()">open popup</button> -->
+        <swiper
+            [slidesPerView]="1"
+            [spaceBetween]="0"
+            [pagination]="pagination"
+            [allowTouchMove]="false"
+            class="mySwiper buildprf-swipe"
+        >
+            <ng-template swiperSlide>
+                <div class="create-profile1 position-relative">
+                    <h1 class="text-white fw-600 py-3" style="font-size:1.5rem;" [translate]="'crtprf_one.choose_investment'">Please choose an investment target</h1>
+                    <div class="white-bx p-3">
+                        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                            <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding class="subcheck">
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <div class="d-flex align-items-center">
+                                        <!-- <button mat-icon-button disabled></button> -->
+                                        <div class="avatar rounded-circle d-flex align-items-center justify-content-center">
+                                            {{node.item.charAt(0)}}
+                                        </div>
+                                        <span>{{node.item}}</span>
+                                    </div>
+                                    <mat-checkbox class="checklist-leaf-node"
+                                            [checked]="checklistSelection.isSelected(node)"
+                                            (change)="todoLeafItemSelectionToggle(node)"></mat-checkbox>
+                                </div>
+                            </mat-tree-node>
+                          
+                            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <div class="d-flex align-items-center">
+                                        <button mat-icon-button matTreeNodeToggle
+                                            [attr.aria-label]="'Toggle ' + node.item">
+                                            <!-- <mat-icon class="mat-icon-rtl-mirror">
+                                                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                            </mat-icon> -->
+                                            <span class="mat-icon-rtl-mirror fw-600" *ngIf="treeControl.isExpanded(node)==true" style="font-size: 18px;"><i class="bi bi-chevron-down"></i></span>
+                                            <span class="mat-icon-rtl-mirror fw-600" *ngIf="treeControl.isExpanded(node)==false" style="font-size: 18px;"><i class="bi bi-chevron-right"></i></span>
+                                        </button>
+                                        <img [src]="getImgURL(node.item)" class="img-fluid">
+                                        
+                                        <span class="fw-600" style="font-size:17px;" *ngIf="filterFunction(node.item)==true">
+                                            <!-- {{node.item}} -->
+                                            <span *ngIf="node.item=='1.Forex'">{{ 'autotrade.btab1' | translate }}</span>
+                                            <span *ngIf="node.item=='2.Cryptocurrencies'">{{ 'autotrade.btab2' | translate }}</span>
+                                            <span *ngIf="node.item=='3.Indices'">{{ 'autotrade.btab3' | translate }}</span>
+                                            <span *ngIf="node.item=='4.Commodities'">{{ 'autotrade.btab4' | translate }}</span>
+                                            <span *ngIf="node.item=='5.Equities'">{{ 'autotrade.btab5' | translate }}</span>
+                                        </span>
+                                        <span class="fw-600" style="font-size:17px;" *ngIf="filterFunction(node.item)==false">{{node.item}}</span>
+                                    </div>
+                                    <mat-checkbox [checked]="descendantsAllSelected(node)"
+                                            [indeterminate]="descendantsPartiallySelected(node)"
+                                            (change)="todoItemSelectionToggle(node)"></mat-checkbox>
+                                </div>
+                                <!-- <mat-checkbox [checked]="descendantsAllSelected(node)"
+                                            [indeterminate]="descendantsPartiallySelected(node)"
+                                            (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox> -->
+                                <!-- <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button> -->
+                            </mat-tree-node>
+                        </mat-tree>
+                        <!-- <div class="text-center">
+                            <button class="nxt-btn border-0 mt-4 mb-4 position-relative" [disabled]="btnNxt==1" (click)="gotoNext()">Next <i class="bi bi-chevron-right position-absolute top-50 end-0 translate-middle me-2"></i></button>
+                        </div> -->
+                   </div>
+                </div>
+            </ng-template>
+            <!-- <ng-template swiperSlide>
+                <app-create-profile2></app-create-profile2>
+            </ng-template> -->
+            <ng-template swiperSlide>
+                <app-create-profile3></app-create-profile3>
+            </ng-template>
+            <ng-template swiperSlide>
+                <app-create-profile5></app-create-profile5>
+            </ng-template>
+            <ng-template swiperSlide>
+                <app-create-profile6></app-create-profile6>
+            </ng-template>
+        </swiper>
+        <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+            <div class="alert-popup-bx text-center px-4 position-relative">
+                <div class="text-end">
+                    <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+                </div>
+                <img src="{{alertPopupImg}}" class="img-fluid" alt="">
+                <h4>{{alertPopupMsg}}</h4>            
+            </div>
+        </div>
+        <!-- <div class="col-bx1 h-100">
+            <div class="create-profile1 position-relative">
+                <h1 class="text-white fw-600 py-3" style="font-size:1.5rem;">Please choose an investment target</h1>
+                <div class="white-bx p-3">
+                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding class="subcheck">
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <div class="d-flex align-items-center">
+                                    <!-- <button mat-icon-button disabled></button> -->
+                                <!--    <img src="assets/images/create-robot-flag.png" class="img-fluid">
+                                    <span>{{node.item}}</span>
+                                </div>
+                                <mat-checkbox class="checklist-leaf-node"
+                                        [checked]="checklistSelection.isSelected(node)"
+                                        (change)="todoLeafItemSelectionToggle(node)"></mat-checkbox>
+                            </div>
+                        </mat-tree-node>
+                      
+                        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <div class="d-flex align-items-center">
+                                    <button mat-icon-button matTreeNodeToggle
+                                        [attr.aria-label]="'Toggle ' + node.item">
+                                        <mat-icon class="mat-icon-rtl-mirror">
+                                            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                        </mat-icon>
+                                    </button>
+                                    <img src="assets/images/create-robot-icon.png" class="img-fluid">
+                                    <span class="fw-600" style="font-size:17px;">{{node.item}}</span>
+                                </div>
+                                <mat-checkbox [checked]="descendantsAllSelected(node)"
+                                        [indeterminate]="descendantsPartiallySelected(node)"
+                                        (change)="todoItemSelectionToggle(node)"></mat-checkbox>
+                            </div>
+                            <!-- <mat-checkbox [checked]="descendantsAllSelected(node)"
+                                        [indeterminate]="descendantsPartiallySelected(node)"
+                                        (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox> -->
+                            <!-- <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button> -->
+            <!--            </mat-tree-node>
+                    </mat-tree>
+                    <!-- <div class="text-center">
+                        <button class="nxt-btn border-0 mt-4 mb-4 position-relative" [disabled]="btnNxt==1" (click)="gotoNext()">Next <i class="bi bi-chevron-right position-absolute top-50 end-0 translate-middle me-2"></i></button>
+                    </div> -->
+        <!--        </div>
+            </div>
+        </div>
+        <div class="col-bx2 h-100">
+            <app-create-profile2 (isChild1FormValid)="enableSubmitButton($event)"></app-create-profile2>
+            <div class="text-center">
+                <button class="nxt-btn border-0 mt-4 mb-3 position-relative" [disabled]="isChild1FormValid && btnNxt==1" (click)="gotoNext()">Next <i class="bi bi-chevron-right position-absolute top-50 end-0 translate-middle me-2"></i></button>
+            </div>
+        </div>
+        <div class="col-bx3 h-100">
+            <app-create-profile3></app-create-profile3>
+        </div>
+        <div class="col-bx4 h-100">
+            <app-create-profile5></app-create-profile5>
+        </div>
+        <div class="col-bx5 h-100">
+            <app-create-profile6></app-create-profile6>
+        </div> -->
+    </div>
+</div>
+
+<ng-template #templateDialogbx>
+    <div style="width:340px;" class="crtprf1-popup text-center">
+        <!-- <div class="text-end">
+            <button mat-button matDialogClose class="rounded-circle px-0" style="min-width:37px;"><i class="bi bi-x-lg"></i></button>
+        </div> -->
+        <img src="assets/images/space-caricature.png" alt="" class="img-fluid">
+        <h2 matDialogTitle class="pt-3 mb-2" [translate]="'crtprf_one.popup_tlt'">Build Profile Completed Successfully</h2>
+        <a matDialogClose routerLink="/signal/my-profile" mat-button class="mt-3">{{ 'crtprf_one.popup_button' | translate }}</a>
+    </div>
+</ng-template>

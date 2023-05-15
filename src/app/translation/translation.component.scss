@@ -1,0 +1,51 @@
+#translation{
+    width: 250px;
+    h6{
+        padding-left: 10px;
+        color: var(--theme-text);
+    }
+    button{
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        border-radius: 10px;
+        padding: 5px 10px;
+        margin: 5px 0px;
+        color: var(--theme-text);
+        span{
+            font-size: 10px;
+            background: #1e7027;
+            border-radius: 50%;
+            color: #fff;
+            height: 21px;
+            width: 21px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        i{
+            font-size: 20px;
+        }
+        .bi-check2-circle{
+            display: none;
+        }
+        &.active{
+            background: rgba(0,0,0,0.03);
+            .bi-circle{
+                display: none;
+            }
+            .bi-check2-circle{
+                display: block;
+            }
+        }
+    }
+    .cls-btn{
+        background: #0e6f37;
+        padding: 8px 30px;
+        width: auto;
+        margin: 20px auto 0px;
+        display: block;
+    }
+}

@@ -1,0 +1,221 @@
+<div id="tools" class="bg-light d-flex">
+    <div class="col-bx1">
+        <div class="tools">
+            <div class="px-3 pt-4 pb-3">
+                <!-- <h4 class="m-0 fw-600" style="font-size:19px;color:var(--theme-text);" [translate]="'tools.page_tlt'">Algorithmic Trading Tools</h4> -->
+                <h4 class="m-0 fw-600" *ngIf="toolsType=='Beginner'" style="font-size:19px;color:var(--theme-text);" [translate]="'tools.page_tlt_begin'">Beginner Tools</h4>
+                <h4 class="m-0 fw-600" *ngIf="toolsType=='Intermediate'" style="font-size:19px;color:var(--theme-text);" [translate]="'tools.page_tlt_inter'">Intermediate Tools</h4>
+                <h4 class="m-0 fw-600" *ngIf="toolsType=='Advanced'" style="font-size:19px;color:var(--theme-text);" [translate]="'tools.page_tlt_advan'">Advanced Tools</h4>
+                <h4 class="m-0 fw-600" *ngIf="toolsType=='Expert'" style="font-size:19px;color:var(--theme-text);" [translate]="'tools.page_tlt_exp'">Expert Tools</h4>
+            </div>
+            <div class="px-3">
+                <!-- <h5 class="fw-600 pb-2" style="color:#207023;">Beginner</h5> -->
+                <ng-container *ngFor="let tools of toolsList;let ind=index;">
+                    <a matRipple (click)="gotoDetails(tools)" class="tools-bx" [class.active]='selectedIndex === tools'>
+                        <div class="img overflow-hidden d-flex align-items-center justify-content-center">
+                            <img src="{{tools.imgSrc}}" class="img-fluid">
+                        </div>
+                        <div class="content">
+                            <h4 class="mb-2 text-capitalize fw-600">{{tools.tools_title}}</h4>
+                            <p class="m-0">{{tools.tools_short_description}}</p>
+                        </div>
+                    </a>
+                </ng-container>
+                <ng-container *ngIf="showLoad==1 && toolsList.length==0">
+                    <div class="text-center pt-5 mt-5">
+                        <img src="assets/images/no-record-found.png" class="img-fluid">
+                        <h5 class="fw-600 pt-4 text-center" [translate]="'tools.no_tools'">No Tools Found</h5>
+                    </div>
+                </ng-container>
+                <!-- <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button fw-600 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                Beginner
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body px-0">
+                                <ng-container *ngFor="let tools of filterFunction(toolsList,'Beginner');let ind=index;">
+                                    <a matRipple (click)="gotoDetails(tools)" class="tools-bx" [class.active]='selectedIndex === tools'>
+                                        <div class="img overflow-hidden d-flex align-items-center justify-content-center">
+                                            <img src="{{tools.imgSrc}}" class="img-fluid">
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="mb-2 text-capitalize fw-600">{{tools.tools_title}}</h4>
+                                            <p class="m-0">{{tools.tools_short_description}}</p>
+                                        </div>
+                                    </a>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button fw-600 bg-transparent collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                Intermediate
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body px-0">
+                                <ng-container *ngFor="let tools of filterFunction(toolsList,'Intermediate');let ind=index;">
+                                    <a matRipple (click)="gotoDetails(tools)" class="tools-bx" [class.active]='selectedIndex === tools'>
+                                        <div class="img overflow-hidden d-flex align-items-center justify-content-center">
+                                            <img src="{{tools.imgSrc}}" class="img-fluid">
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="mb-2 text-capitalize fw-600">{{tools.tools_title}}</h4>
+                                            <p class="m-0">{{tools.tools_short_description}}</p>
+                                        </div>
+                                    </a>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button fw-600 bg-transparent collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                Advanced
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body px-0">
+                                <ng-container *ngFor="let tools of filterFunction(toolsList,'Advanced');let ind=index;">
+                                    <a matRipple (click)="gotoDetails(tools)" class="tools-bx" [class.active]='selectedIndex === tools'>
+                                        <div class="img overflow-hidden d-flex align-items-center justify-content-center">
+                                            <img src="{{tools.imgSrc}}" class="img-fluid">
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="mb-2 text-capitalize fw-600">{{tools.tools_title}}</h4>
+                                            <p class="m-0">{{tools.tools_short_description}}</p>
+                                        </div>
+                                    </a>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button fw-600 bg-transparent collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                Expert
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body px-0">
+                                <ng-container *ngFor="let tools of filterFunction(toolsList,'Expert');let ind=index;">
+                                    <a matRipple (click)="gotoDetails(tools)" class="tools-bx" [class.active]='selectedIndex === tools'>
+                                        <div class="img overflow-hidden d-flex align-items-center justify-content-center">
+                                            <img src="{{tools.imgSrc}}" class="img-fluid">
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="mb-2 text-capitalize fw-600">{{tools.tools_title}}</h4>
+                                            <p class="m-0">{{tools.tools_short_description}}</p>
+                                        </div>
+                                    </a>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>                 -->
+            </div>
+        </div>
+    </div>
+    <div class="col-bx2 py-4" *ngIf="!toolsDets==true">
+        <div class="text-center pt-5 mt-5">
+            <img src="assets/images/hand-click.png" alt="" class="img-fluid mt-5">
+            <h5 class="fw-600 pt-4 text-center" [translate]="'tools.view_details'">Select any tool to view details</h5>
+        </div> 
+    </div>
+    <div class="col-bx2 py-4" *ngIf="!toolsDets==false">
+        <div class="tool-details2 px-3 pt-1" *ngIf="toolsDets.tools_video_url!=''">
+            <iframe [src]="toolsDets.videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="tool-details1 px-3 pt-4 pb-2" *ngIf="toolsDets.tools_video_url!=''">
+            <h4 class="fw-600 mb-1" style="color:var(--theme-text);">{{toolsDets.tools_title}}</h4>
+            <div class="content" [innerHTML]="toolsDets.tools_description"></div>            
+        </div>
+        <div class="tool-details1 px-3 pt-1 pb-2" *ngIf="toolsDets.tools_video_url==''">
+            <h4 class="fw-600 mb-1" style="color:var(--theme-text);">{{toolsDets.tools_title}}</h4>
+            <div class="content" [innerHTML]="toolsDets.tools_description"></div>            
+        </div>  
+        <div class="d-flex align-items-center justify-content-center" *ngIf="toolsDets.toolsPayStatus==1">            
+            <a *ngIf="toolsDets.tools_mt4_link!=''" [href]="toolsDets.tools_mt4_link" class="download-btn d-flex align-items-center border-0 position-relative">
+                <img src="assets/images/exe-file.svg" class="img-fluid">
+                <div class="text-start ps-4">
+                    <h6 class="text-white fw-600 mb-0 pb-1">MT4</h6>
+                    <h5 class="text-white fw-600 mb-0 pb-1">{{toolsDets.tools_mt4_name}}</h5>
+                    <span>{{ 'tools.file_size' | translate }} {{toolsDets.tools_mt4_size}}</span>
+                </div>
+                <i class="bi bi-download text-white"></i>
+            </a>
+            <a *ngIf="toolsDets.tools_mt5_link!=''" [href]="toolsDets.tools_mt5_link" class="download-btn d-flex align-items-center border-0 position-relative">
+                <img src="assets/images/exe-file.svg" class="img-fluid">
+                <div class="text-start ps-4">
+                    <h6 class="text-white fw-600 mb-0 pb-1">MT5</h6>
+                    <h5 class="text-white fw-600 mb-0 pb-1">{{toolsDets.tools_mt5_name}}</h5>
+                    <span>{{ 'tools.file_size' | translate }} {{toolsDets.tools_mt5_size}}</span>
+                </div>
+                <i class="bi bi-download text-white"></i>
+            </a>
+        </div>
+        <div class="d-flex align-items-center justify-content-center" *ngIf="toolsDets.toolsPayStatus==0">            
+            <a matRipple *ngFor="let price of toolsDets.toolsPrice" (click)="gotoPaynowPopup(price)" class="plan-btn border-0 text-center">
+                <label *ngIf="price.tprice_days==30">{{ 'tools.plan1' | translate }}</label>
+                <label *ngIf="price.tprice_days==90">{{ 'tools.plan2' | translate }}</label>
+                <label *ngIf="price.tprice_days==180">{{ 'tools.plan3' | translate }}</label>
+                <img src="assets/images/tradepediam-coin.svg" class="img-fluid mx-auto" style="filter: none;">
+                <h5 class="text-white fw-600 mb-0 pb-1 text-center" [translate]="'tools.buy_now'">Buy Now</h5>
+                <span>{{currCode}} {{price.tprice_price | number}} {{ 'tools.points' | translate }}</span>      
+            </a>
+            
+            
+            <!-- <a matRipple (click)="gotoPaynowPopup(toolsDets.tools_1m_price)" class="plan-btn border-0 text-center">
+                <label>1 Month Plan</label>
+                <img src="assets/images/tradepediam-coin.svg" class="img-fluid mx-auto" style="filter: none;">
+                <h5 class="text-white fw-600 mb-0 pb-1" [translate]="'tools.buy_now'">Buy Now</h5>
+                <span>{{currCode}} {{toolsDets.tools_1m_price}} {{ 'tools.points' | translate }}</span>      
+            </a>
+            <a matRipple (click)="gotoPaynowPopup(toolsDets.tools_3m_price)" class="plan-btn border-0 text-center">
+                <label>3 Months Plan</label>
+                <img src="assets/images/tradepediam-coin.svg" class="img-fluid mx-auto" style="filter: none;">
+                <h5 class="text-white fw-600 mb-0 pb-1" [translate]="'tools.buy_now'">Buy Now</h5>
+                <span>{{currCode}} {{toolsDets.tools_3m_price}} {{ 'tools.points' | translate }}</span>      
+            </a>
+            <a matRipple (click)="gotoPaynowPopup(toolsDets.tools_6m_price)" class="plan-btn border-0 text-center">
+                <label>6 Months Plan</label>
+                <img src="assets/images/tradepediam-coin.svg" class="img-fluid mx-auto" style="filter: none;">
+                <h5 class="text-white fw-600 mb-0 pb-1" [translate]="'tools.buy_now'">Buy Now</h5>
+                <span>{{currCode}} {{toolsDets.tools_6m_price}} {{ 'tools.points' | translate }}</span>       
+            </a> -->
+        </div>   
+        <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+            <div class="signal-popup-bx text-center px-4 position-relative">
+                <div class="text-end">
+                    <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closePaynowpopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+                </div>
+                <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+                <h4 class="text-center">{{payMsg}}</h4>
+                <label *ngIf="languageSelected!='AR'" [translate]="'tools.xmacc_lab'">XM Account No :</label>
+                <label *ngIf="languageSelected=='AR'" style="float: right;" [translate]="'tools.xmacc_lab'">XM Account No :</label>
+                <input type="text" placeholder="{{ 'tools.form_text' | translate }}" [(ngModel)]="xmacno" class="mx-auto mb-2">
+                <p class="text-center"><span [translate]="'tools.link1'">If you do not have an MT4/MT5 account yet,</span> <a (click)="openExternalLink(this.xmacurl)" style="color: #0d6efd;"><span [translate]="'tools.link2'">you can click here to open</span></a>.</p>
+                <div class="d-flex align-items-center justify-content-center mt-2">
+                    <button class="border-0 bg-light me-2" (click)="closePaynowpopup()" style="color:var(--theme-text);" [translate]="'tools.close_btn'">Close</button>
+                    <button *ngIf="payBtn==1" (click)="buyUserTools()" class="border-0" [disabled]="!xmacno" [translate]="'tools.paynow_btn'">Pay Now</button>
+                    <button *ngIf="payBtn==0" (click)="gotoAddMoney()" class="border-0" [translate]="'tools.addmoney_btn'">Add Money</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+		<div class="alert-popup-bx text-center px-4 position-relative">
+			<div class="text-end">
+				<button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+			</div>
+			<img src="{{alertPopupImg}}" class="img-fluid" alt="">
+			<h4 class="text-center">{{alertPopupMsg}}</h4>            
+		</div>
+	</div>
+    
+</div>
+

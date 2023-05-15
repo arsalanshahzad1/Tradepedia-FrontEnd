@@ -1,0 +1,67 @@
+<div id="research" class="bg-light">
+	<div class="p-3 pt-4" style="background:var(--theme-gradient);">
+		<swiper
+			[effect]="'fade'"
+			[pagination]="{
+			dynamicBullets: true
+			}"
+			class="mySwiper mySwiper2"
+		>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/heatmap.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">Heat Maps</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/news.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">News</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/analysis.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">Analysis</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/blog.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-dark fw-500">Special Report</h1>
+						<p class="text-dark fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+		</swiper>
+	</div>
+
+	<div class="research1 d-flex justify-content-between flex-wrap p-3">
+		<a routerLink="/research/heatmaps" class="research1-bx text-center p-4 mb-3">
+			<img src="assets/images/research/heatmap.svg">
+			<h6 class="pt-3">Heatmaps</h6>
+		</a>
+		<a routerLink="/research/news" class="research1-bx text-center p-4 mb-3">
+			<img src="assets/images/home/news.svg">
+			<h6 class="pt-3">News</h6>
+		</a>
+		<a routerLink="/research/analysis" class="research1-bx text-center p-4 mb-3">
+			<img src="assets/images/research/analyzze.svg">
+			<h6 class="pt-3">Analysis</h6>
+		</a>
+		<a routerLink="/research/market-report" class="research1-bx text-center p-4 mb-3">
+			<img src="assets/images/research/blog.svg">
+			<h6 class="pt-3">Special Report</h6>
+		</a>
+	</div>
+</div>

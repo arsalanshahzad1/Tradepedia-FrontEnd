@@ -1,0 +1,471 @@
+<div [ngClass]="currenttransTheme ? 'rtl' : 'ltr'">
+    <div class="example-container basetranslate-align" [class.example-is-mobile]="mobileQuery.matches">
+        <header id="header_wrapper" class="position-fixed top-0 w-100" *ngIf="isLogged==1">
+            <nav id="navbar-example2" class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <div class="d-flex">
+                        <button mat-raised-button (click)="sidetoggle()" class="d-none align-items-center text-white fs-4 bg-transparent shadow-none"><i class="bi bi-list-ul"></i></button>
+                        <a class="navbar-brand ms-2">
+                            <img src="assets/images/logo.svg" class="img-fluid" *ngIf="themeLogo==1">
+                            <img src="assets/images/logo-white.svg" class="img-fluid" *ngIf="themeLogo==0">
+                        </a>
+                    </div>
+                    <div class="d-flex">
+                        <ng-marquee speed="drowsy" [stopOnHover]="true">
+                            <mark style="background-color: #fff; padding: 0.2em; font-size: 16px; font-weight: 600;"><span [translate]="'header.top_scroll_msg'">LEARN TO EARN - Solve quizzes in academy to Earn tradepedium to unlock our signals and tools.</span></mark>
+                        </ng-marquee>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end right-bx">
+                        <button matRipple (click)="gotoPage('/chat')" class="notify-btn position-relative bg-transparent border-0"><img src="assets/images/header/chat.svg" class="img-fluid" style="width:22px;"> <span class="position-absolute" *ngIf="chatCount>0">{{chatCount}}</span> </button>
+                        <button matRipple (click)="gotoPage('/notification')" class="notify-btn position-relative bg-transparent border-0" [ngClass]="bellVibrate ? 'vibrate' : ''"><img src="assets/images/header/top-notify.svg" class="img-fluid" style="width:20px;"> <span class="position-absolute" *ngIf="noteCount>0">{{noteCount}}</span> </button>
+                        <button mat-raised-button class="shadow-none trans-btn fs-5 p-0 mx-2" style="min-width:auto;width:38px;" (click)="darklightbtn()"><img src="assets/images/header/darklight.svg" class="img-fluid" style="width:25px;"></button>
+                        <button mat-raised-button class="shadow-none trans-btn rounded-0 ps-4 pe-3" (click)="translationbtn()" style="border-left:2px solid var(--light-grey);border-right:2px solid var(--light-grey);">
+                            <img src="assets/images/header/language.svg" style="width:22px;"><label class="selectLang mx-2">{{langCode}}</label>
+                        </button>
+                        <div class="usr-prfl ms-3">
+                            <button [matMenuTriggerFor]="menulang" class="bg-transparent text-white shadow-none border-0">
+                                <div style="height:35px;width:35px;background-image:url({{profileImage}});background-position:center;background-size:contain;" class="rounded-circle overflow-hidden"></div>
+                            </button>
+                            <mat-menu #menulang="matMenu" xPosition="before" class="shadow py-0 overflow-hidden mt-2">
+                                <button mat-menu-item (click)="gotoProfile()" class="fs-6 px-3 fw-600">
+                                    <span class="">{{ 'header.hi' | translate }} {{profileName}}</span>
+                                </button>
+                                <button mat-menu-item (click)="gotoWallet()" class="fs-6 px-3">
+                                    <img src="assets/images/tradepediam-coin.svg" class="img-fluid me-1" style="width:19px;">
+                                    <span class="">{{totalPoints | number}}</span>
+                                </button>
+                                <!-- <button mat-menu-item (click)="gotoPage('/my-profile')" class="fs-6 px-2">
+                                    <i class="bi bi-person me-2"></i> 
+                                    <span class="">My Profile</span>
+                                </button> -->
+                                <!-- <button mat-menu-item (click)="gotoPage('/wallet')">
+                                    <i class="bi bi-wallet2 me-2"></i> 
+                                    <span class="">Wallet</span>
+                                </button> -->
+                                <button mat-menu-item (click)="gotoPage('/account/change-password')" class="fs-6 px-3">
+                                    <img src="assets/images/header/change-pass.svg" style="width:22px;" class="me-2">
+                                    <span class="" [translate]="'header.change_pass'">Change Password</span>
+                                </button>
+                                <button mat-menu-item (click)="logout()" class="fs-6 px-3">
+                                    <img src="assets/images/header/logout.svg" style="width:22px;" class="me-2">
+                                    <span class="" [translate]="'header.logout_btn'">Logout</span>
+                                </button>
+                            </mat-menu>
+                            <!-- <div class="rounded-circle img" (click)="gotoProfile()" style="background-image:url({{profileImage}})"></div>
+                            <div>
+                                <h6 (click)="gotoProfile()" class="m-0 ps-3 fw-normal">Hi {{profileName}}</h6>
+                                <a (click)="gotoWallet()"><p class="ps-3 pt-1 d-flex align-items-center"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-1" style="width:19px;"> {{totalPoints}}</p></a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="top-adjustment"></div>
+        <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+            <mat-sidenav *ngIf="isLogged==1" [mode]="mobileQuery.matches ? 'over' : 'side'"
+                     [fixedInViewport]="mobileQuery.matches" fixedTopGap="145" [opened]="isNavBarOpened">
+                <div class="cat-list">
+                    <div class="cat-scroll">
+                        <ul class="list-unstyled navpart m-0">
+                            <li class="nav-list">
+                                <a matRipple (click)="gotoPage('/home')" [ngClass]="{'active': (activeNav === 'home') || activeNav === ''}" class="d-flex align-items-center justify-content-center text-center navlink">
+                                    <div>
+                                        <img src="assets/images/header/home.svg" class="img-fluid">
+                                        <span class="d-block" [translate]="'header.home'">Home</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-list btn-group dropend">
+                                <a matRipple type="button" [ngClass]="{'active': activeNav === 'academy'}" class="d-flex align-items-center justify-content-center text-center navlink dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div>
+                                        <span class="icon mb-2"><img src="assets/images/header/academy.svg" class="img-fluid"></span>
+                                        <span class="d-block" [translate]="'header.academy'">Academy</span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu shadow">
+                                    <li><a class="dropdown-item" (click)="gotoPage('/academy/ebooks')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/home/ebook.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.ebook'">Ebooks</h6>
+                                            <p [translate]="'header.ebook_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/academy/video-chapter-list')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/home/video-guide.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.vdo_guide'">Video Guides</h6>
+                                            <p [translate]="'header.vdo_guide_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/academy/hsc-chapter-list')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/home/Avramis-Swing-Masterclass.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.home_study'">Avramis Swing Masterclass</h6>
+                                            <p [translate]="'header.home_study_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/academy/seminar-list')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/home/seminars.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.seminar'">Seminars</h6>
+                                            <p [translate]="'header.seminar_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-list btn-group dropend">
+                                <a matRipple type="button" [ngClass]="{'active': activeNav === 'signal'}" class="d-flex align-items-center justify-content-center  text-center navlink dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div>
+                                        <span class="icon mb-2"><img src="assets/images/header/signal.svg" class="img-fluid"></span>
+                                        <span class="d-block" [translate]="'header.signal'">Signals</span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu shadow">
+                                    <li><a class="dropdown-item" (click)="gotoPage('/signal/autotrade')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/signal/autotrade.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.auto_signal'">Top Signals</h6>
+                                            <p [translate]="'header.autosig_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/signal/my-profile')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/signal/my-profile.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.my_profile'">My Profile</h6>
+                                            <p [translate]="'header.myprofile_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/signal/find-profile')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/signal/find.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.find_profile'">Find Profile</h6>
+                                            <p [translate]="'header.findprofile_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="createProfile()">
+                                        <div class="img-bx">
+                                            <img src="assets/images/signal/create.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.build_profile'">Build Profile</h6>
+                                            <p [translate]="'header.buildprofile_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-list btn-group dropend">
+                                <a matRipple type="button" [ngClass]="{'active': activeNav === 'tools'}" class="d-flex align-items-center justify-content-center  text-center navlink dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div>
+                                        <span class="icon mb-2"><img src="assets/images/home-img/tools.svg" class="img-fluid"></span>
+                                        <span class="d-block" [translate]="'header.tools'">Tools</span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu shadow">
+                                    <li><a class="dropdown-item" (click)="gotoPage('/tools/Beginner')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/tools/beginner.png" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.beginner'">Beginner</h6>
+                                            <p [translate]="'header.beginner_desc'">Its have tools for beginner users.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/tools/Intermediate')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/tools/intermediate.png" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.intermediate'">Intermediate</h6>
+                                            <p [translate]="'header.intermediate_desc'">Its have tools for intermediate users.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/tools/Advanced')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/tools/advanced.png" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.advanced'">Advanced</h6>
+                                            <p [translate]="'header.advanced_desc'">Its have tools for advanced users.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/tools/Expert')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/tools/expert.png" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.expert'">Expert</h6>
+                                            <p [translate]="'header.expert_desc'">Its have tools for expert users.</p>
+                                        </div>
+                                    </a></li>
+                                </ul>
+                            </li>
+                            <!-- <li class="nav-list">
+                                <a matRipple (click)="gotoPage('/tools')" class="d-flex align-items-center justify-content-center text-center navlink">
+                                    <div>
+                                        <span class="icon mb-2"><img src="assets/images/footer/tools.svg" class="img-fluid"></span>
+                                        <span class="d-block" [translate]="'header.tools'">Tools</span>
+                                    </div>
+                                </a>
+                            </li> -->
+                            <li class="nav-list btn-group dropend">
+                                <!-- <a matRipple type="button" (click)="openAlertPopup()" class="d-flex align-items-center justify-content-center  text-center navlink"  aria-expanded="false">
+                                    <div>
+                                        <span class="icon mb-2"><img src="assets/images/header/research.svg" class="img-fluid"></span>
+                                        <span class="d-block" [translate]="'header.research'">Research</span>
+                                    </div>
+                                </a> -->
+                                <a matRipple type="button" [ngClass]="{'active': activeNav === 'research'}" class="d-flex align-items-center justify-content-center  text-center navlink dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div>
+                                        <span class="icon mb-2"><img src="assets/images/header/trading-room.svg" class="img-fluid"></span>
+                                        <span class="d-block" [translate]="'header.research'">Research</span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu shadow">
+                                    <!-- <li><a class="dropdown-item" (click)="gotoPage('/research/heatmaps')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/research/heatmap.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.heatmap'">Heatmaps</h6>
+                                            <p [translate]="'header.heatmap_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li> -->
+                                    <li><a class="dropdown-item" (click)="gotoPage('/research/copy-trading')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/research/copy.svg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.copytrade'">Copy Trading</h6>
+                                            <p [translate]="'header.copytrade_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/research/squawk-room')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/research/squawk.png" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.squawk'">Squawk Room</h6>
+                                            <p [translate]="'header.squawk_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/research/market-report')">
+                                        <div class="img-bx">
+                                            <img src="assets/images/research/market-report.png" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.market_report'">"Market Reports</h6>
+                                            <p [translate]="'header.market_report_desc'">Earn some tradepedium to unlock our signals and tools.</p>
+                                        </div>
+                                    </a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-list">
+                                <a matRipple (click)="gotoPage('/wallet')" [ngClass]="{'active': activeNav === 'wallet'}" class="d-flex align-items-center justify-content-center text-center navlink">
+                                    <div>
+                                        <img src="assets/images/header/wallet.svg" class="img-fluid">
+                                        <span class="d-block" [translate]="'header.wallet'">Wallet</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-list">
+                                <a matRipple (click)="gotoPage('/notification')" [ngClass]="{'active': activeNav === 'notification'}" class="d-flex align-items-center justify-content-center text-center navlink">
+                                    <div>
+                                        <img src="assets/images/header/notification.svg" class="img-fluid">
+                                        <span class="d-block" [translate]="'header.notification'">Notification</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-list">
+                                <a matRipple (click)="gotoPage('/chat')" [ngClass]="{'active': activeNav === 'chat'}" class="d-flex align-items-center justify-content-center text-center navlink">
+                                    <div>
+                                        <img src="assets/images/header/chat.svg" class="img-fluid">
+                                        <span class="d-block" [translate]="'header.chat'">Support Chat</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-list btn-group dropend">
+                                <a matRipple type="button" [ngClass]="{'active': activeNav === 'account'}" class="d-flex align-items-center justify-content-center  text-center navlink dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div>
+                                        <span class="icon mb-2"><img src="assets/images/header/myaccount.svg" class="img-fluid"></span>
+                                        <span class="d-block" [translate]="'header.my_account'">My Account</span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu shadow">
+                                    <li><a class="dropdown-item" (click)="gotoPage('/account/my-profile')">
+                                        <div class="img-bx text-center p-0">
+                                            <i class="bi bi-person-fill" style="font-size:35px;color:#27822f!important;"></i>
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.my_details'">My Details</h6>
+                                            <p></p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/account/my-subscriptions')">
+                                        <div class="img-bx text-center p-0">
+                                            <i class="bi bi-currency-dollar" style="font-size:35px;color:#27822f!important;"></i>
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.my_subscription'">My Subscriptions</h6>
+                                            <p></p>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="gotoPage('/account/notification-setting')">
+                                        <div class="img-bx text-center p-0">
+                                            <i class="bi bi-gear-fill" style="font-size:35px;color:#27822f!important;"></i>
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.notify_setting'">Notification Settings</h6>
+                                            <p></p>
+                                        </div>
+                                    </a></li>
+                                    <!-- <li><a class="dropdown-item" (click)="gotoPage('/change-password')">
+                                        <div class="img-bx text-center p-0">
+                                            <i class="bi bi-lock-fill" style="font-size:35px;color:#27822f!important;"></i>
+                                        </div>
+                                        <div>
+                                            <h6 [translate]="'header.change_pass'">Change Password</h6>
+                                            <p></p>
+                                        </div>
+                                    </a></li> -->
+                                </ul>
+                            </li>
+                            <!-- <li class="nav-list">
+                                <a matRipple (click)="callNotification()" class="d-flex align-items-center justify-content-center text-center navlink">
+                                    <div>
+                                        <i class="bi bi-bell d-block mb-1"></i> 
+                                        <span class="d-block">make notify</span>
+                                    </div>
+                                </a>
+                            </li> -->
+                            <!-- <li class="nav-list border-bottom">
+                                <a matRipple (click)="gotoPage('/my-profile')" class="d-flex align-items-center justify-content-center text-center navlink">
+                                    <div>
+                                        <i class="bi bi-person d-block mb-1"></i> 
+                                        <span class="d-block">My Profile</span>
+                                    </div>
+                                </a>
+                            </li>
+                            
+                            <li class="nav-list border-bottom">
+                                <a matRipple (click)="gotoPage('/change-password')" class="d-flex align-items-center justify-content-center text-center navlink">
+                                    <div>
+                                        <i class="bi bi-arrow-counterclockwise d-block mb-1"></i> 
+                                        <span class="d-block">Change Password</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-list border-bottom">
+                                <a matRipple (click)="logout()" class="d-flex align-items-center justify-content-center text-center navlink">
+                                    <div>
+                                        <i class="bi bi-power d-block mb-1"></i> 
+                                        <span class="d-block">Logout</span>
+                                    </div>
+                                </a>
+                            </li> -->
+                        </ul>
+                        <div class="accordion" id="accordionExample">
+                            <!-- <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button mat-raised-button class="accordion-button collapsed shadow-none py-2 w-100 text-start text-truncate overflow-hidden text-nowrap" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <span class="icon me-2"><img src="assets/images/footer/academy.svg" class="img-fluid"></span> Academy
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <a (click)="gotoPage('/academy/ebooks')">Ebooks</a>
+                                        <a (click)="gotoPage('/academy/video-chapter-list')">Video Guides</a>
+                                        <a (click)="gotoPage('/academy/hsc-chapter-list')">Avramis Swing Masterclass</a>
+                                        <a (click)="gotoPage('/academy/seminar-list')">Seminars</a>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button mat-raised-button class="accordion-button collapsed shadow-none py-2 w-100 text-start text-truncate overflow-hidden text-nowrap" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSignal" aria-expanded="true" aria-controls="collapseOne">
+                                        <span class="icon me-2"><img src="assets/images/footer/signal.svg" class="img-fluid"></span> Signals
+                                    </button>
+                                </h2>
+                                <div id="collapseSignal" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <a (click)="gotoPage('/signal/autotrade')">Top Signals</a>
+                                        <a (click)="gotoPage('/signal/my-profile')">My Profile</a>
+                                        <a (click)="gotoPage('/signal/find-profile')">Find Profile</a>
+                                        <a (click)="createProfile()">Build Profile</a>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <a (click)="gotoPage('/tools')" mat-raised-button class="shadow-none py-2 w-100 text-start text-truncate overflow-hidden text-nowrap">
+                                <span class="icon me-2"><img src="assets/images/footer/tools.svg" class="img-fluid"></span> 
+                                <span>Tools</span>
+                            </a> -->
+                            <!-- <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button mat-raised-button class="accordion-button collapsed shadow-none py-2 w-100 text-start text-truncate overflow-hidden text-nowrap" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <span class="icon me-2"><img src="assets/images/footer/research.svg" class="img-fluid"></span> Research
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <a (click)="gotoPage('/research/heatmaps')">Heatmaps</a>
+                                        <a (click)="gotoPage('/research/news')">News</a>
+                                        <a (click)="gotoPage('/research/analysis')">Analysis</a>
+                                        <a (click)="gotoPage('/research/market-report')">Blog</a>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <!-- <a (click)="gotoPage('/my-profile')" matRipple class="shadow-none py-2 w-100 text-start text-truncate overflow-hidden text-nowrap">
+                            <i class="bi bi-person me-2"></i> 
+                            <span>My Profile</span>
+                        </a>
+                        <a (click)="gotoPage('/wallet')" matRipple class="shadow-none py-2 w-100 text-start text-truncate overflow-hidden text-nowrap">
+                            <i class="bi bi-wallet2 me-2"></i> 
+                            <span>Wallet</span>
+                        </a>
+                        <a (click)="gotoPage('/notification')" matRipple class="shadow-none py-2 w-100 text-start text-truncate overflow-hidden text-nowrap">
+                            <i class="bi bi-bell me-2"></i> 
+                            <span>Notification Settings</span>
+                        </a>
+                        <a (click)="gotoPage('/change-password')" matRipple class="shadow-none py-2 w-100 text-start text-truncate overflow-hidden text-nowrap">
+                            <i class="bi bi-arrow-counterclockwise me-2"></i> 
+                            <span>Change Password</span>
+                        </a>
+                        <a (click)="logout()" matRipple class="shadow-none py-2 w-100 text-start text-truncate overflow-hidden text-nowrap">
+                            <i class="bi bi-power me-1"></i> 
+                            <span>Logout</span>
+                        </a> -->
+                    </div>
+                </div>
+            </mat-sidenav>
+    
+            <mat-sidenav-content>
+                <router-outlet></router-outlet>
+            </mat-sidenav-content>
+          </mat-sidenav-container>
+          <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+            <div class="alert-popup-bx text-center px-4 position-relative">
+                <div class="text-end">
+                    <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+                </div>
+                <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+                <h4 class="text-center">{{alertPopupMsg}}</h4>            
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,265 @@
+<div id="wallet" class="bg-light h-100">
+    <div class="col-bx1" *ngIf="showPart==1">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="fw-600 pb-3" style="color:var(--theme-text);">{{ 'wallet.my_wallet' | translate }} & {{ 'wallet.refer_program' | translate }}</h4>
+            <!-- <h4 class="fw-600 pb-3" style="color:var(--theme-text);" [translate]="'wallet.my_wallet'">My Wallet</h4> -->
+        </div>
+        <!-- <div class="wallet1 d-flex align-items-center py-3">
+            <div class="rounded-circle img" style="background-image:url(./assets/images/avatar.jpg)"></div>
+            <h6 class="m-0 ps-3 fw-600">{{userName}}</h6>
+        </div> -->
+        <div class="d-flex align-items-start justify-content-between">
+            <div class="wallet2">
+                <div class="d-flex align-items-center justify-content-between position-relative pt-1">
+                    <img src="assets/images/star.svg" class="img-fluid single-start" style="width:45px;">
+                    <div>
+                        <h4>{{userPoints | number}} {{currCode}}</h4>
+                        <span [translate]="'wallet.balance_tradepedium'">Balance Tradepedium</span>
+                    </div>
+                    <img src="assets/images/tradepediam-coins.png" class="img-fluid mt-1" style="width:100px;">
+                </div>
+                <div class="d-flex align-items-center ad-btns pt-2">
+                    <button type="button" (click)="gotoBuy()"><i class="bi bi-plus-lg mx-1" style="font-size:11px;"></i> <label [translate]="'wallet.btn_addmoney'">Add Money</label></button>
+                    <button type="button" (click)="gotoTransfer()"><i class="bi bi-arrow-left-right mx-1"></i> <label [translate]="'wallet.btn_transfer'">Transfer</label></button>
+                </div>
+            </div>
+            <div class="referral1">
+                <h5 class="text-white pb-1" style="font-size:17px;" [translate]="'wallet.overview'">Overview</h5>
+                <div class="d-flex align-items-start justify-content-between flex-wrap">
+                    <div class="ref1-bx text-center" style="width:35%;">
+                        <span [translate]="'wallet.tot_earns'">Total Earnings</span>
+                        <h5 class="mt-1 d-flex justify-content-center"><img src="assets/images/tradepediam-coins.svg" class="img-fluid me-1" style="width:30px;"> {{earnPoints}}</h5>
+                        <label class="fw-600 text-dark" style="font-size:16px;">{{currCode}}</label>
+                    </div>
+                    <div class="ref1-bx text-center mb-0">
+                        <span [translate]="'wallet.refer'">Refers</span>
+                        <h5 class="mt-1 text-center">{{totalRefer}}</h5>
+                        <label class="fw-600 text-dark" style="font-size:16px;" [translate]="'wallet.members'">Members</label>
+                    </div>
+                    <div class="ref1-bx text-center mb-0">
+                        <span [translate]="'wallet.reward'">Rewards</span>
+                        <h5 class="mt-1 text-center">{{completeRefer}}</h5>
+                        <label class="fw-600 text-dark" style="font-size:16px;" [translate]="'wallet.members'">Members</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <h4 class="fw-600 pt-4 m-0" style="color:var(--theme-text);" [translate]="'wallet.my_wallet'">My Wallet</h4> -->
+        <div class="row">
+            <div class="col-md-6">
+                <a style="color:#288230;" (click)="gotoSection(2)" class="text-center d-block pt-3 ps-0 fw-600 fs-5" [translate]="'wallet.my_transaction'">My Transactions</a>
+                <div class="wallet3">
+                    <!-- <div class="d-flex align-items-center justify-content-between mb-2">
+                        <!-- <h4 class="fw-600" [translate]="'wallet.tlt_recenttrans'">My Recent Transactions</h4> -->
+                        <!-- <a class="fw-600 fs-5" style="color:#288230;" [translate]="'wallet.seeall'">See all</a> -->
+                    <!--</div> -->
+                    <div class="wallet3-bx">
+                        <h4 class="fw-600" [translate]="'wallet.tlt_recenttrans'">My Recent Transactions</h4>
+                        <table class="w-100">
+                            <tbody *ngIf="pointsLog.length > 0">
+                                <tr *ngFor="let log of pointsLog">
+                                    <td>
+                                        <div>
+                                            <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                            <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                                        </div>
+                                    </td>
+                                    <td><h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points | number}} <sub>{{currCode}}</sub></h6></td>
+                                </tr>
+                                <!-- <tr>
+                                    <td><h6 class="d-flex align-items-center"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-1" style="width:23px;"> 12 / 20 <sub>{{currCode}}</sub></h6></td>
+                                    <td>Jan 15, 2022</td>
+                                </tr> -->
+                            </tbody>
+                            <tbody *ngIf="pointsLog.length == 0">
+                                <tr>
+                                    <td colspan="2"><h6 class="d-flex align-items-center" [translate]="'wallet.msg_noearn'">No Earning(s)</h6></td>                        
+                                </tr>                    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                
+            </div>
+            <!-- <div class="col-md-4">                
+                <div class="wallet4">
+                    <div class="img-bx position-relative d-flex align-items-end">
+                        <img src="assets/images/boost-earning.jpg" class="img-fluid">
+                        <div class="d-flex align-items-end position-absolute start-0 end-0 bottom-0 px-4 pb-4" style="top:20%;background:linear-gradient(0deg, rgba(0,0,0,0.80), transparent);">
+                            <h4 class="fw-600" style="color:#fff;" [translate]="'wallet.boost_earn'">Boost Your Earnings</h4>
+                        </div>
+                    </div>
+                    <div class="wallet4-bx text-center">
+                        <h6 class="pb-3 fw-600" [translate]="'wallet.take_specialquiz'">Take Special Quizzes and Boost your Earning Now</h6>
+                        <button (click)="gotoQuiz()" [translate]="'wallet.btn_start'">Start</button>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-md-6" *ngIf="showRefer==1">
+                <a style="color:#288230; text-align: right;" (click)="gotoSection(3)" class="text-center d-block pt-3 px-0 fw-600 fs-5" [translate]="'wallet.my_refer'">My Referrals</a>
+                <div class="wallet5 px-4">
+                    <div class="d-flex align-items-center justify-content-between wallet4-bx">
+                        <h6 class="m-0"><span [translate]="'wallet.refer_friend'">Refer your friend and get</span> <img src="assets/images/tradepediam-coin.svg" class="img-fluid ms-2"> {{senderPoints | number}} {{currCode}}</h6>
+                    </div>
+                    <div class="img-bx position-relative px-3">
+                        <img src="assets/images/refer-friend.png" class="img-fluid">
+                    </div>
+                    <div class="points p-3 bg-white mx-auto mt-3">
+                        <ul class="list-unstyled pt-2">
+                            <li class="d-flex"><span class="rounded-circle d-flex align-items-center justify-content-center">1</span> {{ 'wallet.info_point1' | translate }}</li><!-- Share your referral link with friends -->
+                            <li class="d-flex"><span class="rounded-circle d-flex align-items-center justify-content-center">2</span> {{ 'wallet.info_point2' | translate }}</li><!-- Invite friends to sign up and say to attend quiz after login -->
+                            <li class="d-flex"><span class="rounded-circle d-flex align-items-center justify-content-center">3</span> {{ 'wallet.info_point31' | translate }} {{senderPoints | number}} {{currCode}} {{ 'wallet.info_point32' | translate }}</li><!-- Receive {{senderPoints}} {{currCode}} for referral -->
+                        </ul>
+                    </div>
+                    <button type="button" (click)="shareReferal(templateDialogbx)" class="px-2 py-2 text-center w-100 border-0 mt-3 fs-5" style="background:#45f9a5;border-radius:10px;color:#000;" [translate]="'wallet.invite_friend'">Invite Friends</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <div class="col-bx2" *ngIf="showPart==2">
+        <div class="p-3">
+            <app-my-transactions></app-my-transactions>
+        </div>
+    </div>
+    <div class="col-bx3" *ngIf="showPart==3">
+        <div class="mb-3 d-flex align-items-center justify-content-between">
+            <h4 class="fw-600" style="color: var(--theme-text);" [translate]="'wallet.refer_program'">Referral Program</h4>
+            <a class="btn-warning sbmt-link border-0 px-4" (click)="gotoSection(1)" [translate]="'wallet.goto_wallet'">Goto Wallet</a>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="wallet5 px-4">
+                        <button type="button" (click)="shareReferal(templateDialogbx)" class="px-2 py-2 text-center w-100 border-0 mt-1 fs-5" style="background:#45f9a5;border-radius:10px;color:#000; width: 50%;" [translate]="'wallet.invite_friend'">Invite Friends</button>
+                    </div>                
+                </div>
+                <div class="col-md-12">                     
+                    <div class="referral1">
+                        <h5 class="text-white pb-1" style="font-size:17px;" [translate]="'wallet.overview'">Overview</h5>
+                        <div class="d-flex align-items-start justify-content-between flex-wrap">
+                            <div class="ref1-bx text-center" style="width:35%;">
+                                <span [translate]="'wallet.tot_earns'">Total Earnings</span>
+                                <h5 class="mt-1 d-flex justify-content-center"><img src="assets/images/tradepediam-coins.svg" class="img-fluid me-1" style="width:30px;"> {{earnPoints}}</h5>
+                                <label class="fw-600 text-dark" style="font-size:16px;">{{currCode}}</label>
+                            </div>
+                            <div class="ref1-bx text-center mb-0">
+                                <span [translate]="'wallet.refer'">Refers</span>
+                                <h5 class="mt-1 text-center">{{totalRefer}}</h5>
+                                <label class="fw-600 text-dark" style="font-size:16px;" [translate]="'wallet.members'">Members</label>
+                            </div>
+                            <div class="ref1-bx text-center mb-0">
+                                <span [translate]="'wallet.reward'">Rewards</span>
+                                <h5 class="mt-1 text-center">{{completeRefer}}</h5>
+                                <label class="fw-600 text-dark" style="font-size:16px;" [translate]="'wallet.members'">Members</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="referral2 pt-4">
+                    <div class="mb-2">
+                        <h4 class="fw-600" style="color:var(--theme-text);" [translate]="'wallet.my_reward'">My Rewards</h4>
+                    </div>
+                    <div class="referral2-bx">
+                        <div class="row mx-0" *ngIf="earnedList.length > 0">
+                            <div class="col-md-4 px-0" *ngFor="let log of earnedList;let ind=index;">
+                                <div class="list-bx d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h5 class="mb-0 fw-600">{{log.label}}</h5>
+                                        <span>{{log.base_date2 | date:'mediumDate':timeZone}}</span>
+                                    </div>
+                                    <h6 class="d-flex align-items-center justify-content-end"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-2" style="width:24px;"> {{log.points | number}} <sub>{{currCode}}</sub></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mx-0" *ngIf="earnedList.length == 0">
+                            <div class="col-md-12 px-0">
+                                <h6 class="text-center mt-3 mb-3 fw-600" style="color:#fff;" [translate]="'wallet.no_earning'">No Earning(s)</h6>
+                            </div>
+                        </div>
+                        <!-- <table class="w-100">
+                            <tbody *ngIf="earnedList.length > 0">
+                                <tr *ngFor="let earn of earnedList;">
+                                    <td>
+                                        <div>
+                                            <h5 class="mb-0 fw-600">{{earn.label}}</h5>
+                                            <span>{{earn.date}}</span>
+                                        </div>
+                                    </td>
+                                    <td><h6 class="d-flex align-items-center"><img src="assets/images/tradepediam-coin.svg" class="img-fluid me-1" style="width:23px;"> {{earn.points}} <sub>{{currCode}}</sub></h6></td>
+                                </tr>                    
+                            </tbody>
+                            <tbody *ngIf="earnedList.length == 0">
+                                <tr>
+                                    <td colspan="2"><h6 class="d-flex align-items-center justify-content-center" [translate]="'wallet.no_earning'">No Earning(s)</h6></td>                        
+                                </tr>                    
+                            </tbody>
+                        </table> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="referral2 pt-4">
+                    <div class="mb-3 d-flex align-items-center justify-content-between">
+                        <h4 class="fw-600 mb-0" style="color:var(--theme-text);" [translate]="'wallet.my_refer'">My Referrals</h4>
+                        <mat-button-toggle-group name="favoriteColor" (change)="showStatus($event.value)" class="border-0" aria-label="Favorite Color">
+                            <mat-button-toggle value="" checked>{{ 'wallet.laball' | translate }}</mat-button-toggle>
+                            <mat-button-toggle value="Pending">{{ 'wallet.labpend' | translate }}</mat-button-toggle>
+                            <mat-button-toggle value="Completed">{{ 'wallet.labcomp' | translate }}</mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                    <div class="referral2-bx">
+                        <div class="row mx-0" *ngIf="filterFunction(referList,selectedType).length > 0">
+                            <div class="col-md-4 px-0" *ngFor="let refer of filterFunction(referList,selectedType);let ind=index;">
+                                <div class="list-bx d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h5 class="mb-0 fw-600">{{refer.name}}</h5>
+                                        <span>{{refer.base_date2 | date:'mediumDate':timeZone}}</span>
+                                    </div>
+                                    <h6 style="font-size:14px;" *ngIf="refer.refer_status=='Pending'">{{ 'wallet.labpend' | translate }}</h6>
+                                    <h6 style="font-size:14px;" *ngIf="refer.refer_status=='Completed'">{{ 'wallet.labcomp' | translate }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mx-0" *ngIf="filterFunction(referList,selectedType).length == 0">
+                            <div class="col-md-12 px-0">
+                                <h6 class="text-center mt-3 mb-3 fw-600" style="color:#fff;"  [translate]="'wallet.no_refer'">No Referral(s)</h6>
+                            </div>
+                        </div>
+                        <!-- <table class="w-100">
+                            <tbody *ngIf="filterFunction(referList,selectedType).length > 0">
+                                <tr *ngFor="let refer of filterFunction(referList,selectedType);">
+                                    <td>
+                                        <div>
+                                            <h5 class="mb-0 fw-600">{{refer.name}}</h5>
+                                            <span>{{refer.date}}</span>
+                                        </div>
+                                    </td>
+                                    <td><h6 style="font-size:14px;">{{refer.refer_status}}</h6></td>
+                                </tr>                    
+                            </tbody>
+                            <tbody *ngIf="filterFunction(referList,selectedType).length == 0">
+                                <tr>
+                                    <td colspan="2"><h6 class="d-flex align-items-center justify-content-center" [translate]="'wallet.no_refer'">No Referral(s)</h6></td>                        
+                                </tr>                    
+                            </tbody>
+                        </table> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #templateDialogbx>
+    <div>
+        <h5 class="pb-2 ps-2 fw-600" [translate]="'wallet.poptlt_share'">Share</h5>
+        <share-buttons            
+            theme="circles-dark"            
+            [include]="['facebook', 'linkedin', 'telegram', 'twitter', 'whatsapp']"
+            [showIcon]="true"
+            [showText]="false"
+            url="{{referralUrl}}"
+            description="You are invited to Tradepedia by your Friend. Click to signup and earn Free {{this.receiverPoints | number}} {{this.currCode}}"
+        >
+        </share-buttons>
+    </div>
+</ng-template>

@@ -1,0 +1,322 @@
+<div id="home" class="bg-light">
+	<div class="px-4 py-4">
+		<!-- <h3 class="sec-tlt">Academy</h3> -->
+		<div class="home d-flex align-items-center w-100">
+			<div class="home1 d-flex align-items-center justify-content-center">
+				<img src="assets/images/home-img/academys.svg" class="img-fluid">
+				<h3 class="sec-tlt w-100" [translate]="'home.tlt_academy'">Academy</h3>
+			</div>
+			<div class="home2 d-flex">
+				<a matRipple class="home2-bx" routerLink="/academy/ebooks">
+					<div class="img-bx">
+						<img src="assets/images/home/ebook.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_ebook'">Ebooks</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/academy/video-chapter-list">
+					<div class="img-bx">
+						<img src="assets/images/home/video-guide.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_videoguide'">Video Guides</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/academy/hsc-chapter-list">
+					<div class="img-bx">
+						<img src="assets/images/home/Avramis-Swing-Masterclass.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_hsc'">Avramis Swing Masterclass</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/academy/seminar-list">
+					<div class="img-bx">
+						<img src="assets/images/home/seminars.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_seminar'">Seminars</h6>
+				</a>
+			</div>
+		</div>
+
+		<div class="home d-flex align-items-center w-100">
+			<div class="home1 d-flex align-items-center justify-content-center">
+				<img src="assets/images/header/signal.svg" class="img-fluid">
+				<h3 class="sec-tlt w-100" [translate]="'home.tlt_signal'">Signal</h3>
+			</div>
+			<div class="home2 d-flex">
+				<a matRipple class="home2-bx" routerLink="/signal/autotrade">
+					<div class="img-bx">
+						<img src="assets/images/signal/autotrade.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_autosignal'">Top Signals</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/signal/my-profile">
+					<div class="img-bx">
+						<img src="assets/images/signal/my-profile.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_myprofile'">My Profiles</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/signal/find-profile">
+					<div class="img-bx">
+						<img src="assets/images/signal/find.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_findprofile'">Find Profile</h6>
+				</a>
+				<a matRipple class="home2-bx" (click)="createProfile()">
+					<div class="img-bx">
+						<img src="assets/images/signal/create.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_buildprofile'">Build Profile</h6>
+				</a>
+			</div>
+		</div>
+
+		<div class="home d-flex align-items-center w-100">
+			<div class="home1 d-flex align-items-center justify-content-center">
+				<img src="assets/images/home-img/tools.svg" class="img-fluid">
+				<h3 class="sec-tlt w-100" [translate]="'home.tlt_tools'">Tools</h3>
+			</div>
+			<div class="home2 d-flex">
+				<a matRipple class="home2-bx" routerLink="/tools/Beginner">
+					<div class="img-bx">
+						<img src="assets/images/tools/beginner.png" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.beginner'">Beginner</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools/Intermediate">
+					<div class="img-bx">
+						<img src="assets/images/tools/intermediate.png" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.intermediate'">Intermediate</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools/Advanced">
+					<div class="img-bx">
+						<img src="assets/images/tools/advanced.png" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.advanced'">Advanced</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools/Expert">
+					<div class="img-bx">
+						<img src="assets/images/tools/expert.png" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.expert'">Expert</h6>
+				</a>
+			</div>
+		</div>
+
+		<!-- <div class="home tools d-flex align-items-center w-100 position-relative">
+			<div class="home1 d-flex align-items-center justify-content-center" style="background-image:url(./assets/images/home-img/tool-bg.jpg);min-height:232px;">
+				<img src="assets/images/home-img/tool.png" class="img-fluid">
+			</div>
+			<div class="home2 d-flex flex-wrap">
+				<h3 class="sec-tlt w-100" [translate]="'home.tlt_tools'">Tools</h3>
+				<ng-container *ngFor="let tools of toolsList;let ind=index;">
+					<a matRipple (click)="gotoDetails(tools)" class="home2-bx">
+						<div class="img-bx">
+							<img src="{{tools.imgSrc}}" class="img-fluid">
+						</div>
+						<h6>{{tools.tools_title}}</h6>
+					</a>	
+				</ng-container> -->
+				<!-- <a matRipple class="home2-bx" routerLink="/tools">
+					<div class="img-bx">
+						<img src="assets/images/tools/ribbon_indicator.png" class="img-fluid">
+					</div>
+					<h6>Ribbon Indicator</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools">
+					<div class="img-bx">
+						<img src="assets/images/tools/ribbon_indicator.png" class="img-fluid">
+					</div>
+					<h6>River Indicator</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools">
+					<div class="img-bx">
+						<img src="assets/images/tools/ribbon_indicator.png" class="img-fluid">
+					</div>
+					<h6>Ichimoku</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools">
+					<div class="img-bx">
+						<img src="assets/images/tools/ribbon_indicator.png" class="img-fluid">
+					</div>
+					<h6>Bollinger</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools">
+					<div class="img-bx">
+						<img src="assets/images/tools/ribbon_indicator.png" class="img-fluid">
+					</div>
+					<h6>ADX</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools">
+					<div class="img-bx">
+						<img src="assets/images/tools/ribbon_indicator.png" class="img-fluid">
+					</div>
+					<h6>Analyzzer</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools">
+					<div class="img-bx">
+						<img src="assets/images/tools/ribbon_indicator.png" class="img-fluid">
+					</div>
+					<h6>Gold Indicator</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools">
+					<div class="img-bx">
+						<img src="assets/images/tools/ribbon_indicator.png" class="img-fluid">
+					</div>
+					<h6>Sentinel</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/tools">
+					<div class="img-bx">
+						<img src="assets/images/tools/ribbon_indicator.png" class="img-fluid">
+					</div>
+					<h6>Swing</h6>
+				</a> -->
+			<!-- </div>
+		</div> -->
+
+		<div class="home d-flex align-items-center w-100">
+			<div class="home1 d-flex align-items-center justify-content-center">
+				<img src="assets/images/home-img/trading-room.svg" class="img-fluid">
+				<h3 class="sec-tlt w-100" [translate]="'home.tlt_research'">Research</h3>
+			</div>
+			<!-- <div class="home2 d-flex">
+				<h2 class="home2-bx" [translate]="'home.coming_soon'">Coming Soon..</h2>
+			</div> -->
+			<div class="home2 d-flex">
+				<!-- <a matRipple class="home2-bx" routerLink="/research/heatmaps">
+					<div class="img-bx">
+						<img src="assets/images/research/heatmap.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_heatmap'">Heatmaps</h6>
+				</a> -->
+				<a matRipple class="home2-bx" routerLink="/research/copy-trading">
+					<div class="img-bx">
+						<img src="assets/images/research/copy.svg" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_copytrade'">Copy Trading</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/research/squawk-room">
+					<div class="img-bx">
+						<img src="assets/images/research/squawk.png" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_squawk'">Squawk Room</h6>
+				</a>
+				<a matRipple class="home2-bx" routerLink="/research/market-report">
+					<div class="img-bx">
+						<img src="assets/images/research/market-report.png" class="img-fluid">
+					</div>
+					<h6 [translate]="'home.subtlt_markreport'">Market Reports</h6>
+				</a>
+			</div>
+		</div>
+	</div>
+		<!-- <swiper
+			[effect]="'fade'"
+			[pagination]="{
+			dynamicBullets: true
+			}"
+			class="mySwiper mySwiper2"
+		>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/academy.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white">Academy</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/signal.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-dark">Signals</h1>
+						<p class="text-dark fw-normal">Our automated signals are designed to take the leg work out of technical analyses so you can get on with the important part - the actual trading.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/tools.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white">Tools</h1>
+						<p class="text-white fw-normal">Avramis despotis has developed a series of precies trading tools to use on the popular MetaStock and MetaTrader platforms.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/research.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white">Research</h1>
+						<p class="text-white fw-normal">Stay up to date with news, heatmaps and technical and fundamental analysis on major markets.</p>
+					</div>
+				</div>
+			</ng-template> -->
+			
+			<!-- <ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/ebook.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-normal">Ebooks</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/academy1.jpg" class="img-fluid">
+					<div class="swiper-cnct text-center start-0 end-0 mx-auto" style="top:80px;width:80%;">
+						<h1 class="fw-normal" style="color:#2da94f;">Academy</h1>
+						<p class="text-dark fw-normal">Here you can learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/signal.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-normal">Signals</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/tools.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-normal">Tools</h1>
+						<p class="text-white fw-normal">Tradepedieum Here you can learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template> -->
+		<!-- </swiper>
+	</div>
+
+	<div class="home1 d-flex justify-content-between flex-wrap p-3">
+		<a routerLink="/academy" class="home1-bx text-center p-4 mb-3">
+			<img src="assets/images/home/academy.svg">
+			<h6 class="pt-3">Academy</h6>
+		</a>
+		<a routerLink="/signal" class="home1-bx text-center p-4 mb-3">
+			<img src="assets/images/home/signal.svg">
+			<h6 class="pt-3">Signals</h6>
+		</a>
+		<a routerLink="/tools" class="home1-bx text-center p-4 mb-3">
+			<img src="assets/images/home/tools.svg">
+			<h6 class="pt-3">Tools</h6>
+		</a>
+		<a routerLink="/research" class="home1-bx text-center p-4 mb-3">
+			<img src="assets/images/home/research.svg">
+			<h6 class="pt-3">Research</h6>
+		</a>
+	</div> -->
+
+
+	<div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+		<div class="alert-popup-bx text-center px-4 position-relative">
+			<div class="text-end">
+				<button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+			</div>
+			<img src="assets/images/validation-error.png" class="img-fluid" alt="">
+			<h4 class="text-center">{{alertPopupMsg}}</h4>            
+		</div>
+	</div>
+</div>

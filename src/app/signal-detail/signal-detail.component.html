@@ -1,0 +1,261 @@
+<div id="signal-detail" class="bg-light d-flex">
+    <div *ngIf="loadContent==0" class="preloader w-100 h-100 text-center position-fixed" style="top:0px; right:0px; bottom:0px; left:0px; padding-top: 150px; z-index:1; background:#fff;">
+        <svg version="1.1" style="height:100px;width:105px;">
+             <circle cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke="#753bbd" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="100, 200">
+                <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 50 50" to="360 50 50" dur="2.5s" repeatCount="indefinite"/>
+                <animate attributeName="stroke-dashoffset" values="0;-30;-124" dur="1.25s" repeatCount="indefinite"/>
+                <animate attributeName="stroke-dasharray" values="0,200;110,200;110,200" dur="1.25s" repeatCount="indefinite"/>
+            </circle>
+        </svg>
+    </div>
+    <!-- <div class="col-bx1 h-100">       
+        <div class="signaldtls6">
+            <iframe [src]="chartURL2" frameborder="0" class="w-100" style="height:620px;"></iframe>
+        </div>
+    </div> -->
+    <div class="col-bx2 h-100">
+        <!-- <div *ngIf="loadContent==1" class="signaldtls2 d-flex flex-wrap">
+            <div class="tag border-bottom border-end">                    
+                <h6>Symbol</h6>
+                <span>{{signalDets.symbol}}</span>
+            </div>
+            <div class="tag border-bottom border-end">                    
+                <h6>timeframe</h6>
+                <span>{{signalDets.timeframe}}</span>
+            </div>
+            <div class="tag border-bottom border-end">                    
+                <h6>Entry</h6>
+                <span>{{signalDets.en}}</span>
+            </div>
+            <div class="tag border-bottom">
+                <h6>Stop</h6>
+                <span>{{signalDets.s2}}</span>                   
+            </div>
+            <div class="tag border-end">                    
+                <h6>Target1</h6>
+                <span>{{signalDets.T1}}</span>
+            </div>
+            <div class="tag border-end">                    
+                <h6>Target2</h6>
+                <span>{{signalDets.T2}}</span>
+            </div>
+            <div class="tag border-end">                    
+                <h6>Target3</h6>
+                <span>{{signalDets.T3}}</span>
+            </div>
+            <div class="tag">                    
+                <h6>Current</h6>
+                <span>{{signalDets.currRate}}</span>
+            </div>
+        </div> -->
+
+
+        <div class="signaldtls2 d-flex flex-wrap">
+            <div class="tag border-bottom border-end">                    
+                <h6 [translate]="'my_profile.tlt_symbol'">Symbol</h6>
+                <span>{{signalDets.symbol}}</span>
+            </div>
+            <div class="tag border-bottom border-end">                    
+                <h6 [translate]="'my_profile.tlt_timeframe'">timeframe</h6>
+                <span>{{signalDets.timeframe}}</span>
+            </div>
+            <div class="tag border-bottom border-end">                    
+                <h6 [translate]="'my_profile.entry'">Entry</h6>
+                <span>{{signalDets.en}}</span>
+            </div>
+            <div class="tag border-bottom">
+                <h6 [translate]="'my_profile.tlt_stop'">Stop</h6>
+                <span>{{signalDets.s2}}</span>                   
+            </div>
+            <div class="tag border-end">                    
+                <h6 [translate]="'my_profile.tlt_target1'">Target1</h6>
+                <span>{{signalDets.T1}}</span>
+            </div>
+            <div class="tag border-end">                    
+                <h6 [translate]="'my_profile.tlt_target2'">Target2</h6>
+                <span>{{signalDets.T2}}</span>
+            </div>
+            <div class="tag border-end">                    
+                <h6 [translate]="'my_profile.tlt_target3'">Target3</h6>
+                <span>{{signalDets.T3}}</span>
+            </div>
+            <div class="tag">                    
+                <h6 [translate]="'my_profile.tlt_current'">Current</h6>
+                <span>{{signalDets.currRate}}</span>
+            </div>
+        </div>
+        <div class="signaldtls5">
+            <div class="row" style="margin:0px;">
+                <div class="col-4">
+                    <div class="botm-chart">
+                        <div id="chartone" width="100" class="text-center">                        
+                        </div>
+                        <div class="botm-chart-bx">
+                            <h6 [translate]="'my_profile.tlt_trend'">Trend</h6>
+                            <span>{{signalDets.trend_value}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="botm-chart">
+                        <div id="charttwo" width="100" class="text-center"></div>
+                        <div class="botm-chart-bx">
+                            <h6 [translate]="'my_profile.tlt_statet'">State T</h6>
+                            <span>{{signalDets.stateT}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="botm-chart">
+                        <div id="chartthree" width="100" class="text-center"></div>
+                        <div class="botm-chart-bx">
+                            <h6 [translate]="'my_profile.tlt_statew'">State W</h6>
+                            <span >{{signalDets.stateW}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="signaldtls4 pl-10 pr-10 pb-5">
+            <p>{{signalDets.description}}</p>
+        </div>
+        <div class="signaldtls6">
+            <iframe [src]="chartURL2" frameborder="0" class="w-100" style="height:500px;"></iframe>
+        </div>
+    
+        <div class="signaldtls3 d-flex flex-wrap">
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_direction'">Direction</h6>
+                <span style="text-transform: capitalize;" [innerHtml]="signalDets.directionLab"></span>
+            </div>
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_stratagy'">Strategy</h6>
+                <span>{{signalDets.fullStrategy}}</span>
+            </div>
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_type'">Type</h6>
+                <span>{{signalDets.fullType}}</span>
+            </div>
+
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_patten'">Patterns</h6>
+                <span>{{signalDets.fullType}}</span>
+            </div>                
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_support1'">Support 1</h6>
+                <span>{{signalDets.support1}}</span>
+            </div>
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_resistance1'">Resistance 1</h6>
+                <span>{{signalDets.resistance1}}</span>
+            </div>
+
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_support2'">Support 2</h6>
+                <span>{{signalDets.support2}}</span>
+            </div>
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_resistance2'">Resistance 2</h6>
+                <span>{{signalDets.resistance2}}</span>
+            </div>    
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_quality'">Quality</h6>
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="progress">
+                        <div class="progress-bar" *ngIf="signalDets.trendQuality<=2" style="background-color:#dc3545;" role="progressbar" [ngStyle]="{'width':(signalDets.trendQuality) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" *ngIf="signalDets.trendQuality>=3 && signalDets.trendQuality<=9" style="background-color:#FFA500;" role="progressbar" [ngStyle]="{'width':(signalDets.trendQuality) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" *ngIf="signalDets.trendQuality==10" style="background-color:#28a745;" role="progressbar" [ngStyle]="{'width':(signalDets.trendQuality) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <span class="ms-2">{{signalDets.trendQuality}}</span>
+                </div>
+            </div>
+
+            <div class="tag border-bottom">                    
+                <h6 [translate]="'my_profile.tlt_strength'">Strength</h6>
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="progress">
+                        <div class="progress-bar" *ngIf="signalDets.score<=2" style="background-color:#dc3545;" role="progressbar" [ngStyle]="{'width':(signalDets.score) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" *ngIf="signalDets.score>=3 && signalDets.score<=9" style="background-color:#FFA500;" role="progressbar" [ngStyle]="{'width':(signalDets.score) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" *ngIf="signalDets.score==10" style="background-color:#28a745;" role="progressbar" [ngStyle]="{'width':(signalDets.score) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <span class="ms-2">{{signalDets.score}}</span>
+                </div>
+            </div>
+            <div class="tag border-bottom" *ngIf="signalDets.actDate!=''">                    
+                <h6 [translate]="'my_profile.activation_date'">Activation Date</h6>
+                <span>{{signalDets.actDate}}</span>
+            </div>
+            <div class="tag border-bottom" *ngIf="signalDets.incDate!=''">                    
+                <h6 [translate]="'my_profile.incep_date'">Inception Date</h6>
+                <span>{{signalDets.incDate}}</span>
+            </div>
+
+            <div class="tag border-bottom" *ngIf="signalDets.t1Date!=''">                    
+                <h6 [translate]="'my_profile.target1_date'">Target1 Date</h6>
+                <span>{{signalDets.t1Date}}</span>
+            </div>
+            <div class="tag border-bottom" *ngIf="signalDets.t2Date!=''">                    
+                <h6 [translate]="'my_profile.target2_date'">Target2 Date</h6>
+                <span>{{signalDets.t2Date}}</span>
+            </div>
+            <div class="tag border-bottom" *ngIf="signalDets.t3Date!=''">                    
+                <h6 [translate]="'my_profile.target3_date'">Target3 Date</h6>
+                <span>{{signalDets.t3Date}}</span>
+            </div>
+            
+            
+            <div class="tag border-bottom" *ngIf="signalDets.stopDate!=''">                    
+                <h6 [translate]="'my_profile.stop_date'">Stop Date</h6>
+                <span>{{signalDets.stopDate}}</span>
+            </div>
+            <div class="tag border-bottom" *ngIf="signalDets.exitDate!=''">                    
+                <h6 [translate]="'my_profile.exit_date'">Exit Date</h6>
+                <span>{{signalDets.exitDate}}</span>
+            </div>
+            <div class="tag">                    
+                <h6></h6>
+                <span></span>
+            </div>        
+    
+            <div class="row">    
+            </div>
+        </div>
+    
+        <!-- <div class="signaldtls4 pl-3 pr-3 pb-1">
+            <p>{{signalDets.description}}</p>
+        </div>
+    
+        <div class="signaldtls5">
+            <div class="row" style="margin:0px;">
+                <div class="col-4">
+                    <div class="botm-chart">
+                        <div id="chartone" width="100" class="text-center">                        
+                        </div>
+                        <div class="botm-chart-bx">
+                            <h6>Trend</h6>
+                            <span>{{signalDets.trend_value}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="botm-chart">
+                        <div id="charttwo" width="100" class="text-center"></div>
+                        <div class="botm-chart-bx">
+                            <h6>State T</h6>
+                            <span>{{signalDets.stateT}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="botm-chart">
+                        <div id="chartthree" width="100" class="text-center"></div>
+                        <div class="botm-chart-bx">
+                            <h6>State W</h6>
+                            <span >{{signalDets.stateW}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>    
+</div>

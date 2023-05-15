@@ -1,0 +1,50 @@
+<div id="analysis" class="d-flex bg-light">
+    <div class="col-bx1">
+        <div class="analysis1 px-3 py-4">
+            <h5 class="m-0 fw-600" [translate]="'analysis.page_tlt'">Analysis</h5>
+        </div>
+        <div class="analysis2 px-3">
+            <ng-container *ngFor="let analysis of analysisList;let ind=index;">
+                <a matRipple *ngIf="(ind%2==0)" (click)="gotoDetails(analysis)" class="analysis2-bx d-flex mb-3">
+                    <div class="img">
+                        <img src="{{analysis.imgSrc}}" class="img-fluid w-100">
+                    </div>
+                    <div class="dtls ps-2 w-100 d-flex justify-content-between flex-column">
+                        <h6 class="mb-0 fw-600">{{ (analysis.analysis_title.length>75)? (analysis.analysis_title | slice:0:75)+'...':(analysis.analysis_title) }}</h6>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <span class="me-3"><i class="bi bi-calendar2-week-fill mx-1"></i> {{analysis.date}}</span>
+                            <span style="color:#52b69a;"><i class="bi bi-clock-fill mx-1"></i> {{analysis.time}}</span>
+                        </div>
+                    </div>
+                </a>
+                <a matRipple *ngIf="(ind%2==1)" (click)="gotoDetails(analysis)" class="analysis2-bx d-flex mb-3">
+                    <div class="img">
+                        <img src="{{analysis.imgSrc}}" class="img-fluid w-100">
+                    </div>
+                    <div class="dtls ps-2 w-100 d-flex justify-content-between flex-column">
+                        <h6 class="mb-0 fw-600">{{ (analysis.analysis_title.length>75)? (analysis.analysis_title | slice:0:75)+'...':(analysis.analysis_title) }}</h6>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <span class="me-3"><i class="bi bi-calendar2-week-fill mx-1"></i> {{analysis.date}}</span>
+                            <span style="color:#52b69a;"><i class="bi bi-clock-fill mx-1"></i> {{analysis.time}}</span>
+                        </div>
+                    </div>
+                </a>
+            </ng-container>            
+        </div>
+    </div>
+    <div class="col-bx2">
+        <div class="analysis-details1 px-3">
+            <div class="img d-flex align-items-center justify-content-center">
+                <img src="{{analysisDets.imgSrc}}" class="img-fluid w-100">
+             </div>
+             <div class="dtls ps-2">
+                <h6 class="mb-0 fw-600">{{analysisDets.analysis_title}}</h6>
+                <div class="d-flex align-items-center justify-content-end">
+                    <span class="me-3"><i class="bi bi-calendar2-week-fill mx-1"></i> {{analysisDets.date}}</span>
+                    <span style="color:#52b69a;"><i class="bi bi-clock-fill mx-1"></i> {{analysisDets.time}}</span>
+                </div>
+                <div class="content" [innerHTML]="analysisDets.analysis_description"></div>                
+            </div>
+        </div>
+    </div>
+</div>

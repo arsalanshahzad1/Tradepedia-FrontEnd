@@ -1,0 +1,75 @@
+<div id="signal" class="bg-light">
+	<div class="p-3 pt-4" style="background:var(--theme-gradient);">
+		<swiper
+			[effect]="'fade'"
+			[autoplay]="{
+				delay: 3000
+			}"
+			[pagination]="{
+				dynamicBullets: true
+			}"
+			class="mySwiper mySwiper2"
+		>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/signal.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-dark fw-500">Signal</h1>
+						<p class="text-dark fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/my-profile.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">My Profile</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx text-center" style="background:#e6f4f7;">
+					<img src="assets/images/banner/create-profile.jpg" class="img-fluid w-auto">
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/find-profile.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">Find Profile</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template swiperSlide>
+				<div class="swip-bx">
+					<img src="assets/images/banner/autotrade.jpg" class="img-fluid">
+					<div class="swiper-cnct">
+						<h1 class="text-white fw-500">Autotrade</h1>
+						<p class="text-white fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+					</div>
+				</div>
+			</ng-template>
+		</swiper>
+	</div>
+
+	<div class="signal1 d-flex justify-content-between flex-wrap p-3">
+		<a routerLink="/signal/autotrade" class="signal1-bx text-center p-4 mb-3">
+			<img src="assets/images/signal/autotrade.svg">
+			<h6 class="pt-3">Top Signals</h6>
+		</a>
+		<a routerLink="/signal/my-profile" class="signal1-bx text-center p-4 mb-3">
+			<img src="assets/images/signal/profile.svg">
+			<h6 class="pt-3">My Profiles</h6>
+		</a>
+		<a routerLink="/signal/find-profile" class="signal1-bx text-center p-4 mb-3">
+			<img src="assets/images/signal/find.svg">
+			<h6 class="pt-3">Find Profile</h6>
+		</a>
+		<a (click)="createProfile()" class="signal1-bx text-center p-4 mb-3">
+			<img src="assets/images/signal/create.svg">
+			<h6 class="pt-3">Build Profile</h6>
+		</a>
+	</div>
+</div>

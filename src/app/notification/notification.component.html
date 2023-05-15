@@ -1,0 +1,136 @@
+<div id="notification" class="d-flex h-100 bg-light">
+    <div class="col-bx-0 p-4">
+        <div class="notifi">
+            <div class="notifi-bx" [ngClass]="{'active': type === 'Signal'}" (click)="getUserNoteDets('Signal')">
+                <div class="d-flex">
+                    <div class="icon">
+                        <img src="assets/images/signal-2d.png" class="img-fluid">
+                    </div>
+                    <div>
+                        <h3 [translate]="'notification.tlt_signal'">Signals</h3>
+                        <p [translate]="'notification.desc_signal'">Recent signals notifications</p>
+                    </div>
+                </div>
+                <!-- <div class="text-end">
+                    <span class="msg">{{signalCount}}</span>                    
+                </div> -->
+            </div>
+            <div class="notifi-bx" [ngClass]="{'active': type === 'Offer'}" (click)="getUserNoteDets('Offer')">
+                <div class="d-flex">
+                    <div class="icon" style="background:rgba(236, 29, 57, 0.10);">
+                        <img src="assets/images/offer.png" class="img-fluid">
+                    </div>
+                    <div>
+                        <h3 [translate]="'notification.tlt_offer'">Offers</h3>
+                        <p [translate]="'notification.desc_offer'">Recent offers notifications</p>
+                    </div>
+                </div>
+                <!-- <div class="text-end">
+                    <span class="msg">{{offerCount}}</span>                    
+                </div> -->
+            </div>
+            <div class="notifi-bx" [ngClass]="{'active': type === 'News'}" (click)="getUserNoteDets('News')">
+                <div class="d-flex">
+                    <div class="icon" style="background: rgba(254, 198, 41, 0.15);">
+                        <img src="assets/images/uses.png" class="img-fluid">
+                    </div>
+                    <div>
+                        <h3 [translate]="'notification.tlt_news'">News</h3>
+                        <p [translate]="'notification.desc_news'">Recent news notifications</p>
+                    </div>
+                </div>
+                <!-- <div class="text-end">
+                    <span class="msg">{{newsCount}}</span>                    
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="col-bx1 h-100 p-4">        
+        <h4 class="sec-tlt fw-600 pb-2" style="color:var(--theme-text);" [translate]="'notification.tlt_signal_recent'" *ngIf="this.type=='Signal'" >Signals Recent History</h4>
+        <h4 class="sec-tlt fw-600 pb-2" style="color:var(--theme-text);" [translate]="'notification.tlt_offer_recent'" *ngIf="this.type=='Offer'" >Offers Recent History</h4>
+        <h4 class="sec-tlt fw-600 pb-2" style="color:var(--theme-text);" [translate]="'notification.tlt_news_recent'" *ngIf="this.type=='News'" >News Recent History</h4>
+        <ng-container *ngIf="userNoteList.length > 0">
+            <div class="history-bx" *ngFor="let note of userNoteList" (click)="gotoSignaldetails(note.notelog_uid)">
+                <!-- <div class="d-flex align-items-center justify-content-between pb-2">
+                    <div>
+                        <span *ngIf="note.readStatus==0" class="badge badge-pill text-white" [translate]="'notification.new_message'">NEW</span>
+                        <h6 class="m-0">{{note.notelog_title}} {{note.notelog_title}}</h6>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end">
+                        <span class="me-3" style="color:#ea6735;"><i class="bi bi-calendar me-1"></i> {{note.date}}</span>
+                        <span style="color:#2da94f;"><i class="bi bi-clock me-1"></i> {{note.time}}</span>
+                    </div>
+                </div> -->
+
+                <div class="d-flex align-items-start justify-content-between pb-1">
+                    <div>
+                        <span *ngIf="note.readStatus==0" class="badge badge-pill text-white" [translate]="'notification.new_message'">NEW</span>
+                        <!-- <h6 class="m-0">{{note.notelog_title}}</h6> -->
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end" style="min-width:160px;">
+                        <span class="me-2" style="color:#ea6735;"><i class="bi bi-calendar"></i>&nbsp;{{note.date}}</span> 
+                        <span class="me-2" style="color:#2da94f;"><i class="bi bi-clock"></i>&nbsp;{{note.time}}</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start justify-content-between pb-2">
+                    <div>
+                        <h6 class="m-0">{{note.notelog_title}}</h6>
+                    </div>                
+                </div>
+                <p>{{note.notelog_message}}</p>
+                <div *ngIf="!note.notelog_image==false" class="d-flex align-items-center justify-content-center mt-3 mx-auto">
+                    <img [src]="note.notelog_image" class="img-fluid" style="max-height:100%;">
+                </div>
+                <div *ngIf="!note.notelog_redirect==false" class="d-flex align-items-center justify-content-center mt-3 mx-auto">
+                    <button mat-raised-button type="button" (click)="gotoLink(note.notelog_redirect)" class="subm-btn2 shadow-none">{{ 'notification.goto_link' | translate }}</button>
+                </div>
+            </div>
+            <div *ngIf="loadBtn==1" class="noti-bx1 text-center mt-4 border-0">
+                <button mat-raised-button type="button" (click)="loadMore(type)" class="subm-btn shadow-none">{{ 'notification.load_more' | translate }}</button>
+            </div>
+        </ng-container>
+        <!-- <ng-container *ngIf="userNoteList.length === 0">
+            <div class="text-center h-100 d-flex align-items-center justify-content-center">
+                <div>
+                    <img src="assets/images/hand-click.png" alt="" class="img-fluid">
+                    <h6 class="pt-4 w-50 mx-auto text-center" style="color:#999;" [translate]="'notification.click_message'">You have some messages. if you want to see that click on left  notification category.</h6>
+                </div>
+            </div>
+        </ng-container> -->
+        <ng-container *ngIf="showloader == 1">
+            <div class="noti-load d-flex align-items-center justify-content-center position-fixed top-0 start-0 bottom-0">
+                <div class="text-center p-4">
+                    <mat-spinner class="mx-auto" style="width:80px;height:80px;"></mat-spinner>
+                    <h4 class="pt-4 text-center" style="color:var(--theme-text);" [translate]="'notification.loading_message'">History Loading Please Wait</h4>
+                </div>
+            </div>
+        </ng-container>
+
+
+        <!-- <div class="history-bx">
+            <h6>Demo somthing title</h6>
+            <p>something demo descriptions</p>
+            <div class="d-flex align-items-center justify-content-end pt-2">
+                <span class="me-4" style="color:#ea6735;"><i class="bi bi-calendar me-1"></i> Mar 09,2022</span>
+                <span style="color:#2da94f;"><i class="bi bi-clock me-1"></i> 10:25 AM</span>
+            </div>
+        </div>
+        <div class="history-bx">
+            <h6>Demo somthing title</h6>
+            <p>something demo descriptions</p>
+            <div class="d-flex align-items-center justify-content-end pt-2">
+                <span class="me-4" style="color:#ea6735;"><i class="bi bi-calendar me-1"></i> Mar 09,2022</span>
+                <span style="color:#2da94f;"><i class="bi bi-clock me-1"></i> 10:25 AM</span>
+            </div>
+        </div>
+        <div class="history-bx">
+            <h6>Demo somthing title</h6>
+            <p>something demo descriptions</p>
+            <div class="d-flex align-items-center justify-content-end pt-2">
+                <span class="me-4" style="color:#ea6735;"><i class="bi bi-calendar me-1"></i> Mar 09,2022</span>
+                <span style="color:#2da94f;"><i class="bi bi-clock me-1"></i> 10:25 AM</span>
+            </div>
+        </div> -->
+        
+    </div>
+</div>

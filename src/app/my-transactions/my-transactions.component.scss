@@ -1,0 +1,99 @@
+#my-transaction{
+    height: 100%;
+
+    .sbmt-link{
+        border-radius: 14px;
+        font-size: 14px;
+        padding: 10px;
+        background:#ffd15c;
+        font-weight: 600;
+    }
+    .my-transaction1{
+        display: grid;
+        grid-template-rows: 1fr auto;
+        break-inside: avoid;
+        grid-row: 1 / -1;
+        grid-column: 1;
+        h4{
+            font-size: 17px;
+            color: var(--theme-text);
+        }
+        .my-transaction1-bx{
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            padding: 0px 0px;
+            background: #024715;
+            overflow: hidden;
+            //background-image: url('/assets/images/green-abstract.png');
+            .list-bx{
+                padding: 15px 20px;
+                background-image: url('/assets/images/green-abstract.png');
+                background-size: cover;
+                height: 100%;
+                h5{
+                    font-size: 17px;
+                    color: #fff;
+                    padding-bottom: 7px;
+                }
+                span{
+                    font-size: 15px;
+                    color: rgba(255,255,255,0.8);
+                }
+                h6{
+                    color: #ef9e1c;
+                    font-weight: 600;
+                    font-size: 24px;
+                    margin: 0px;
+                    sub{
+                        display: inline-block;
+                        font-weight: 500;
+                        color: #fff;
+                        bottom: -3px;
+                        font-size: 13px;
+                        left: 4px;
+                    }
+                }
+            }
+            table{
+                tr{
+                    td{
+                        padding: 15px 10px;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.40);
+                        h5{
+                            font-size: 17px;
+                            color: #fff;
+                            padding-bottom: 7px;
+                        }
+                        span{
+                            font-size: 15px;
+                            color: rgba(255,255,255,0.8);
+                        }
+                        h6{
+                            color: #ef9e1c;
+                            font-weight: 600;
+                            font-size: 24px;
+                            margin: 0px;
+                            sub{
+                                display: inline-block;
+                                font-weight: 500;
+                                color: #fff;
+                                bottom: -3px;
+                                font-size: 13px;
+                                left: 4px;
+                            }
+                        }
+                        &:nth-child(2){
+                            text-align: right;
+                            color: #fff;
+                            text-align: right;
+                            color: #fff;
+                            min-width: 100px;
+                            max-width: 100px;
+                            width: 100px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

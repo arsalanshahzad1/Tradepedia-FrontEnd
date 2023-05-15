@@ -1,0 +1,94 @@
+<div id="hsc" class="bg-light">
+    <div *ngIf="userStatus==1" class="banner w-100">
+        <iframe [src]="selectedCourse.fileSrc" title="{{selectedCourse.course_title}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- <img src="assets/images/no-vdo.jpg" class="img-fluid w-100 h-100"> -->
+    </div>
+    <div *ngIf="userStatus==0" class="banner w-100">
+        <!-- <iframe [src]="selectedCourse.fileSrc" title="{{selectedCourse.course_title}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+        <img src="assets/images/no-vdo.jpg" class="img-fluid w-100 h-100">
+    </div>
+    <div class="hsc1 px-3 pt-4 pb-2">
+        <h5 class="fw-600 mb-1">{{selectedCourse.course_title}}</h5>
+        <!-- <p class="fw-normal">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p> -->
+    </div>
+    <div *ngIf="userStatus==0" class="alert d-flex align-items-center justify-content-between mx-auto mt-3 mb-0">
+        <div>
+            <h6 class="m-0 fw-600 pb-1">Do You Want To See Our Avramis Swing Masterclass Videos?</h6>
+            <p class="pt-1">Buy all videos for <span class="fw-600">{{currCode}} {{planCost | number}}</span></p>
+        </div>
+        <button class="rounded-pill border-0 text-white" (click)="gotoPaynowPopup()">Buy Now</button>
+    </div>
+    <div class="hsc2 p-3">        
+        <ng-container *ngFor="let course of courseList;let ind=index;">
+            <a matRipple *ngIf="ind <= this.courseCompleted" (click)="selectCourse(course)" class="hsc2-bx d-flex align-items-start justify-content-between">
+                <div class="vdo">
+                    <!-- <img src="assets/images/no-vdo.jpg" class="img-fluid w-100 h-100"> -->
+                    <iframe [src]="course.fileSrc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="cnct">
+                    <h6 class="fw-600">{{course.course_title}}</h6>
+                </div>
+                <div *ngIf="course.stars==0" class="dtls text-center" (click)="gotoQuiz(course)">
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                        <i class="bi bi-book-half"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">Start Test</h6>
+                </div>
+                <div *ngIf="course.stars>0" class="dtls text-center" (click)="gotoQuiz(course)">
+                    <div *ngIf="course.stars==1" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                    </div>
+                    <div *ngIf="course.stars==2" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                    </div>
+                    <div *ngIf="course.stars==3" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">{{course.stars}} Stars</h6>
+                </div>
+            </a>
+            <a *ngIf="ind > this.courseCompleted" class="hsc2-bx d-flex align-items-start justify-content-between disable" (click)="disableChapter(course.course_id)">
+                <div class="vdo">
+                    <img src="assets/images/no-vdo.jpg" class="img-fluid w-100 h-100">
+                </div>
+                <div class="cnct">
+                    <h6 class="fw-600">{{course.course_title}}</h6>
+                </div>
+                <!-- <div class="dtls text-center">
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                        <i class="bi bi-lock-fill"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">Locked</h6>
+                </div> -->
+                <div class="dtls text-center">
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                        <i class="bi bi-lock-fill"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">Locked</h6>
+                </div>
+                <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center" *ngIf="visibleIndex === course.course_id">
+                    <i class="bi bi-x"></i>    
+                    <p style="font-weight:600;">Get atleast 1 star in all above course to unlock this!</p>
+                    <span class="py-2 rounded d-inline-block w-100 mt-2">LOCKED</span>
+                </div>
+            </a>
+        </ng-container>        
+    </div>
+    <div class="hsc-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+        <div class="signal-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closePaynowpopup()"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4 class="text-center">{{payMsg}}</h4>
+            <div class="d-flex align-items-center">
+                <button class="border-0 bg-light text-dark me-2" (click)="closePaynowpopup()">Close</button>
+                <button *ngIf="payBtn==1" (click)="saveHSCPayment()" class="border-0">Pay Now</button>
+                <button *ngIf="payBtn==0" (click)="gotoAddMoney()" class="border-0">Add Money</button>
+            </div>
+        </div>
+    </div>
+</div>

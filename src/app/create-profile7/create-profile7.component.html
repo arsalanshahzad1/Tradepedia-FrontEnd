@@ -1,0 +1,36 @@
+<div id="create-profile7" class="bg-light">
+    <div class="createprofile-stepper">
+        <hr>
+        <a routerLink="/signal/create-profile1">1</a>
+        <a routerLink="/signal/create-profile2">2</a>
+        <a routerLink="/signal/create-profile3">3</a>
+        <a routerLink="/signal/create-profile4">4</a>
+        <a routerLink="/signal/create-profile5">5</a>
+        <a routerLink="/signal/create-profile6">6</a>
+        <a routerLink="/signal/create-profile7" class="active">7</a>
+    </div>
+    <div class="create-profile7 position-relative">
+        <h5 class="text-white fw-600">Basic information settings</h5>
+        <p class="mb-4 text-white">Register the information of the robot that will entrust you investment. Please fill in the following items.</p>
+        <div class="white-bx p-3">
+            <div class="text-start">
+                <h5 class="fw-600 py-2">Select Profile image arbitrary</h5>
+                <div class="text-center">
+                    <input type="file" id="choseimg" class="d-none">
+                    <label for="choseimg" class="rounded-circle overflow-hidden" style="width:90px;height:90px;">
+                        <img src="assets/images/choose-img.jpg" class="img-fluid">
+                    </label>
+                </div>
+
+                <h5 class="fw-600 pt-4">Profile Name</h5>
+                <input type="text" placeholder="Enter Profile Name" class="border w-100 px-3 py-2" style="border-radius:10px;">
+                
+                <h5 class="fw-600 pt-4">Profile Description</h5>
+                <textarea placeholder="Enter Profile Name" class="border w-100 px-3 py-2" style="border-radius:10px;" rows="3"></textarea>
+            </div>
+            <div class="text-center">
+                <button class="nxt-btn border-0 mt-4 mb-3" (click)="gotoNext()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

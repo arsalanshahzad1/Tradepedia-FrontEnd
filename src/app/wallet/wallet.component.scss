@@ -1,0 +1,337 @@
+#wallet{
+    height: 100%;
+    overflow-y: auto;
+    .col-bx1{
+        //width: 50%;
+        padding: 20px 20px 10px;
+        //overflow-y: auto;
+        .wallet1{
+            .img{
+                width: 50px;
+                height: 50px;
+                border: 2px solid #c1c1c1;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            h6{
+                color: var(--theme-text);
+            }
+        }
+        .wallet2{
+            //background: #268a2a;
+            border-radius: 15px;
+            padding: 20px 20px 26px;
+            background-image: url('/assets/images/green-abstract.png');
+            background-size: cover;
+            background-repeat: round;
+            width: 49%;
+            .single-start{
+                position: absolute;
+                top: -49px;
+            }
+            h4{
+                color: #fff;
+                margin: 0px;
+                font-weight: 600;
+                padding-bottom: 2px;
+            }
+            span{
+                color: rgb(255, 255, 255, 0.80);
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            .ad-btns{
+                button{
+                    font-size: 15px;
+                    border: none;
+                    background: #fff;
+                    padding: 10px 20px;
+                    border-radius: 9px;
+                    margin: 15px 10px 0px 0px;
+                    color: #22655e;
+                    text-shadow: 0 0 #22655e;
+                }
+            }
+        }
+        .referral1{
+            border-radius: 15px;
+            padding: 15px;
+            background-image: url('/assets/images/green-abstract.png');
+            width: 49%;
+            .ref1-bx{
+                width: 30%;
+                background: #fff;
+                border-radius: 10px;
+                padding: 5px;
+                margin-bottom: 15px;
+                span{
+                    font-size: 13px;
+                    text-transform: uppercase;
+                    color: #000;
+                    letter-spacing: 1px;
+                }
+                h5{
+                    color: #f2c74f;
+                    font-weight: 600;
+                    margin-bottom: 4px;
+                    font-size: 30px;
+                }
+            }
+        }
+        .wallet3{
+            margin: 12px 0px 15px;
+            h4{
+                padding: 15px 5px 0px;
+                color: #45f9a5;
+                font-size: 27px;
+                font-weight: 700;
+            }
+            .wallet3-bx{
+                //border: 2px solid rgba(0, 0, 0, 0.2);
+                box-shadow: 0px 5px 10px rgba(0,0,0,0.15);
+                border-radius: 20px;
+                padding: 0px 20px;
+                //background: #fff;
+                background-image: url('/assets/images/green-abstract.png');
+                table{
+                    tr{
+                        td{
+                            padding: 15px 0px;
+                            border-bottom: 1px solid rgba(255, 255, 255, 0.40);
+                            h5{
+                                font-size: 17px;
+                                color: #fff;
+                                padding-bottom: 7px;
+                            }
+                            span{
+                                font-size: 15px;
+                                color: rgba(255,255,255,0.8);
+                            }
+                            h6{
+                                color: #ef9e1c;
+                                font-weight: 600;
+                                font-size: 24px;
+                                margin: 0px;
+                                sub{
+                                    display: inline-block;
+                                    font-weight: 500;
+                                    color: #fff;
+                                    bottom: -3px;
+                                    font-size: 13px;
+                                    left: 4px;
+                                }
+                            }
+                            &:nth-child(2){
+                                text-align: right;
+                                color: #fff;
+                                min-width: 100px;
+                                width: 100px;
+                                vertical-align: bottom;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .wallet4{
+            margin: 55px 0px 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            .img-bx{
+                background: #eaeaea;
+                height: 491px;
+                padding-bottom: 100px;
+            }
+            .wallet4-bx{
+                background: #108240;
+                padding: 30px 15px;
+                h6{
+                    color: #fff;
+                    font-size: 20px;
+                }
+                button{
+                    background: #fff;
+                    border: none;
+                    border-radius: 10px;
+                    font-size: 18px;
+                    padding: 11px 50px;
+                }
+            }
+        }
+        .wallet5{
+            margin: 12px 0px 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(90deg, #004010, #19934b);
+            padding: 5px 0px 21px;
+            h6{
+                padding: 15px 5px 0px;
+                color: #45f9a5;
+                font-size: 27px;
+                font-weight: 700;
+                img{
+                    width: 18px;
+                }
+            }
+            .points{
+                border-radius: 10px;
+                ul{
+                    li{
+                        font-size: 18px;
+                        padding-bottom: 19px;
+                        span{
+                            width: 30px;
+                            min-width: 30px;
+                            height: 30px;
+                            background: rgba(16, 130, 64, 0.10);
+							margin-right: 10px;
+							color: #108240;
+                            font-weight: 600;
+                            font-size: 17px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .col-bx2{
+        //width: 50%;
+        //overflow-y: auto;
+        transition: all 0.3s ease-in-out;
+    }
+    .col-bx3{
+        //width: 50%;
+        //overflow-y: auto;
+        padding: 20px 20px 10px;
+        transition: all 0.3s ease-in-out;
+        .sbmt-link{
+            border-radius: 14px;
+            font-size: 14px;
+            padding: 10px;
+            background:#ffd15c;
+            font-weight: 600;
+        }
+        .wallet5{
+            margin: 12px 0px 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            //background: linear-gradient(90deg, #004010, #19934b);
+            padding: 5px 0px 21px;            
+        }
+        .referral1{
+            border-radius: 15px;
+            padding: 15px;
+            //background-image: url('/assets/images/green-abstract.png');
+            background: #024715;
+            width: 100%;
+            .ref1-bx{
+                width: 30%;
+                background: #fff;
+                border-radius: 10px;
+                padding: 5px;
+                margin-bottom: 15px;
+                span{
+                    font-size: 13px;
+                    text-transform: uppercase;
+                    color: #000;
+                    letter-spacing: 1px;
+                }
+                h5{
+                    color: #f2c74f;
+                    font-weight: 600;
+                    margin-bottom: 4px;
+                    font-size: 30px;
+                }
+            }
+        }
+        .referral2{
+            h4{
+                font-size: 17px;
+            }
+            mat-button-toggle-group{
+                mat-button-toggle{
+                    border: 1px solid rgba(0, 0, 0, 0.15);
+                    border-radius: 10px;
+                    margin: 0px 3px 0px;
+                    font-size: 16px;
+                }
+            }
+            .referral2-bx{
+                //border: 2px solid rgba(0, 0, 0, 0.2);
+                box-shadow: 0px 5px 10px rgba(0,0,0,0.15);
+                border-radius: 20px;
+                padding: 0px 0px;
+                background: #024715;
+                overflow: hidden;
+                //background: #fff;
+                //background-image: url('/assets/images/green-abstract.png');
+                .list-bx{
+                    padding: 15px 20px;
+                    background-image: url('/assets/images/green-abstract.png');
+                    background-size: cover;
+                    height: 100%;
+                    h5{
+                        font-size: 17px;
+                        color: #fff;
+                        padding-bottom: 7px;
+                    }
+                    span{
+                        font-size: 15px;
+                        color: rgba(255,255,255,0.8);
+                    }
+                    h6{
+                        color: #ef9e1c;
+                        font-weight: 600;
+                        font-size: 24px;
+                        margin: 0px;
+                        sub{
+                            display: inline-block;
+                            font-weight: 500;
+                            color: #fff;
+                            bottom: -3px;
+                            font-size: 13px;
+                            left: 4px;
+                        }
+                    }
+                }
+                table{
+                    tr{
+                        td{
+                            padding: 15px 0px;
+                            border-bottom: 1px solid rgba(255, 255, 255, 0.40);
+                            h5{
+                                font-size: 15px;
+                                color: #fff;
+                            }
+                            span{
+                                font-size: 13px;
+                                color: rgba(255,255,255,0.8);
+                            }
+                            h6{
+                                color: #ef9e1c;
+                                font-weight: 600;
+                                font-size: 19px;
+                                margin: 0px;
+                                sub{
+                                    display: inline-block;
+                                    font-weight: 500;
+                                    color: #fff;
+                                    bottom: -3px;
+                                    font-size: 11px;
+                                    left: 4px;
+                                }
+                            }
+                            &:nth-child(2){
+                                text-align: right;
+                                color: #fff;
+                                width: 85px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

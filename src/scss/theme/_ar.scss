@@ -1,0 +1,328 @@
+.basetranslate-align{
+    //text-align: right;
+    h1,h2,h3,h4,h5,h6,p,span,label,input,textarea,li{
+        text-align: right;
+    }
+    .mat-checkbox-inner-container{
+        margin: 0px 0px 0px 8px!important;
+    }
+    .frm-bx .eye-btn{
+        left: 15px;right: auto!important;
+    }
+    #login{
+        form{
+            .frm-bx{
+                input{
+                    padding: 12px 40px 12px 12px!important;
+                }
+            }
+        }
+    }
+    #home{
+        .sec-tlt{
+            padding: 8px 15px 10px 0px;
+        }
+        .home .home2 .home2-bx h6 {
+            margin: 0px 20px 0px 0px;
+        }
+    }
+    .example-sidenav-container .dropdown-item .img-bx{
+        margin: 0px 0px 0px 15px!important;
+    }
+    #ebook{
+        .chapter2 button span{
+            margin-right: 10px;
+        }
+        .time{
+            margin-right: 10px;
+        }
+    }
+    #video-chapter-list{
+        .expand-btn span{
+            margin-right: 10px;
+        }
+        .vdo, .img-bx{
+            margin: 0px 0px 0px 10px!important;
+        } 
+    }
+    #hsc-chapter-list{
+        .expand-btn span{
+                margin-right: 10px;
+        }
+        .vdo{
+            margin: 0px 0px 0px 10px!important;
+        } 
+    }
+    #my-transaction, #wallet{
+        h6{
+            sub{
+                left: -2px!important;
+            }
+            img{
+                margin-left: 5px;
+            }
+        }
+        .points {
+            ul{
+                padding: 0px;
+                span{
+                    margin: 0px 0px 0px 10px!important;
+                }
+            }
+        }
+    }
+    #notification{
+        .icon{
+            margin: 0px 0px 0px 10px!important;
+        }
+    }
+    #create-profile1{
+        .nxtprv-btn button{
+            margin: 0px 0px 0px 10px!important;
+        }
+        mat-tree-node{
+            img{
+                margin-left: 10px;
+            }
+            .mat-icon-button{
+                transform: rotate(180deg);
+            }
+            .avatar{
+                margin-left: 10px;
+            }
+        }
+    }
+    #create-profile5{
+        .score-bx{
+            left: 15px;right: auto!important;
+            mat-select{
+                border-radius: 10px!important;
+                margin-right: 5px;            }
+        }
+        .pass-help-bx{
+            right: 0px;
+            left: auto!important;
+            &:before{
+                left: auto!important;right: 15px;
+            }
+        }
+    }
+    #find-profile{
+        .quiz-tlt{
+            text-align: left;
+        }
+        .mySwiper1 .swiper-pagination{
+            padding-left: 85px !important;
+            margin-right: auto;
+        }
+        .rcmnd-prfl .list-bx input[type=checkbox]{
+            margin: 0px 0px 0px 10px!important;
+        }
+    }
+    #my-profile{
+        .signal-tab .tab-head{
+            right: auto!important;left: 0px;
+        }
+    }
+    #blog{
+        .blog2-bx{
+            border-left: 3px solid #06d6a0;
+            border-right: none!important;
+            &:before{
+                border-radius: 0px 10px 0px 0px!important;
+                left: auto!important;
+                right: 1px;
+            }
+            .dtls{
+                padding-right: 10px;
+                padding-left: unset!important;
+                span{
+                    padding-right: 10px;
+                }
+            }
+            &:nth-child(even){
+                border-left: 3px solid #e4b037;
+                border-right: none!important;
+            }
+        }
+    }
+    #analysis{
+        .analysis2-bx{
+            border-left: 3px solid #1a759f;
+            border-right: none!important;
+            &:before{
+                border-radius: 0px 10px 0px 0px!important;
+                left: auto!important;
+                right: 1px;
+            }
+            .dtls{
+                padding-right: 10px;
+                padding-left: unset!important;
+                span{
+                    padding-right: 10px;
+                }
+            }
+            &:nth-child(even){
+                border-left: 3px solid #52b69a;
+                border-right: none!important;
+            }
+        }
+    }
+    #analysis{
+        .analysis2-bx{
+            border-left: 3px solid #1a759f;
+            border-right: none!important;
+            &:before{
+                border-radius: 0px 10px 0px 0px!important;
+                left: auto!important;
+                right: 1px;
+            }
+            .dtls{
+                padding-right: 10px;
+                padding-left: unset!important;
+                span{
+                    padding-right: 10px;
+                }
+            }
+            &:nth-child(even){
+                border-left: 3px solid #52b69a;
+                border-right: none!important;
+            }
+        }
+    }
+    #autotrade{
+        .col-bx1{
+            .nav-pills{
+                .nav-item{
+                    &:first-child{
+                        button{
+                            border-radius: 0px 10px 10px 0px!important;
+                        }
+                    }
+                    &:last-child{
+                        button{
+                            border-radius: 10px 0px 0px 10px!important;
+                        }
+                    }
+                }
+            }
+            .signal-bx{
+                .avatar{
+                    margin-right: auto;
+                    margin-left: 6px;
+                }
+                .signal-bx1{
+                    &:nth-child(1){
+                        text-align: right!important;
+                    }
+                    &:nth-child(2){
+                        text-align: center!important;
+                        h5{
+                            text-align: center;
+                        }
+                    }
+                    &:nth-child(3){
+                        text-align: left!important;
+                        h5{
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+        .preloader{
+            right: auto!important;
+            left: 0px;
+        }
+    }
+    #my-profile{
+        .col-bx2{
+            .widthsize{
+                left: auto!important;
+                right: auto;
+            }
+            .nav-pills{
+                padding-right: 0px;
+                .nav-item{
+                    &:first-child{
+                        button{
+                            border-radius: 0px 10px 10px 0px!important;
+                        }
+                    }
+                    &:last-child{
+                        button{
+                            border-radius: 10px 0px 0px 10px!important;
+                        }
+                    }
+                }
+            }
+            .signal-bx{
+                .avatar{
+                    margin-right: auto;
+                    margin-left: 6px;
+                }
+                .signal-bx1{
+                    &:nth-child(1){
+                        text-align: right!important;
+                    }
+                    &:nth-child(2){
+                        text-align: center!important;
+                        h5{
+                            text-align: center;
+                        }
+                    }
+                    &:nth-child(3){
+                        text-align: left!important;
+                        h5{
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #tools{
+        .col-bx2{
+            .download-btn{
+                img{
+                    margin-left: 15px;
+                }
+                div{
+                    text-align: right!important;
+                }
+                i{
+                    left: 25px;
+                    right: auto!important;
+                }
+            }
+        }
+    }
+    #seminar-list{
+        .col-bx1{
+            .content{
+                padding: 0px 10px 0px 0px!important;
+            }
+        }
+        .duration{
+            margin-right: 0px!important;
+        }
+        .price{
+            margin-right: 13px;
+        }
+    }
+    #quiz{
+        .mySwiper1{
+            .swiper-pagination {
+                top: -26px;
+                width: 35%;
+            }
+        }
+        .img-quiz .img-quiz2{
+            margin-left: auto!important;
+            margin-right: 2%;
+        }
+        .quiz-alert{
+            margin-left: 0px!important;
+        }
+    }
+}

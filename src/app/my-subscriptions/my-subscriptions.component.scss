@@ -1,0 +1,198 @@
+#my-subscriptions{
+    padding: 20px 0px 0px;
+    height: 100%;
+    overflow-y: auto;
+    .col-bx1{
+        width: 100%;
+        //overflow-y: auto;
+        .pg-tlt{
+            color: var(--theme-text);
+        }
+        .subscriptions{
+            .subscriptions-bx{
+                width: 33%;
+                background: var(--theme-background);
+                border-radius: 20px;
+                box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08);
+                justify-content: space-between;
+                padding: 12px 18px;
+                margin-bottom: 25px;
+                h5{
+                    font-size: 17px;
+                    color: var(--theme-text);
+                }
+                .status{
+                    font-size: 20px;
+                    color: #1f6f22;
+                }
+                .date{
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: var(--theme-text);
+                    label{
+                        font-weight: 100;
+                        color: #888;
+                    }
+                }
+                mat-checkbox{
+                    font-size: 14px;
+                    color: var(--theme-text);
+                }  
+                button{
+                    padding: 3px 8px;
+                    font-size: 13px;
+                    background: #db3d3a;
+                    color: #fff;
+                    border-radius: 6px;
+                    border: none;
+                }
+            }
+        }
+    }
+    .col-bx2{
+        width: 50%;
+        overflow-y: auto;
+        .tlt{
+            padding: 5px 10px 0px;
+        }
+        .signalplan1{
+            padding: 0px 10px;
+            .signalplan1-bx{
+                background: var(--theme-background);
+                border-radius: 15px;
+                margin-bottom: 15px;
+                padding: 20px;
+                box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.10);
+                h6{
+                    font-size: 20px;
+                    color: var(--theme-text);
+                }
+                span{
+                    font-size: 17px;
+                    //color: #e7c121;
+                    color: var(--theme-text);
+                    font-weight: 600;
+                }
+                p{
+                    font-size: 16px;
+                    padding: 8px 0px 12px;
+                }
+                button{
+                    background: rgba(30, 112, 39, 0.1);
+                    color: #1e7027;
+                    border-radius: 10px;
+                    padding: 8px 22px;
+                    font-size: 14px;
+                }
+            }
+        }
+        .signalplan-popup{
+            background: rgba(0,0,0,0.50);
+            z-index: 3;
+            animation: 0.3s show-popup;
+            .signal-popup-bx{
+                background: var(--theme-background);
+                width: 400px;
+                border-radius: 15px;
+                padding: 30px;
+                img{
+                    width: 200px;
+                }
+                h4{
+                    color: #1e7027;
+                    font-size: 17px;
+                    font-weight: 700;
+                    padding: 10px 0px;
+                }
+                button{
+                    padding: 7px 30px;
+                    border-radius: 10px;
+                    background: #1e7027;
+                    color: #fff;
+                    font-size: 15px;
+                }
+            }
+        }
+        @keyframes show-popup {
+            0%{
+                transform: scale(0);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+    }
+    .col-bx3{
+        width: 50%;
+        overflow-y: auto;
+        .tlt{
+            padding: 5px 10px 0px;
+        }
+        .signalplan1{
+            padding: 0px 10px;
+            .signalplan1-bx{
+                background: var(--theme-background);
+                border-radius: 15px;
+                margin-bottom: 15px;
+                padding: 20px;
+                box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.10);
+                h6{
+                    font-size: 20px;
+                    color: var(--theme-text);
+                }
+                span{
+                    font-size: 17px;
+                    //color: #e7c121;
+                    color: var(--theme-text);
+                    font-weight: 600;
+                }
+                p{
+                    font-size: 16px;
+                    padding: 8px 0px 12px;
+                }
+                button{
+                    background: rgba(30, 112, 39, 0.1);
+                    color: #1e7027;
+                    border-radius: 10px;
+                    padding: 8px 22px;
+                    font-size: 14px;
+                }
+            }
+        }
+        .signalplan-popup{
+            background: rgba(0,0,0,0.50);
+            z-index: 3;
+            animation: 0.3s show-popup;
+            .signal-popup-bx{
+                background: var(--theme-background);
+                width: 400px;
+                border-radius: 15px;
+                padding: 30px;
+                img{
+                    width: 200px;
+                }
+                h4{
+                    color: #1e7027;
+                    font-size: 17px;
+                    font-weight: 700;
+                    padding: 10px 0px;
+                }
+                button{
+                    padding: 7px 30px;
+                    border-radius: 10px;
+                    background: #1e7027;
+                    color: #fff;
+                    font-size: 15px;
+                }
+            }
+        }
+        @keyframes show-popup {
+            0%{
+                transform: scale(0);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+    }
+}

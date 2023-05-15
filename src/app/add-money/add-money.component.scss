@@ -1,0 +1,250 @@
+#share-point{
+    height: 100%;
+    padding: 15px 10px 15px;
+    overflow-y: auto;
+    .share-pointbx{
+        width: 500px;
+        margin: 0px auto;
+        border-radius: 30px;
+        background: var(--theme-background);
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08);
+        .share-point1{
+            .img{
+                width: 50px;
+                height: 50px;
+                border: 2px solid #c1c1c1;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            h6{
+                color: var(--theme-text);
+            }
+            p{
+                color: var(--theme-text);
+            }
+        }
+        .share-point2{
+            //background: #268a2a;
+            border-radius: 15px;
+            padding: 20px;
+            background-image: url('/assets/images/green-abstract.jpg');
+            margin-top: 15px;
+            .bi-star-fill{
+                position: absolute;
+                top: -49px;
+                color: #f2c74f;
+                font-size: 35px;
+            }
+            h4{
+                color: #fff;
+                margin: 0px;
+                font-weight: 600;
+                padding-bottom: 2px;
+            }
+            span{
+                color: rgb(255, 255, 255, 0.80);
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+        }
+        .share-point3{
+            h4{
+                font-size: 17px;
+                color: var(--theme-text);
+            }
+            .share-point3-bx{
+                input{
+                    border-radius: 14px;
+                    border: 1px solid #D8E0F0;
+                    box-shadow: 0px 1px 2px 0px #B8C8E039;
+                    font-size: 15px;
+                    color: #1B0E08;
+                    padding: 12px;
+                }
+                .sbmt-btn{
+                    border-radius: 14px;
+                    font-size: 17px;
+                    padding: 12px 50px;
+                    background: #1f6f22;
+                }
+            }
+        }
+    }
+    .tlt{
+        padding: 5px 10px 0px;
+        font-size: 21px;
+        color: var(--theme-text);
+    }
+    .wallet2{
+        //background: #268a2a;
+        border-radius: 15px;
+        padding: 20px 20px 26px;
+        background-image: url('/assets/images/green-abstract.png');
+        background-size: cover;
+        background-repeat: round;
+        width: 50%;
+        margin: 10px 300px;
+        .single-start{
+            position: absolute;
+            top: -49px;
+        }
+        h4{
+            color: #fff;
+            margin: 0px;
+            font-weight: 600;
+            padding-bottom: 2px;
+        }
+        span{
+            color: rgb(255, 255, 255, 0.80);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .ad-btns{
+            button{
+                font-size: 15px;
+                border: none;
+                background: #fff;
+                padding: 10px 20px;
+                border-radius: 9px;
+                margin: 15px 10px 0px 0px;
+                color: #22655e;
+                text-shadow: 0 0 #22655e;
+            }
+        }
+    }
+    .referral1{
+        border-radius: 15px;
+        padding: 15px;
+        background-image: url('/assets/images/green-abstract.png');
+        width: 49%;
+        .ref1-bx{
+            width: 30%;
+            background: #fff;
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 15px;
+            span{
+                font-size: 13px;
+                text-transform: uppercase;
+                color: #000;
+                letter-spacing: 1px;
+            }
+            h5{
+                color: #f2c74f;
+                font-weight: 600;
+                margin-bottom: 4px;
+                font-size: 30px;
+            }
+        }
+    }
+    
+    .packageplan1{
+        padding: 0px 10px;
+        .packageplan1-bx{
+            background: var(--theme-background);
+            border-radius: 25px;
+            margin-bottom: 15px;
+            padding: 50px 20px;
+            box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.10);
+            width: 31%;
+            margin: 0px 1% 2%;
+            .plan{
+                font-size: 13px;
+                letter-spacing: 2px;
+                background: #db3d3a;
+                border-radius: 40px;
+                padding: 3px 15px;
+                color: #fff;
+            }
+            h6{
+                font-size: 20px;
+                color: var(--theme-text);
+                padding: 20px 0px 0px;
+            }
+            .price{
+                font-size: 60px;
+                font-weight: 600;
+                color: #e7c121;
+                display: block;
+                label{
+                    font-size: 25px;
+                    font-weight: 700;
+                    color: #1e7027;
+                }
+            }
+            p{
+                font-size: 16px;
+                padding: 20px 0px 30px;
+                color: #888;
+            }
+            button{
+                //background: rgba(30, 112, 39, 0.1);
+                background: #e8f0e9;
+                color: #1e7027;
+                border-radius: 10px;
+                padding: 13px 50px;
+                font-size: 16px;
+                width: 75%;
+                transition: all 0.3s ease-in-out;
+                &:hover{
+                    background: #1e7027;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .signal-popup{
+        background: rgba(0,0,0,0.50);
+        z-index: 3;
+        animation: 0.3s show-popup;
+        .signal-popup-bx{
+            background: var(--theme-background);
+            width: 400px;
+            border-radius: 30px;
+            padding: 30px;
+            img{
+                width: 35%;
+            }
+            h4{
+                color: #289534;
+                font-size: 17px;
+                font-weight: 600;
+                padding: 10px 25px 5px 25px;
+            }
+            label{
+                font-size: 13px;
+                font-weight: 600;
+                padding: 5px 20px;
+                float: left;
+            }
+            p{
+                font-size: 13px;
+                padding: 5px 10px 10px 10px;
+            }
+            input{
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 10px;
+                padding: 10px 10px;
+                width: 90%;
+            }
+            button{
+                padding: 6px 30px;
+                border-radius: 13px;
+                background: #1e7027;
+                color: #fff;
+                font-size: 15px;
+            }
+        }
+    }
+    @keyframes show-popup {
+        0%{
+            transform: scale(0);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+}

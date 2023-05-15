@@ -1,0 +1,31 @@
+#notification-setting{
+    width: 100%;
+    overflow-y: auto;
+    background: var(--theme-background);
+    .noti-bx1{
+        border-bottom: 1px solid var(--light-grey);
+        padding: 18px 15px;
+        width: 47%;
+        h5{
+            font-size: 18px;
+            margin: 0px;
+            color: var(--theme-text);
+        }
+        .subm-btn{
+            background: #4ca12c;
+            padding: 5px 70px;
+            font-size: 20px;
+            color: #fff;
+            border-radius: 15px;
+            border-bottom: 5px solid #3e7e25;
+            border-top: none;
+            border-left: 1px solid #3e7e25;
+            border-right: 1px solid #3e7e25;
+        }
+    }
+    hr{
+        width: 1px;
+        background: var(--light-grey);
+        opacity: 1;
+    }
+}

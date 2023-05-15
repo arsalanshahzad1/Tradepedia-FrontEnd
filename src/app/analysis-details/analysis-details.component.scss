@@ -1,0 +1,36 @@
+#analysis-details{
+    padding: 0px 0px 70px;
+    min-height: calc(90vh);
+    .analysis-details1{
+        .img{
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .dtls{
+            h6{
+                font-size: 20px;
+                padding: 15px 0px 10px;
+                color: var(--theme-text);
+            }
+            span{
+                font-size: 14px;
+                color: #1a759f;
+                i{
+                    max-width: 17px;
+                    max-height: 18px;
+                    line-height: 0px;
+                }
+            }
+            p{
+                padding: 20px 0px 0px;
+                line-height: 28px;
+                color: var(--theme-text);
+            }
+            .content{
+                padding: 20px 0px 0px;
+                line-height: 28px;
+                color: var(--theme-text);
+            }
+        }
+    }
+}

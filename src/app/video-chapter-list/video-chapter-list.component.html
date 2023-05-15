@@ -1,0 +1,152 @@
+<div id="video-chapter-list" class="d-flex bg-light">
+    <div class="col-bx1" [ngStyle]="{'width': listWidth ? '0%' : '40%'}">
+        <div class="video-chapter-list1 px-3">
+            <div class="py-3">
+                <h4 class="m-0 fw-600" style="font-size:19px;color:var(--theme-text);" [translate]="'vdo_guidelist.page_tlt'">Video Guide</h4>
+            </div>
+            <ng-container *ngFor="let video of guideList;let ind=index;">
+                <!-- <a *ngIf="ind <= this.lessonCompleted" class="vdochpr-bx"> -->
+                <a class="vdochpr-bx">
+                    <div matRipple class="accr-btn d-flex align-items-center justify-content-between" (click)="selectLesson(video)">
+                        <div class="d-flex align-items-center">
+                            <div class="img-bx">
+                                <img [src]="video.imgSrc" class="img-fluid">
+                            </div>
+                            <div>
+                                <p><span class="me-1"> </span>{{video.vguides_title}}</p>
+                                <div class="d-flex align-items-center pt-2">
+                                    <span class="page me-3 fw-500"><i class="bi bi-play-circle me-1"></i> {{video.vguides_noof_lessons}} {{ 'vdo_guidelist.list_lesson' | translate }}</span>
+                                    <!-- <span class="time"><i class="bi bi-clock me-1"></i> 35 mins</span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div *ngIf="video.stars==0" class="dtls text-center">
+                            <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                                <i class="bi bi-book-half"></i>
+                            </div>
+                            <h6 class="m-0 pt-1 text-center">Start Test</h6>
+                        </div> -->
+                        <div *ngIf="video.stars>0" class="dtls text-center">
+                            <div *ngIf="video.stars==1" class="stars mb-2 d-flex justify-content-center">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                            </div>
+                            <div *ngIf="video.stars==2" class="stars mb-2 d-flex justify-content-center">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                            </div>
+                            <div *ngIf="video.stars==3" class="stars mb-2 d-flex justify-content-center">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                                <i class="bi bi-check-lg"></i>
+                            </div>
+                            <h6 class="m-0 pt-1 text-center">{{video.stars}} {{ 'vdo_guidelist.list_star' | translate }}</h6>
+                        </div>
+                    </div>
+                    <div [@slideUpDown] class="accr-body" *ngIf="video.showchplist==1">
+                        <ng-container *ngFor="let lesson of video.lessonList;let ind=index;">
+                            <a *ngIf="ind <= video.lessonList.length" class="chptr3-bx" [className]="lesson.show===1 ? 'chptr3-bx' : 'chptr3-bx disable'"  (click)="lesson.show===1 ? selectGuide(lesson) : disableVideoguide(lesson.lesson_id)">
+                                <div class="d-flex">
+                                    <div class="vdo">
+                                        <!-- <iframe *ngIf="lesson.show==1" [src]="lesson.fileSrc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                                        <img [src]="lesson.imgSrc" class="img-fluid">  
+                                    </div>
+                                    <div class="cnct">
+                                        <h6 class="fw-600">{{lesson.lesson_title}}</h6>
+                                        <p class="text-truncate">{{lesson.lesson_description}}</p>
+                                    </div>
+                                </div>
+                                <div *ngIf="lesson.show==1 && lesson.lesson_quiz_code!=0 && lesson.stars==0" class="dtls text-center" (click)="gotoQuiz(lesson)">
+                                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                                        <i class="bi bi-book-half"></i>
+                                    </div>
+                                    <h6 class="m-0 pt-1 text-center" [translate]="'vdo_guidelist.start_test'">Start Test</h6>
+                                </div>
+                                <div *ngIf="lesson.show==1 && lesson.lesson_quiz_code!=0 && lesson.stars>0" class="dtls text-center" (click)="gotoQuiz(lesson)">
+                                    <div *ngIf="lesson.stars==1" class="stars mb-2 d-flex justify-content-center">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                    </div>
+                                    <div *ngIf="lesson.stars==2" class="stars mb-2 d-flex justify-content-center">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                    </div>
+                                    <div *ngIf="lesson.stars==3" class="stars mb-2 d-flex justify-content-center">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                    </div>
+                                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                                        <i class="bi bi-check-lg"></i>
+                                    </div>
+                                    <h6 class="m-0 pt-1 text-center">{{lesson.stars}} {{ 'vdo_guidelist.list_stars' | translate }}</h6>
+                                </div>
+                                <div *ngIf="lesson.show==0">
+                                    <div class="dtls text-center">
+                                        <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#db3d3a;color:#db3d3a;">
+                                            <i class="bi bi-lock-fill"></i>
+                                        </div>
+                                        <h6 class="m-0 pt-1 text-center" [translate]="'vdo_guidelist.locked_tlt'">Locked</h6>                                        
+                                    </div>
+                                    <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto p-3 text-center" *ngIf="visibleIndex2 === lesson.lesson_id">
+                                        <i class="bi bi-x"></i>
+                                        <p class="fw-600 text-center" [translate]="'vdo_guidelist.locked_desc'">Get atleast 1 star in all above lesson to unlock this!</p>
+                                        <span class="py-2 rounded d-inline-block w-100 mt-2 text-center" [translate]="'vdo_guidelist.locked_btn'">LOCKED</span>
+                                    </div>
+                                </div>
+                            </a>                            
+                        </ng-container>
+                    </div>
+                </a>
+                <a *ngIf="ind > this.lessonCompleted" class="vdochpr-bx d-none" (click)="disableVideoGuide(video.vguides_id)">
+                    <div class="accr-btn d-flex align-items-center justify-content-between disable">
+                        <div class="d-flex align-items-center">
+                            <div class="img-bx">
+                                <img [src]="video.imgSrc" class="img-fluid">
+                            </div>
+                            <div>
+                                <p><span class="me-1"> </span>{{video.vguides_title}}</p>
+                                <div class="d-flex align-items-center pt-2">
+                                    <span class="page me-3 fw-500"><i class="bi bi-play-circle me-1"></i> {{video.vguides_noof_lessons}} {{ 'vdo_guidelist.list_lesson' | translate }}</span>
+                                    <!-- <span class="time"><i class="bi bi-clock me-1"></i> 35 mins</span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dtls text-center">
+                            <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#db3d3a;color:#db3d3a;">
+                                <i class="bi bi-lock-fill"></i>
+                            </div>
+                            <h6 class="m-0 pt-1 text-center" [translate]="'vdo_guidelist.locked_tlt'">Locked</h6>
+                        </div>
+                        <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto p-3 text-center" *ngIf="visibleIndex === video.vguides_id">
+                            <i class="bi bi-x"></i>
+                            <p [translate]="'vdo_guidelist.locked_desc2'" class="text-center">Get atleast 1 star in all above video chapter list to unlock this!</p>
+                            <span class="py-2 rounded d-inline-block w-100 mt-2 text-center" [translate]="'vdo_guidelist.locked_btn'">LOCKED</span>
+                        </div>
+                    </div>
+                </a>
+            </ng-container>            
+        </div>
+    </div>
+    <div class="col-bx2" [ngStyle]="{'width': pdfWidth ? '100%' : '60%'}">
+        <div class="d-flex align-items-center justify-content-between px-3 pt-4 pb-3">
+            <div class="vdo-dtls">
+                <h5 class="fw-600 mb-2">{{guideQuizDets.lesson_title}}</h5>
+                <p class="fw-normal">{{guideQuizDets.lesson_description}}</p>
+            </div>
+            <button mat-raised-button class="expand-btn shadow-none fs-5 p-0" (click)="fullscreenBtn()"><i [ngClass]="pdfWidth ? 'bi bi-fullscreen-exit' : 'bi bi-fullscreen'"></i><span *ngIf="pdfWidth == 0" [translate]="'vdo_guidelist.expand'">Expand</span><span *ngIf="pdfWidth == 1" [translate]="'vdo_guidelist.collapse'">Collapse</span></button>
+        </div>
+        <div class="vdo-bnr w-100" [ngStyle]="{'height': pdfWidth ? 'calc(90vh)' : '500px'}">
+            <iframe [src]="guideQuizDets.fileSrc" class="w-100 h-100" title="Lesson 0.0 - About this video series" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+        <div class="signal-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closePaynowpopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4 [translate]="'vdo_guidelist.popup_tlt'">Take Quiz and Earn Tradepedium</h4>
+            <div class="d-flex align-items-center justify-content-center">
+                <!-- <button class="border-0 bg-light me-2" (click)="closePaynowpopup()" style="color:var(--theme-text);">Close</button> -->
+                <button (click)="gotoQuiz(guideQuizDets)" class="border-0" [translate]="'vdo_guidelist.popup_btn'">Goto Quiz</button>               
+            </div>
+        </div>
+    </div>
+</div>

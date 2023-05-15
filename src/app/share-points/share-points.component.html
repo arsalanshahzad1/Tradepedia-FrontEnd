@@ -1,0 +1,88 @@
+<div id="share-point" class="bg-light">
+    <div class="share-pointbx p-5">
+        <div class="share-point1 d-flex align-items-center py-1">
+            <!-- <div class="rounded-circle img" style="background-image:url(./assets/images/avatar.jpg)"></div> -->
+            <h5 class="m-0 ps-2 fw-600" [translate]="'share_point.page_tlt'">Share Tradepedium with Friend</h5>
+        </div>
+        <div class="share-point1 d-flex align-items-center py-1">
+            <p class="m-0 ps-2 fw-400" [translate]="'share_point.page_desc'">If you want to share your points with friends, family and others from here.</p>
+        </div>
+        <!-- <div class="share-point2">
+            <div class="d-flex align-items-center justify-content-between position-relative">
+                <i class="bi bi-star-fill"></i>
+                <div>
+                    <h4>23 Points</h4>
+                    <span>Balance Points</span>
+                </div>
+                <img src="assets/images/tradepediam-coins.svg" class="img-fluid" style="width:50px;">
+            </div>
+        </div> -->
+        <form [formGroup]="shareForm" (ngSubmit)="getUserDets()">    
+            <div class="share-point3 pt-4">
+                <div class="share-point3-bx">
+                    <h4 class="fw-600"><span [translate]="'share_point.tlt_sharing'">Sharing</span> {{currCode}} <span style="color: red;">*</span></h4>
+                    <input type="text" placeholder="{{ 'share_point.placeholder_sharepoint' | translate }}" class="w-100" formControlName="sharePoints" [ngClass]="{ 'is-invalid': submitted && valid.sharePoints.errors }">
+                    <div *ngIf="submitted && valid.sharePoints.errors" class="invalid-feedback">
+                        <div *ngIf="valid.sharePoints.errors.required">{{ 'share_point.error_sharing' | translate }} {{currCode}}</div>				                        
+                    </div>
+                    <div class="position-relative d-flex pt-2">
+                        <h6><span [translate]="'share_point.tlt_availbalance'">Avaliable Balance :</span> <b class="ms-1">{{userPoints}} {{currCode}}</b></h6>
+                    </div>
+                    <h4 class="fw-600 pt-3" [translate]="'share_point.friend_mail'">Friend Email ID <span style="color: red;">*</span></h4>
+                    
+                    <input type="text" placeholder="{{ 'share_point.placeholder_friendmail' | translate }}" class="w-100" style="border-radius:14px;" formControlName="receiverUsername" (blur)="convertToLower()" [ngClass]="{ 'is-invalid': submitted && valid.receiverUsername.errors }">
+                    <!-- <input type="text" placeholder="Enter Friend Email ID" [(ngModel)]="receiverUsername" class="border-end-0" (blur)="convertToLower()" style="width:85%;border-radius:14px 0px 0px 14px;"> -->
+                    <!-- <button type="button" (click)="getUserDets()" class="border-0 border-top border-end border-bottom" style="width:15%;border-radius:0px 14px 14px 0px;"><i class="bi bi-search"></i></button> -->                                              
+                    <div *ngIf="submitted && valid.receiverUsername.errors" class="invalid-feedback">
+                        <div *ngIf="valid.receiverUsername.errors.required" [translate]="'share_point.error_mail1'">Please Enter Email ID</div>				
+                        <div *ngIf="valid.receiverUsername.errors.pattern">
+                            <div *ngIf="valid.receiverUsername.errors.pattern.requiredPattern" [translate]="'share_point.error_mail2'">Please Enter Valid Email ID</div>				
+                        </div>
+                    </div>  
+                    <!-- <div *ngIf="errorMsg==1" style="color: red;">
+                        Please Enter Email ID
+                    </div> -->
+                    
+                    <!-- <h4 class="fw-600 pt-3" *ngIf="receiverName!=''"><span [translate]="'share_point.tlt_friendname'">Friend Name :</span> {{receiverName}}</h4> -->
+                    <!-- <input type="text" placeholder="Receiver Name" class="w-100"> -->
+                    <div class="text-center">
+                        <button class="sbmt-btn border-0 text-white mt-5" [disabled]="btnStatus==1" [translate]="'share_point.button_submit'">Share Now</button>
+                        <!-- <button type="button" (click)="saveTransaction()" class="sbmt-btn border-0 text-white mt-5" [disabled]="btnStatus==0">Transfer Now</button> -->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+        <div class="signal-popup-bx text-center px-5 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3" (click)="closePaynowpopup()"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4 class="pt-2">{{ 'share_point.msg1' | translate }} {{this.shareForm.value['sharePoints']}} {{currCode}} {{ 'share_point.msg2' | translate }} {{this.receiverName}}.</h4>
+            <button (click)="saveTransaction()" class="border-0 mx-1" [translate]="'share_point.btn_confirm'">Yes</button>
+            <button (click)="closePaynowpopup()" class="border-0 mx-1" style="background:#db3d3a;" [translate]="'share_point.btn_reject'">No</button>
+        </div>
+    </div>
+
+    <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+        <div class="alert-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+            <h4 class="pt-2">{{alertPopupMsg}}</h4>            
+        </div>
+    </div>
+
+    <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup2">
+        <div class="alert-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup2()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="assets/images/fail.png" class="img-fluid" alt="">
+            <h4 class="pt-2">{{alertPopupMsg2}}</h4>            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+#tool-details{
+    padding: 0px 0px 100px;
+    min-height: calc(90vh);
+    .tool-details1{
+        p{
+            font-size: 15px;
+            color: var(--theme-text);
+            line-height: 22px;
+        }
+        ul{
+            li{
+                font-size: 15px;
+                color: var(--theme-text);
+                line-height: 22px;
+                font-weight: 600;
+                padding-bottom: 10px;
+                i{
+                    color: #1f6f22;
+                }
+            }
+        }
+        .content{
+            padding: 20px 0px 0px;
+            line-height: 28px;
+            color: var(--theme-text);
+        }
+    }
+    .tool-details2{
+        height: 200px;
+        iframe{
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+        }
+    }
+    .download-btn{
+        background: #db3e3b;
+        border-radius: 10px;
+        width: 90%;
+        margin: 0px auto 0px;
+        padding: 5px 15px;
+        img{
+            filter: brightness(0) invert(1);
+            width: 35px;
+        }
+        h6{
+            margin-bottom: 0px;
+        }
+        span{
+            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+        }
+        i{
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 22px;
+        }
+    }
+    .signal-popup{
+        background: rgba(0,0,0,0.50);
+        z-index: 3;
+        animation: 0.3s show-popup;
+        .signal-popup-bx{
+            background: var(--theme-background);
+            width: 75%;
+            border-radius: 15px;
+            padding: 30px;
+            img{
+                width: 40%;
+            }
+            h4{
+                color: #1e7027;
+                font-size: 17px;
+                font-weight: 700;
+                padding: 10px 0px;
+            }
+            button{
+                padding: 6px 40px;
+                border-radius: 10px;
+                background: #1e7027;
+                color: #fff;
+                font-size: 15px;
+            }
+        }
+    }
+    @keyframes show-popup {
+        0%{
+            transform: scale(0);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+}

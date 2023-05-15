@@ -1,0 +1,157 @@
+<div id="video-guide">
+    <div class="banner w-100">
+        <iframe [src]="selectedGuide.fileSrc" title="Lesson 0.0 - About this video series" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="chapter2 px-3 pt-4 pb-2">
+        <h5 class="fw-600 mb-1">{{selectedGuide.lesson_title}}</h5>
+        <p class="fw-normal">{{selectedGuide.lesson_description}}</p>
+    </div>
+    <div class="chapter3 p-3">
+        <ng-container *ngFor="let video of lessonList;let ind=index;">
+            <a matRipple *ngIf="ind <= this.lessonCompleted" (click)="selectGuide(video)" class="chptr3-bx d-flex align-items-start justify-content-between">
+                <div class="vdo">
+                    <iframe [src]="video.fileSrc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="cnct">
+                    <h6 class="fw-600">{{video.lesson_title}}</h6>
+                    <p class="text-truncate">{{video.lesson_description}}</p>
+                </div>
+                <div *ngIf="video.stars==0" class="dtls text-center" (click)="gotoQuiz(video)">
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                        <i class="bi bi-book-half"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">Start Test</h6>
+                </div>
+                <div *ngIf="video.stars>0" class="dtls text-center" (click)="gotoQuiz(video)">
+                    <div *ngIf="video.stars==1" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                    </div>
+                    <div *ngIf="video.stars==2" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                    </div>
+                    <div *ngIf="video.stars==3" class="stars mb-2 d-flex justify-content-center">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">{{video.stars}} Stars</h6>
+                </div>
+            </a>
+            <a *ngIf="ind > this.lessonCompleted" class="chptr3-bx d-flex align-items-start justify-content-between disable" (click)="disableVideoguide(video.lesson_id)">
+                <div class="vdo">
+                    <!-- <iframe [src]="video.fileSrc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                    <img src="assets/images/no-vdo.jpg" class="img-fluid">
+                </div>
+                <div class="cnct">
+                    <h6 class="fw-600">{{video.lesson_title}}</h6>
+                    <p class="text-truncate">{{video.lesson_description}}</p>
+                </div>
+                <div class="dtls text-center">
+                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                        <i class="bi bi-lock-fill"></i>
+                    </div>
+                    <h6 class="m-0 pt-1 text-center">Locked</h6>
+                </div>
+                <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center" *ngIf="visibleIndex === video.lesson_id">
+                    <i class="bi bi-x"></i>
+                    <p class="fw-600">Get atleast 1 star in all above lesson to unlock this!</p>
+                    <span class="py-2 rounded d-inline-block w-100 mt-2">LOCKED</span>
+                </div>
+            </a>
+        </ng-container>
+
+        <!-- <a matRipple routerLink="#" class="chptr3-bx d-flex align-items-start justify-content-between">
+            <div class="vdo">
+                <img src="assets/images/no-vdo.jpg" class="img-fluid w-100 h-100"> -->
+                <!-- <iframe src="https://www.youtube.com/embed/t1Bn3O4sACE" title="Lesson 0.0 - About this video series" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="cnct">
+                <h6 class="fw-600">Lesson 0.0 - About this video series</h6>
+                <p class="text-truncate">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+            </div>
+            <div class="dtls text-center">
+                <div class="stars mb-2 d-flex justify-content-center">
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                    <i class="bi bi-check-lg"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">3 Stars</h6>
+            </div>
+        </a>
+        <a matRipple routerLink="#" class="chptr3-bx d-flex align-items-start justify-content-between">
+            <div class="vdo">
+                <iframe src="https://www.youtube.com/embed/Y0yznm-stzw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="cnct">
+                <h6 class="fw-600">Lesson 1.1 - Introduction to the Financial Markets</h6>
+                <p class="text-truncate">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+            </div>
+            <div class="dtls text-center">
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                    <i class="bi bi-book-half"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">Start Test</h6>
+            </div>
+        </a>
+        <a routerLink="#" class="chptr3-bx d-flex align-items-start justify-content-between disable">
+            <div class="vdo">
+                <iframe src="https://www.youtube.com/embed/DJSrLe4Vmnw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="cnct">
+                <h6 class="fw-600">Lesson 1.2 - Introduction to Forex</h6>
+                <p class="text-truncate">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+            </div>
+            <div class="dtls text-center">
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">Locked</h6>
+            </div>
+            <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center">
+                <p class="fw-600">Get atleast 1 Star in all sills above to unlock this!</p>
+                <span class="py-2 rounded d-inline-block w-100 mt-2">LOCKED</span>
+            </div>
+        </a>
+        <a routerLink="#" class="chptr3-bx d-flex align-items-start justify-content-between disable">
+            <div class="vdo">
+                <iframe src="https://www.youtube.com/embed/0QVVyElQcYE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="cnct">
+                <h6 class="fw-600">Lesson 1.3 - Introduction to Shares</h6>
+                <p class="text-truncate">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+            </div>
+            <div class="dtls text-center">
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">Locked</h6>
+            </div>
+            <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center">
+                <p class="fw-600">Get atleast 1 Star in all sills above to unlock this!</p>
+                <span class="py-2 rounded d-inline-block w-100 mt-2">LOCKED</span>
+            </div>
+        </a>
+        <a routerLink="#" class="chptr3-bx d-flex align-items-start justify-content-between disable">
+            <div class="vdo">
+                <iframe src="https://www.youtube.com/embed/j60EJy8lFMg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                
+            </div>
+            <div class="cnct">
+                <h6 class="fw-600">Lesson 1.4 - Introduction to CFDs</h6>
+                <p class="text-truncate">Learn the fundamentals of trading and earn some tradepedium to unlock our signals and tools.</p>
+            </div>
+            <div class="dtls text-center">
+                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+                <h6 class="m-0 pt-1 text-center">Locked</h6>
+            </div>
+            <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center">
+                <p class="fw-600">Get atleast 1 Star in all sills above to unlock this!</p>
+                <span class="py-2 rounded d-inline-block w-100 mt-2">LOCKED</span>
+            </div>
+        </a> -->
+    </div>
+</div>

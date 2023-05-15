@@ -1,0 +1,28 @@
+<div id="create-profile2" class="bg-light">
+    <!-- <div class="createprofile-stepper">
+        <hr>
+        <a routerLink="/signal/create-profile1">1</a>
+        <a routerLink="/signal/create-profile2" class="active">2</a>
+        <a routerLink="/signal/create-profile3">3</a>
+        <a routerLink="/signal/create-profile5">4</a>
+        <a routerLink="/signal/create-profile6">5</a>
+    </div> -->
+    <div class="create-profile2 position-relative">
+        <h1 class="text-white fw-600 py-3" style="font-size:1.5rem;">Please select type of transaction</h1>
+        <div class="white-bx p-3 pt-4">
+            <div class="create-profile1">
+                <mat-checkbox [checked]="buyrobot" (change)="selectTransaction($event,'buy')">Buy Profile (Buy To Sell)</mat-checkbox>
+                <img src="assets/images/buy-to-sell.jpg" class="mt-4 img-fluid">
+                <h3 class="fw-600 text-center pt-3 pb-5" style="font-size:19px;">Profit when buying falls below when entering from selling</h3>
+            </div>
+            <div class="create-profile1">
+                <mat-checkbox [checked]="sellrobot" (change)="selectTransaction($event,'sell')">Selling Profile (Buying From Selling)</mat-checkbox>
+                <img src="assets/images/sell-to-buy.jpg" class="mt-4 img-fluid">
+                <h3 class="fw-600 text-center pt-3" style="font-size:19px;">Profit when buying falls below when entering from selling</h3>
+            </div>
+            <!-- <div class="text-center">
+                <button class="nxt-btn border-0 mt-4 mb-3 position-relative" [disabled]="btnNxt==1" (click)="gotoNext()">Next <i class="bi bi-chevron-right position-absolute top-50 end-0 translate-middle me-2"></i></button>
+            </div> -->
+        </div>
+    </div>
+</div>

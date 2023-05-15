@@ -1,0 +1,239 @@
+<div id="quiz" class="d-flex bg-light">
+	<div class="col-bx1 position-relative">
+		<!-- <img src="assets/images/quiz-slide-indicator.png" class="slide-indic img-fluid"> -->
+		<div class="customprogress pb-3 d-flex align-items-center">
+			<mat-progress-bar mode="determinate" [value]="progressbarValue"></mat-progress-bar>
+			<!-- <span class="d-flex ms-4 fw-600" style="color:#ffb100;font-size:18px;"><i class="bi bi-star-fill me-1"></i> 3</span> -->
+			<span class="d-flex ms-4 fw-600" style="color:#ea2b2b;font-size:18px;"><i class="bi bi-trophy-fill mx-1"></i> {{totalScore}}</span>
+		</div>
+		<!--<div class="swiper-box mx-auto pt-4">
+			<h2 class="quiz-tlt fw-normal px-4">Question</h2>
+			<swiper
+				[pagination]="{
+					type: 'fraction'
+					}"
+				[grabCursor]="true"
+				[effect]="'creative'"
+				[allowTouchMove]="false"
+				[creativeEffect]="{
+					prev: {
+					shadow: true,
+					translate: [0, 0, -400]
+					},
+					next: {
+					translate: ['100%', 0, 0]
+					}
+				}" 
+			class="mySwiper mySwiper1 pt-3">			
+				<ng-template swiperSlide *ngFor="let question of questionList">
+					<div class="swip-bx">					
+						<div [innerHTML]="question.title" class="mb-3 question-bx" style="font-size:2vw;"></div>					
+						<mat-button-toggle-group *ngIf="question.question_answer_type=='Text'" class="d-block border-0" (change)="getValue($event.value,question)">
+							<mat-button-toggle [value]="question.question_option_1" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_1}}</mat-button-toggle>						
+							<mat-button-toggle [value]="question.question_option_2" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_2}}</mat-button-toggle>
+							<mat-button-toggle [value]="question.question_option_3" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_3}}</mat-button-toggle>
+							<mat-button-toggle *ngIf="!question.question_option_4==false" [value]="question.question_option_4" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_4}}</mat-button-toggle>
+							<mat-button-toggle *ngIf="!question.question_option_5==false" [value]="question.question_option_5" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_5}}</mat-button-toggle>
+						</mat-button-toggle-group>
+						<mat-button-toggle-group *ngIf="question.question_answer_type=='Image'" class="d-block border-0 img-swiper" (change)="getValue($event.value,question)">
+							<swiper
+								[slidesPerView]="1.7"
+								[spaceBetween]="0"
+								[pagination]="{
+								clickable: true
+								}"
+								class="mySwiper mySwiper1 mySwiper2"
+							>
+								<ng-template swiperSlide>
+									<div class="swip-bx">
+										<mat-button-toggle [value]="question.question_option_1" [disabled]="question.disable==1">
+											<!-- <img [src]="question.question_option_1" class="img-fluid"> -->
+		<!--									<div [innerHTML]="question.question_option_img1"></div>
+											<span class="srno">A</span>
+										</mat-button-toggle>	
+									</div>
+								</ng-template>
+								<ng-template swiperSlide>
+									<div class="swip-bx">
+										<mat-button-toggle [value]="question.question_option_2" [disabled]="question.disable==1">
+											<!-- <img [src]="question.question_option_2" class="img-fluid"> -->
+		<!--									<div [innerHTML]="question.question_option_img2"></div>
+											<span class="srno">B</span>
+										</mat-button-toggle>	
+									</div>
+								</ng-template>
+								<ng-template swiperSlide>
+									<div class="swip-bx">
+										<mat-button-toggle [value]="question.question_option_3" [disabled]="question.disable==1">
+											<!-- <img [src]="question.question_option_3" class="img-fluid"> -->
+		<!--									<div [innerHTML]="question.question_option_img3"></div>
+											<span class="srno">C</span>
+										</mat-button-toggle>	
+									</div>
+								</ng-template>
+								<ng-template swiperSlide *ngIf="!question.question_option_4==false">
+									<div class="swip-bx">
+										<mat-button-toggle [value]="question.question_option_4" [disabled]="question.disable==1">
+											<!-- <img [src]="question.question_option_4" class="img-fluid"> -->
+		<!--									<div [innerHTML]="question.question_option_img4"></div>
+											<span class="srno">D</span>
+										</mat-button-toggle>	
+									</div>
+								</ng-template>
+								<ng-template swiperSlide *ngIf="!question.question_option_5==false">
+									<div class="swip-bx">
+										<mat-button-toggle [value]="question.question_option_5" [disabled]="question.disable==1">
+											<!-- <img [src]="question.question_option_5" class="img-fluid"> -->
+		<!--									<div [innerHTML]="question.question_option_img5"></div>
+											<span class="srno">E</span>
+										</mat-button-toggle>	
+									</div>
+								</ng-template>
+							</swiper>
+						</mat-button-toggle-group>
+					</div>
+				</ng-template>		
+			</swiper>
+		</div>-->
+		
+		<div class="d-flex img-quiz">
+			<div class="swiper-box w-100 bg-transparent">
+				<h2 class="quiz-tlt fw-normal px-4" [translate]="'quiz.question'">Question</h2>
+				<swiper
+					[pagination]="{
+						type: 'fraction'
+						}"
+					[grabCursor]="true"
+					[effect]="'creative'"
+					[allowTouchMove]="false"
+					[creativeEffect]="{
+						prev: {
+						shadow: true,
+						translate: [0, 0, -400]
+						},
+						next: {
+						translate: ['100%', 0, 0]
+						}
+					}" 
+				class="mySwiper mySwiper1 pt-3">			
+					<ng-template swiperSlide *ngFor="let question of questionList">
+						<div class="swip-bx d-flex bg-transparent p-0">					
+							<div [innerHTML]="question.title" class="question-bx img-quiz1" style="font-size:20px;"></div>
+							<!-- <div class="question-bx img-quiz1" style="font-size:20px;">
+								Financial Markets are also categorized based on?
+								<div style="text-align: center; width: 100%; height: 100%; vertical-align: middle; padding: 25px;">
+									<img src="{{staticImage}}" style="min-height: 320px; max-height: 320px;"> 
+								</div>
+							</div> -->
+							
+							
+							<mat-button-toggle-group *ngIf="question.question_answer_type=='Text'" class="text-answer img-quiz2 d-block border-0" (change)="getValue($event.value,question)">
+								<mat-button-toggle class="text-center" [value]="question.question_option_1" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_1}}</mat-button-toggle>						
+								<mat-button-toggle class="text-center" [value]="question.question_option_2" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_2}}</mat-button-toggle>
+								<mat-button-toggle class="text-center" [value]="question.question_option_3" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_3}}</mat-button-toggle>
+								<mat-button-toggle class="text-center" *ngIf="!question.question_option_4==false" [value]="question.question_option_4" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_4}}</mat-button-toggle>
+								<mat-button-toggle class="text-center" *ngIf="!question.question_option_5==false" [value]="question.question_option_5" [disabled]="question.disable==1"><i class="bi bi-check2-circle"></i> {{question.question_option_5}}</mat-button-toggle>
+							</mat-button-toggle-group>
+							<mat-button-toggle-group *ngIf="question.question_answer_type=='Image'" class="img-answer img-quiz2 d-flex flex-wrap border-0 img-swiper justify-content-center" (change)="getValue($event.value,question)">
+								<mat-button-toggle [value]="question.question_option_1" [disabled]="question.disable==1">
+									<!-- <img [src]="question.question_option_1" class="img-fluid"> -->
+									<div [innerHTML]="question.question_option_img1"></div>
+									<span class="srno" [translate]="'quiz.option_a'">A</span>
+								</mat-button-toggle>
+								<mat-button-toggle [value]="question.question_option_2" [disabled]="question.disable==1">
+									<!-- <img [src]="question.question_option_2" class="img-fluid"> -->
+									<div [innerHTML]="question.question_option_img2"></div>
+									<span class="srno" [translate]="'quiz.option_b'">B</span>
+								</mat-button-toggle>
+								<mat-button-toggle [value]="question.question_option_3" [disabled]="question.disable==1">
+									<!-- <img [src]="question.question_option_3" class="img-fluid"> -->
+									<div [innerHTML]="question.question_option_img3"></div>
+									<span class="srno" [translate]="'quiz.option_c'">C</span>
+								</mat-button-toggle>
+								<mat-button-toggle *ngIf="!question.question_option_4==false" [value]="question.question_option_4" [disabled]="question.disable==1">
+									<!-- <img [src]="question.question_option_4" class="img-fluid"> -->
+									<div [innerHTML]="question.question_option_img4"></div>
+									<span class="srno" [translate]="'quiz.option_d'">D</span>
+								</mat-button-toggle>
+								<mat-button-toggle *ngIf="!question.question_option_5==false" [value]="question.question_option_5" [disabled]="question.disable==1">
+									<!-- <img [src]="question.question_option_5" class="img-fluid"> -->
+									<div [innerHTML]="question.question_option_img5"></div>
+									<span class="srno" [translate]="'quiz.option_e'">E</span>
+								</mat-button-toggle>
+							</mat-button-toggle-group>
+						</div>
+					</ng-template>
+				</swiper>
+			</div>
+		</div>
+
+		<div class="result-bx position-fixed start-0 end-0 py-3 px-4 text-center" [ngClass]="{'wrong': quizMsg === 2}" *ngIf="quizResult">
+			<div class="d-flex align-items-center justify-content-between pb-4">
+				<h4 class="mb-0 fw-600" *ngIf="quizMsg==1" [translate]="'quiz.excellent'">Excellent!</h4>
+				<h4 class="mb-0 fw-600" *ngIf="quizMsg==2" [translate]="'quiz.oops'">Oops!</h4>
+				<span *ngIf="showHint==1" style="font-size:14px;font-weight:600;" class="d-block" (click)="openDialog(myDialog)"><i class="bi bi-info-circle-fill me-1"></i> {{ 'quiz.show_crtanswer' | translate }}</span>
+			</div>
+			<button *ngIf="btnShow==0" class="text-white" (click)="checkAnswer()" [translate]="'quiz.btn_check'">Check</button>
+			<button *ngIf="btnShow==1" class="text-white" (click)="nextprogress()" [translate]="'quiz.btn_continue'">Continue</button>
+			<button *ngIf="btnShow==2" class="w-100 text-white" (click)="endProcess()" [disabled]="btnDis==1" [translate]="'quiz.btn_showresult'">Show Result</button>
+		</div>
+		<div class="quiz-alert position-fixed top-0 end-0 bottom-0 start-0" [ngStyle]="{'transform':showAlert === 1 ? 'scale(1)' : 'scale(0)' }">
+			<div class="quit-alert-bx position-absolute">
+				<img src="assets/images/anim-img.png" class="img-fluid">
+				<div class="baloon position-absolute">
+					<h6 [translate]="'quiz.messeg_stilllearn'">Even when you're wrong, you're still learning!</h6>
+				</div>
+			</div>
+		</div>
+		<div id="loader" class="position-fixed top-0 end-0 bottom-0 start-0 bg-white d-flex align-items-center justify-content-center" style="z-index:3;" *ngIf="isLoading">
+			<div class="text-center">
+				<img src="assets/images/preloader.png" class="img-fluid mb-4" style="width:50%;">
+				<h6 style="color: #1e7027;font-weight:600;font-size:21px;padding-bottom:15px;" [translate]="'quiz.loader_ready'" class="text-center">Buckle Up…</h6>
+				<mat-progress-bar mode="indeterminate" color="success" style="width:50%;margin:0px auto;"></mat-progress-bar>
+			</div>
+		</div>
+	</div>
+	<div class="col-bx2 bg-light d-none align-items-center justify-content-center">
+		<div class="col-bxinr">
+			<div class="text-center">
+				<h4 class="text-center fw-600 pb-4">{{ 'quiz.totally' | translate }} {{totalQuestion}} {{ 'quiz.question2' | translate }}</h4>
+				<h5 style="color:#1f6f22;background:rgba(31, 111, 34, 0.10);" class="mb-3"><i class="bi bi-check-circle me-3"></i> <b>{{correctQuestion}}</b> {{ 'quiz.correct_answer' | translate }}</h5><br>
+				<h5 style="color:#db3d3a;background:rgba(219, 61, 58, 0.10);"><i class="bi bi-x-circle me-3"></i> <b>{{wrongQuestion}}</b> {{ 'quiz.wrong_answer' | translate }}</h5>
+			</div>
+			<div class="d-flex align-items-center pt-4">
+				<div class="d-flex align-items-center justify-content-start pt-2 pb-4 mb-2 earn-point w-50">
+					<!-- <img src="assets/images/tradepediam-coin.svg" class="img-fluid"> -->
+					<div class="ps-2">
+						<span class="d-block tlt" [translate]="'quiz.earned'">Earned</span>
+						<span class="d-block fw-600 point">{{totalScore}} <sub [translate]="'quiz.points'">Points</sub></span>
+					</div>                    
+				</div>
+				<div class="d-flex align-items-center justify-content-end pt-2 pb-4 mb-2 earn-point w-50 position-relative ps-4">
+					<!-- <img src="assets/images/tradepediam-coins.svg" class="img-fluid" style="width:40px;"> -->
+					<div class="ps-2">
+						<span class="d-block tlt" [translate]="'quiz.total_point'">Total</span>
+						<span class="d-block fw-600 point">{{totalPoints}} <sub [translate]="'quiz.points'">Points</sub></span>
+					</div>                    
+				</div>
+			</div>
+			<div class="text-center">
+				<button *ngIf="btnShow==2" class="text-white mt-4 fw-600 px-5" (click)="endProcess()" [translate]="'quiz.goto_result'">Goto Result</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ng-template #myDialog>
+	<h2 matDialogTitle class="mb-2" style="color:var(--theme-text);">{{ 'quiz.popup_crtanswer' | translate }} : {{ 'quiz.popup_crtoption' | translate }} {{currentQuestion.correct_answer}}</h2>
+	<div class="text-center" style="width:550px;">
+		<!-- <img src="assets/images/validation-error.png" class="img-fluid mb-3" style="width:120px;"> -->
+		<div class="quiz-explanation" style="text-align: justify;color:var(--theme-text);" [innerHTML]="currentQuestion.question_explan"></div>
+	</div>
+	
+	<!-- <mat-dialog-content>
+	  <p>Even when you're wrong, you're still learning!</p>
+	</mat-dialog-content> -->
+	<mat-dialog-actions align="end">
+	  <button mat-button matDialogClose color="warn" style="background:#fff5f3;">{{ 'quiz.btn_dismiss' | translate }}</button>
+	</mat-dialog-actions>
+</ng-template>

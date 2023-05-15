@@ -1,0 +1,822 @@
+<div id="my-profile" class="bg-light d-flex">
+    <div class="col-bx1 h-100 pt-3" [ngStyle]="{'width': colhideshow ? '0%' : '40%'}">
+        <div class="my-profile pb-1">
+            <h3 class="pb-2" style="color:var(--theme-text);" [translate]="'my_profile.page_tlt'">List of self-made profile(s)</h3>	
+        </div>
+        <div class="my-robots" id="myRobots">
+            <ng-container *ngIf="profileShow==0 && profileList.length==0">    
+                <div class="list-bx">
+                    <h2 class="mb-0 text-center" style="color:var(--theme-text);" [translate]="'my_profile.load_profile'">Loading profile, Please wait..</h2>                
+                </div>    
+            </ng-container>
+            <ng-container *ngIf="profileShow==-1 && profileList.length==0">    
+                <div class="list-bx">
+                    <h2 class="mb-0 text-center" style="color:var(--theme-text);" [translate]="'my_profile.error_process'">Error on process, Try again.</h2>                
+                </div>    
+            </ng-container>
+            <ng-container *ngIf="profileShow==1 && profileList.length==0">    
+                <div class="list-bx">
+                    <h2 class="mb-0 text-center" style="color:var(--theme-text);" [translate]="'my_profile.profile_currently'">No profile currently created</h2>
+                    <span (click)="createProfile()" style="color:#1f6f22;font-size:13px;" [translate]="'my_profile.incest_profile'">Create an investment profile +</span>
+                </div>    
+            </ng-container>
+            <ng-container *ngIf="profileShow==1 && profileList.length>0">    
+                <div *ngFor="let profile of profileList; let ind=index;">
+                    <span class="list-bx">
+                        <div class="img-bx d-flex align-items-center justify-content-between" [ngClass]="{'active': profile.profileChk==1}">
+                            <label class="d-flex align-items-center justify-content-start" style="cursor:pointer;">
+                                <input type="checkbox" class="d-none" [checked]="profile.profileChk" (change)="showSignalDets($event,profile)">
+                                <span class="arw-icon"><i class="bi bi-chevron-down"></i></span>
+                                <img [src]="profile.imgSrc">
+                                <h1>{{profile.profile_name}}</h1>
+                            </label>
+                            <!-- <div class="d-flex align-items-center justify-content-end">
+                                <span *ngIf="profile.profile_notification==1" style="color:#01a9cf;" (click)="enableProfileNotification(profile)" matTooltip="Disable Notification"><i class="bi bi-bell-fill"></i></span>
+                                <span *ngIf="profile.profile_notification==0" style="color:#01a9cf;" (click)="enableProfileNotification(profile)" matTooltip="Enable Notification"><i class="bi bi-bell"></i></span>
+                                <span style="color:#299d36;" (click)="editProfile(profile)" matTooltip="Edit"><i class="bi bi-pencil"></i></span>
+                                <span style="color:#db3d3a;" (click)="delProfile(profile)" matTooltip="Delete"><i class="bi bi-trash"></i></span>
+                            </div> -->
+
+                            <div class="d-flex align-items-center justify-content-end" *ngIf="profile.profile_user_id!=0">
+                                <span *ngIf="profile.profile_notification==1" style="color:#01a9cf;" (click)="enableProfileNotification(profile)"><i class="bi bi-bell-fill"></i></span>
+                                <span *ngIf="profile.profile_notification==0" style="color:#01a9cf;" (click)="enableProfileNotification(profile)"><i class="bi bi-bell"></i></span>
+                                <span style="color:#1f6f22;" (click)="editProfile(profile)"><i class="bi bi-pencil"></i></span>
+                                <span style="color:#db3d3a;" (click)="delPopup(profile)"><i class="bi bi-trash"></i></span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start" *ngIf="profile.profile_user_id==0">
+                                <span *ngIf="autoProfileStatus==1" style="color:#01a9cf;" (click)="enableAutoProfileNotification(profile)"><i class="bi bi-bell-fill"></i></span>
+                                <span *ngIf="autoProfileStatus==0" style="color:#01a9cf;" (click)="enableAutoProfileNotification(profile)"><i class="bi bi-bell"></i></span>                            
+                            </div>
+                        </div>
+                        <div class="list-bx-inr" [ngClass]="{'show': profile.profileChk==1}" id="robotDets">
+                            <div class="chart-pge-bx3 w-100 border-0">
+                                <table class="table table-striped signal-data-tbl mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td [translate]="'my_profile.tbl_symbol'">SYMBOL</td>
+                                            <td>{{profile.symStr}} {{ 'my_profile.sub_symbols' | translate }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td [translate]="'my_profile.tbl_timframe'">TIMEFRAME</td>
+                                            <td>{{profile.tfStr}} {{ 'my_profile.sub_time' | translate }}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td>TOOLS</td>
+                                            <td>{{profile.tlStr}}</td>
+                                        </tr> -->
+                                        <tr>
+                                            <td [translate]="'my_profile.tbl_strategies'">STRATEGIES</td>
+                                            <td>{{profile.stgStr}} {{ 'my_profile.sub_stratege' | translate }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td [translate]="'my_profile.tbl_statet'">STATE T</td>
+                                            <td>{{profile.stStr}} {{ 'my_profile.sub_statet' | translate }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td [translate]="'my_profile.tbl_statew'">STATE W</td>
+                                            <td>{{profile.swStr}} {{ 'my_profile.sub_statew' | translate }}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td [translate]="'my_profile.tbl_mini_score'">MINIMUM SCORE</td>
+                                            <td>{{profile.profile_score}}</td>
+                                        </tr> -->
+                                        <!-- <tr *ngIf="profile.profile_description!=''">
+                                            <td colspan="2">{{profile.profile_description}}</td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="timeframe-bx chart-pge-bx1">
+                                <div id="chartContainer" class="w-100 pt-2 px-3" style="color:var(--theme-text);">
+                                    {{profile.profile_description}}
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" (click)="gotoSignal(profile)" class="btn text-white fw-600 rounded-pill py-2 mt-3 px-4" style="background:#1f6f22;" [translate]="'my_profile.gosignal_btn'">Go to signal</button>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </ng-container>        
+        </div>
+    </div>
+    <div class="col-bx2 h-100 d-flex align-items-center justify-content-center" *ngIf="showSignal==0" style="width:60%;">
+        <div class="text-center">
+            <img src="assets/images/message-caricature.png" alt="" class="img-fluid" style="width:170px;">
+            <h4 class="pt-4 fw-600 text-center" [translate]="'my_profile.select_profile'" style="color:var(--theme-text);">Please Select Any One Profile</h4>
+        </div>
+    </div>
+    <div class="col-bx2 h-100" *ngIf="showSignal==1" [ngStyle]="{'width': colhideshow ? '35%' : '60%'}">
+        <form class="m-auto normal-form example-form">
+            <div class="tlt-bx">
+                <h6>{{profileName}}</h6>
+            </div>
+            <mat-tab-group mat-align-tabs="center" [selectedIndex]="tabIndex" (selectedTabChange)="getTabID($event)">
+                <mat-tab label="{{ 'autotrade.tab_search' | translate }}">
+                    <div class="signal-tab">
+                        <div class="tab-head" [ngClass]="colhideshow ? 'widthsize' : ''">
+                            
+                        </div>
+                        <div class="tab-content" [ngStyle]="{'width': colhideshow ? '90%' : '93%'}">
+                            <div class="ps-2 pe-2" *ngIf="serachFilter==0" style="padding-top: 10px;">
+                                <h1 class="pg-tlt fw-bold pt-2 pb-2" style="color:var(--theme-text);" [translate]="'autotrade.search_filter'">Search Filter : </h1>          
+                                <form [formGroup]="profileEditForm" (ngSubmit)="setSearchInput()">                                            
+                                   
+                                    <div class="frm-bx mb-2 pt-2">
+                                        <span class="d-block pb-2 fw-bold" [translate]="'autotrade.symbol_name'">Symbol Name</span>
+                                        <ng-container *ngIf="selectedSignalsList.length>0">
+                                            <label class="signal-list" *ngFor="let sigName of selectedSignalsList;let ind=index;">{{sigName}} <a class="close ms-1 me-1" (click)="removeSignal(sigName)">X</a></label>
+                                        </ng-container>
+                                        <mat-form-field style="width: 94%;">
+                                            <input type="text" matInput [matAutocomplete]="auto" [formControl]="searchSignal">
+                                            <!-- <mat-hint>Enter text to find symbol</mat-hint> -->
+                                        </mat-form-field>
+                                        
+                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                            <mat-option *ngFor="let signal of finalSignals | async">
+                                                <div (click)="optionClicked($event, signal)">
+                                                    <!-- <mat-checkbox [checked]="signal.selected" (change)="toggleSelection(signal)" (click)="$event.stopPropagation()">
+                                                        {{ signal.name }}
+                                                    </mat-checkbox> -->
+                                                    {{ signal.name }}
+                                                </div>
+                                            </mat-option>
+                                        </mat-autocomplete>                                        
+                                    </div>
+                                    <!-- <div class="frm-bx mb-2 pt-0">
+                                        <label class="signal-list" *ngFor="let sigName of selectedSignalsList;let ind=index;">{{sigName}} <a class="close ms-1 me-1" (click)="removeSignal(sigName)">X</a></label>
+                                    </div> -->
+    
+                                    <div class="frm-bx mb-2 pt-2">
+                                        <span class="d-block pb-2 fw-bold" [translate]="'autotrade.timeframe'">Time Frames</span>
+                                        <mat-button-toggle-group multiple class="crt-prf3 d-flex border-0 flex-wrap">
+                                            <mat-button-toggle *ngFor="let time of this.timeFrames" [checked]="time.status==1" (click)="selectTime(time)">{{time.name}}</mat-button-toggle>                                       
+                                        </mat-button-toggle-group>                                    
+                                    </div>
+    
+                                    <div class="frm-bx mb-2 pt-2">
+                                        <span class="d-block pb-2 fw-bold" [translate]="'autotrade.status'">Status</span>
+                                        <mat-button-toggle-group class="crt-prf3 d-flex border-0 flex-wrap">
+                                            <mat-button-toggle *ngFor="let status of this.statusList" [checked]="status==statusInp" (click)="selectStatus(status)">
+                                                <label *ngIf="status=='Pending'">{{ 'autotrade.pending' | translate }}</label>
+                                                <label *ngIf="status=='Active'">{{ 'autotrade.active' | translate }}</label>
+                                            </mat-button-toggle>                                       
+                                        </mat-button-toggle-group>                                    
+                                    </div>
+                                                                
+                                    <div class="text-center">
+                                        <button class="btn-primary sbmt-btn border-0 mt-3" [disabled]="this.profileEditForm.value['search_symbol']==''" [translate]="'autotrade.search'">Search</button>
+                                    </div>            
+                                </form>                                                    
+                            </div>
+                            <div class="" *ngIf="serachFilter==1">
+                                <!-- <h5 class="mt-1 mb-1">Symbols : {{this.profileEditForm.value['search_symbol']}}</h5>
+                                <h5 class="mt-1 mb-1">Timeframes : {{this.profileEditForm.value['search_timeframe']}}</h5>
+                                <h5 class="mt-1 mb-1">Status : {{this.profileEditForm.value['search_status']}}</h5>
+                                <div class="d-flex text-center" style="justify-content: center;">
+                                    <a class="link1 ms-2 me-2" (click)="reset()">Reset</a>
+                                    <a class="link2 ms-2 me-2" (click)="clearSearchInput()">Clear</a>
+                                </div> -->
+    
+                                <div class="text-center d-flex mb-2" style="justify-content: center;">
+                                    <button *ngIf="selectedSignalsList.length>0" class="btn-primary link1 border-0 mt-2 me-2" (click)="reset()" [translate]="'autotrade.reset'">Reset</button>
+                                    <button class="btn-danger link2 border-0 mt-2 me-2" (click)="clearSearchInput()" [translate]="'autotrade.clear'">Clear</button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show active" id="pending1" role="tabpanel" *ngIf="serachFilter==1">                                                        
+                                <ng-container *ngIf="serachData == 0 && filterFunction(searchDataList,this.selPendingCategory).length > 0">
+                                    <div class="signal-bx" *ngFor="let pend of filterFunction(searchDataList,this.selPendingCategory)" id="SIG{{pend.uid}}" [ngStyle]="{'background-color':pend.mode=='BUY' ? '#e8f0e9' : '#fbebeb' }" matRipple>                                    
+                                        <div *ngIf="this.userSignalStatus==0 || this.userSignalStatus==2">
+                                            <div class="d-flex align-items-center justify-content-between">                                        
+                                                <span class="flag">
+                                                    <!-- <img src="assets/images/create-robot-flag.png" class="img-fluid">  -->
+                                                    <span class="avatar rounded-circle d-flex align-items-center justify-content-center">
+                                                        {{pend.symbol.charAt(0)}}
+                                                    </span>
+                                                    {{pend.symbol}}
+                                                </span>
+                                                <!-- <span class="buy" *ngIf="pend.mode=='BUY'"><i class="bi bi-caret-up-fill"></i> {{ 'autotrade.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;"><i class="bi bi-caret-down-fill"></i> {{ 'autotrade.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;"><i class="bi bi-dash-lg"></i> {{ 'autotrade.mode_neutral' | translate }}</span> -->
+                                                <span class="buy" *ngIf="pend.mode=='BUY'"><span class="tp_buy">{{pend.timeframe}}</span> <i class="bi bi-caret-up-fill"></i> {{ 'autotrade.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;"><span class="tp_sell">{{pend.timeframe}}</span> <i class="bi bi-caret-down-fill"></i> {{ 'autotrade.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;"><span class="tp_neutral">{{pend.timeframe}}</span> <i class="bi bi-dash-lg"></i> {{ 'autotrade.mode_neutral' | translate }}</span>
+                                                
+                                                <!-- <span class="stratergy">{{pend.currentStatus}}</span> -->
+                                            </div>
+                                            <div class="border-top text-center pt-3 mt-3">
+                                                
+                                                <button class="unlock-signalbtn border-0 fw-600"  (click)="gotoSignalplan()" [translate]="'autotrade.unlock_signal'">Unlock Signals</button>
+                                            </div>                                        
+                                        </div>
+                                        <div *ngIf="this.userSignalStatus==1" (click)="gotoSignaldetails(pend.uid)">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <span class="flag">
+                                                    <!-- <img src="assets/images/create-robot-flag.png" class="img-fluid">  -->
+                                                    <span class="avatar rounded-circle d-flex align-items-center justify-content-center">
+                                                        {{pend.symbol.charAt(0)}}
+                                                    </span>
+                                                    {{pend.symbol}}
+                                                </span>
+                                                <span class="buy" *ngIf="pend.mode=='BUY'"><span class="tp_buy">{{pend.timeframe}}</span> <i class="bi bi-caret-up-fill"></i> {{ 'autotrade.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;"><span class="tp_sell">{{pend.timeframe}}</span> <i class="bi bi-caret-down-fill"></i> {{ 'autotrade.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;"><span class="tp_neutral">{{pend.timeframe}}</span> <i class="bi bi-dash-lg"></i> {{ 'autotrade.mode_neutral' | translate }}</span>
+                                                
+                                                <!-- <span class="stratergy" *ngIf="pend.mode=='BUY'" style="color:#1e7027;">{{pend.currentStatus}}</span>
+                                                <span class="stratergy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;">{{pend.currentStatus}}</span>
+                                                <span class="stratergy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;">{{pend.currentStatus}}</span> -->
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                                <div class="signal-bx1 text-start">
+                                                    <h5 [translate]="'autotrade.stop_loss'">Stop Loss</h5>
+                                                    <span style="background:#db3d3a;" class="text-white">{{pend.STOP}}</span>
+                                                </div>
+                                                <div class="signal-bx1 text-center">
+                                                    <h5 [translate]="'autotrade.entry'">Entry</h5>
+                                                    <span style="background:#e7e7e7;">{{pend.ENT}}</span>
+                                                </div>
+                                                <div class="signal-bx1 text-end">
+                                                    <h5 [translate]="'autotrade.take_profit'">Take Profit</h5>
+                                                    <span style="background:#1e7027;" class="text-white">{{pend.T3}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="searchMoreShow == true">
+                                    <div class="text-center">
+                                        <button class="btn-primary sbmt-btn border-0 mt-4 mb-5" (click)="loadPendingSignalList(this.selPendingCategory)" [translate]="'autotrade.load_signal'">Load More Signals</button>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="serachData == 1">
+                                    <div class="text-center p-4">
+                                        <h4 class="text-center" style="color:var(--theme-text);" [translate]="'autotrade.select_symbol'">Please Select Symbols and Timeframes from filters</h4>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="serachData == 2">
+                                    <div class="text-center p-4">
+                                        <mat-spinner></mat-spinner>
+                                        <h4 class="text-center" style="color:var(--theme-text);" class="pt-4" [translate]="'autotrade.signal_load'">Signal Loading Please Wait</h4>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="serachData != 1 && serachData != 2 && serachData == 3">
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==1">
+                                        <img src="assets/images/no-record-found.png" class="img-fluid">
+                                        <h4 style="color:var(--theme-text);" class="pt-4 text-center" [translate]="'autotrade.search_signal'">No Search Signal Found</h4>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==2">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center" [translate]="'autotrade.sub_expired'">Your subscription has expired please subscribe again and then call to action.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'autotrade.viewplan_btn'" >View Plans</button>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==0">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center" [translate]="'autotrade.make_payment'">Make payment to unlock signals.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'autotrade.viewplan_btn'" >View Plans</button>
+                                    </div> 
+                                </ng-container>
+                                <ng-container *ngIf="serachData == 0 && filterFunction(searchDataList,this.selPendingCategory).length == 0">
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==1">
+                                        <img src="assets/images/no-record-found.png" class="img-fluid">
+                                        <h4 style="color:var(--theme-text);" class="pt-4 text-center" [translate]="'autotrade.search_signal'">No Search Signal Found</h4>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==2">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center" [translate]="'autotrade.sub_expired'" [translate]="'autotrade.sub_expired'">Your subscription has expired please subscribe again and then call to action.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'autotrade.viewplan_btn'" >View Plans</button>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==0">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center" [translate]="'autotrade.make_payment'">Make payment to unlock signals.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'autotrade.viewplan_btn'" >View Plans</button>
+                                    </div>  
+                                </ng-container>
+                                <ng-container *ngIf="pendingBlock == 1">
+                                    <div class="text-center pt-1 pb-3">                                    
+                                        <button class="unlock-signalbtn border-0 fw-600"  (click)="gotoSignalplan()" [translate]="'autotrade.unlock_signal'">Unlock Signals</button>                                    
+                                    </div>
+                                </ng-container>
+                            </div>                                                
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{ 'my_profile.tab_pending' | translate }}">
+                    <div class="signal-tab">
+                        <div class="tab-head" [ngClass]="colhideshow ? 'widthsize' : ''">
+                            <ul class="nav nav-pills" role="tablist">                            
+                                <li class="nav-item" role="presentation" *ngFor="let cat of symbolRootNameArr;let ind = index;">
+                                    <!-- <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadPendingSignalList(cat)" type="button" role="tab">{{cat}}</button> -->
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadPendingSignalList(cat)" type="button" role="tab" *ngIf="ind==0">{{ 'my_profile.btab_all' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadPendingSignalList(cat)" type="button" role="tab" *ngIf="ind==1">{{ 'my_profile.btab1' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadPendingSignalList(cat)" type="button" role="tab" *ngIf="ind==2">{{ 'my_profile.btab2' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadPendingSignalList(cat)" type="button" role="tab" *ngIf="ind==3">{{ 'my_profile.btab3' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadPendingSignalList(cat)" type="button" role="tab" *ngIf="ind==4">{{ 'my_profile.btab4' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadPendingSignalList(cat)" type="button" role="tab" *ngIf="ind==5">{{ 'my_profile.btab5' | translate }}</button>
+                                </li>                                
+                            </ul>
+                        </div>
+                        <div class="tab-content" [ngStyle]="{'width': colhideshow ? '90%' : '93%'}">
+                            <div class="tab-pane fade show active" id="pending1" role="tabpanel">
+                                <ng-container *ngIf="pendingData == 0 && filterFunction(pendingDataList,this.selPendingCategory).length > 0">
+                                    <div class="signal-bx" *ngFor="let pend of filterFunction(pendingDataList,this.selPendingCategory)" [ngStyle]="{'background-color':pend.mode=='BUY' ? '#e8f0e9' : '#fbebeb' }" matRipple>
+                                        <div *ngIf="this.userSignalStatus==0 || this.userSignalStatus==2">
+                                            <div class="d-flex align-items-center justify-content-between">                                        
+                                                <!-- <span class="buy" *ngIf="pend.mode=='BUY'"><i class="bi bi-caret-up-fill"></i> {{ 'my_profile.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;"><i class="bi bi-caret-down-fill"></i> {{ 'my_profile.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;"><i class="bi bi-dash-lg"></i> {{ 'my_profile.mode_neutral' | translate }}</span> -->
+                                                <span class="flag d-flex">
+                                                    <!-- <img src="assets/images/create-robot-flag.png" class="img-fluid">  -->
+                                                    <span class="avatar rounded-circle d-flex align-items-center justify-content-center">
+                                                        {{pend.symbol.charAt(0)}}
+                                                    </span>
+                                                    {{pend.symbol}}
+                                                </span>
+
+                                                <span class="buy" *ngIf="pend.mode=='BUY'"><span class="tp_buy">{{pend.timeframe}}</span> <i class="bi bi-caret-up-fill"></i> {{ 'my_profile.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;"><span class="tp_sell">{{pend.timeframe}}</span> <i class="bi bi-caret-down-fill"></i> {{ 'my_profile.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;"><span class="tp_neutral">{{pend.timeframe}}</span> <i class="bi bi-dash-lg"></i> {{ 'my_profile.mode_neutral' | translate }}</span>
+                                                
+                                                <!-- <span class="stratergy">{{pend.currentStatus}}</span> -->
+                                            </div>
+                                            <div class="border-top text-center pt-3 mt-3">
+                                                <button class="unlock-signalbtn border-0 fw-600"  (click)="gotoSignalplan()" [translate]="'my_profile.unlock_sigdata'">Unlock Signals</button>
+                                            </div>                                        
+                                        </div>
+                                        <div *ngIf="this.userSignalStatus==1" (click)="gotoSignaldetails(pend.uid)">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <!-- <span class="buy" *ngIf="pend.mode=='BUY'"><i class="bi bi-caret-up-fill"></i> {{ 'my_profile.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;"><i class="bi bi-caret-down-fill"></i> {{ 'my_profile.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;"><i class="bi bi-dash-lg"></i> {{ 'my_profile.mode_neutral' | translate }}</span> -->
+                                                <span class="flag d-flex">
+                                                    <!-- <img src="assets/images/create-robot-flag.png" class="img-fluid">  -->
+                                                    <span class="avatar rounded-circle d-flex align-items-center justify-content-center">
+                                                        {{pend.symbol.charAt(0)}}
+                                                    </span>
+                                                    {{pend.symbol}}
+                                                </span>
+                                                <!-- <span class="stratergy">{{pend.currentStatus}}</span> -->
+                                                <span class="buy" *ngIf="pend.mode=='BUY'"><span class="tp_buy">{{pend.timeframe}}</span> <i class="bi bi-caret-up-fill"></i> {{ 'my_profile.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;"><span class="tp_sell">{{pend.timeframe}}</span> <i class="bi bi-caret-down-fill"></i> {{ 'my_profile.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;"><span class="tp_neutral">{{pend.timeframe}}</span> <i class="bi bi-dash-lg"></i> {{ 'my_profile.mode_neutral' | translate }}</span>
+                                                
+                                                <!-- <span class="stratergy" *ngIf="pend.mode=='BUY'" style="color:#1e7027;">{{pend.currentStatus}}</span>
+                                                <span class="stratergy" *ngIf="pend.mode=='SELL'" style="color:#db3d3a;">{{pend.currentStatus}}</span>
+                                                <span class="stratergy" *ngIf="pend.mode=='NEUTRAL'" style="color:#f58c64;">{{pend.currentStatus}}</span> -->
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                                <div class="signal-bx1 text-start">
+                                                    <h5 [translate]="'my_profile.stop_loss'">Stop Loss</h5>
+                                                    <span style="background:#db3d3a;" class="text-white">{{pend.STOP}}</span>
+                                                </div>
+                                                <div class="signal-bx1 text-center">
+                                                    <h5 [translate]="'my_profile.entry'">Entry</h5>
+                                                    <span style="background:#e7e7e7;">{{pend.ENT}}</span>
+                                                </div>
+                                                <div class="signal-bx1 text-end">
+                                                    <h5 [translate]="'my_profile.take_profit'">Take Profit</h5>
+                                                    <span style="background:#1e7027;" class="text-white">{{pend.T3}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="pendingMoreShow == true">
+                                    <div class="text-center">
+                                        <button class="btn-primary sbmt-btn border-0 mt-5 mb-6" (click)="loadPendingSignalList(this.selPendingCategory)" [translate]="'my_profile.load_moresignal'">Load More Signals</button>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="pendingData == 1">
+                                    <div class="text-center p-4">
+                                        <h4 class="text-center" style="color:var(--theme-text);" [translate]="'my_profile.select_symbol'">Please Select Symbols and Timeframes from filters</h4>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="pendingData == 2">
+                                    <div class="text-center p-4">
+                                        <mat-spinner></mat-spinner>
+                                        <h4 class="pt-4 text-center" style="color:var(--theme-text);" [translate]="'my_profile.signal_loading'">Signal Loading Please Wait</h4>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="pendingData != 1 && pendingData != 2 && pendingData == 3">
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==1">
+                                        <img src="assets/images/no-record-found.png" class="img-fluid">
+                                        <h4 class="pt-4 text-center" style="color:var(--theme-text);" [translate]="'my_profile.nopend_signal'">No Pending Signal Found</h4>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==2">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center" [translate]="'my_profile.sub_expired'">Your subscription has expired please subscribe again and then call to action.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'my_profile.view_plan'">View Plans</button>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==0">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center" [translate]="'my_profile.make_payment'">Make payment to unlock signals.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'my_profile.view_plan'">View Plans</button>
+                                    </div>  
+                                </ng-container>
+                                <ng-container *ngIf="pendingData == 0 && filterFunction(pendingDataList,this.selPendingCategory).length == 0">
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==1">
+                                        <img src="assets/images/no-record-found.png" class="img-fluid">
+                                        <h4 class="pt-4 text-center" style="color:var(--theme-text);" [translate]="'my_profile.nopend_signal'">No Pending Signal Found</h4>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==2">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center" [translate]="'my_profile.sub_expired'">Your subscription has expired please subscribe again and then call to action.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'my_profile.view_plan'">View Plans</button>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==0">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;" [translate]="'my_profile.make_payment'">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center">Make payment to unlock signals.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'my_profile.view_plan'">View Plans</button>
+                                    </div>  
+                                </ng-container>
+                            </div>                        
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{ 'my_profile.tab_active' | translate }}">
+                    <div class="signal-tab">
+                        <div class="tab-head" [ngClass]="colhideshow ? 'widthsize' : ''">
+                            <ul class="nav nav-pills" role="tablist">
+                                <li class="nav-item" role="presentation" *ngFor="let cat of symbolRootNameArr;let ind = index;">
+                                    <!-- <button class="nav-link" data-bs-toggle="pill" [ngClass]="{'active': cat == 'All'}" data-bs-target="#pending1" (click)="loadActiveSignalList(cat)" type="button" role="tab">{{cat}}</button> -->
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadActiveSignalList(cat)" type="button" role="tab" *ngIf="ind==0">{{ 'my_profile.btab_all' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadActiveSignalList(cat)" type="button" role="tab" *ngIf="ind==1">{{ 'my_profile.btab1' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadActiveSignalList(cat)" type="button" role="tab" *ngIf="ind==2">{{ 'my_profile.btab2' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadActiveSignalList(cat)" type="button" role="tab" *ngIf="ind==3">{{ 'my_profile.btab3' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadActiveSignalList(cat)" type="button" role="tab" *ngIf="ind==4">{{ 'my_profile.btab4' | translate }}</button>
+                                    <button class="nav-link" [ngClass]="{'active': cat == 'All'}" data-bs-toggle="pill" data-bs-target="#pending1" (click)="loadActiveSignalList(cat)" type="button" role="tab" *ngIf="ind==5">{{ 'my_profile.btab5' | translate }}</button>
+                                </li>                               
+                            </ul>
+                        </div>
+                        <div class="tab-content" [ngStyle]="{'width': colhideshow ? '90%' : '93%'}">
+                            <div class="tab-pane fade show active" id="active1" role="tabpanel">
+                                <ng-container *ngIf="activeData == 0 && filterFunction(activeDataList,this.selActiveCategory).length > 0">
+                                    <div class="signal-bx" *ngFor="let active of filterFunction(activeDataList,this.selActiveCategory)" [ngStyle]="{'background-color':active.mode=='BUY' ? '#e8f0e9' : '#fbebeb' }" matRipple>
+                                        <div *ngIf="this.userSignalStatus==0 || this.userSignalStatus==2">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <!-- <span class="buy" *ngIf="active.mode=='BUY'"><i class="bi bi-caret-up-fill"></i> {{ 'my_profile.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="active.mode=='SELL'" style="color:#db3d3a;"><i class="bi bi-caret-down-fill"></i> {{ 'my_profile.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="active.mode=='NEUTRAL'" style="color:#f58c64;"><i class="bi bi-dash-lg"></i> {{ 'my_profile.mode_neutral' | translate }}</span> -->
+
+                                                <span class="flag d-flex">
+                                                    <!-- <img src="assets/images/create-robot-flag.png" class="img-fluid">  -->
+                                                    <span class="avatar rounded-circle d-flex align-items-center justify-content-center">
+                                                        {{active.symbol.charAt(0)}}
+                                                    </span>
+                                                    {{active.symbol}}
+                                                </span>
+
+                                                <span class="buy" *ngIf="active.mode=='BUY'"><span class="tp_buy">{{active.timeframe}}</span> <i class="bi bi-caret-up-fill"></i> {{ 'my_profile.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="active.mode=='SELL'" style="color:#db3d3a;"><span class="tp_sell">{{active.timeframe}}</span> <i class="bi bi-caret-down-fill"></i> {{ 'my_profile.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="active.mode=='NEUTRAL'" style="color:#f58c64;"><span class="tp_neutral">{{active.timeframe}}</span> <i class="bi bi-dash-lg"></i> {{ 'my_profile.mode_neutral' | translate }}</span>
+                                                <!-- <span class="stratergy">{{active.currentStatus}}</span> -->
+                                            </div>
+                                            <div class="border-top text-center pt-3 mt-3">
+                                                <button class="unlock-signalbtn border-0 fw-600"  (click)="gotoSignalplan()" [translate]="'my_profile.unlock_sigdata'">Unlock Signals</button>
+                                            </div>
+                                        </div>                                        
+                                        <div *ngIf="this.userSignalStatus==1" (click)="gotoSignaldetails(active.uid)">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <!-- <span class="buy" *ngIf="active.mode=='BUY'"><i class="bi bi-caret-up-fill"></i> {{ 'my_profile.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="active.mode=='SELL'" style="color:#db3d3a;"><i class="bi bi-caret-down-fill"></i> {{ 'my_profile.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="active.mode=='NEUTRAL'" style="color:#f58c64;"><i class="bi bi-dash-lg"></i> {{ 'my_profile.mode_neutral' | translate }}</span> -->
+                                                <span class="flag d-flex">
+                                                    <!-- <img src="assets/images/create-robot-flag.png" class="img-fluid">  -->
+                                                    <span class="avatar rounded-circle d-flex align-items-center justify-content-center">
+                                                        {{active.symbol.charAt(0)}}
+                                                    </span>
+                                                    {{active.symbol}}
+                                                </span>
+                                                <!-- <span class="stratergy">{{active.currentStatus}}</span> -->
+                                                <span class="stratergy" *ngIf="active.mode=='BUY'" style="color:#1e7027;">{{active.currentStatus}}</span>
+                                                <span class="stratergy" *ngIf="active.mode=='SELL'" style="color:#db3d3a;">{{active.currentStatus}}</span>
+                                                <span class="stratergy" *ngIf="active.mode=='NEUTRAL'" style="color:#f58c64;">{{active.currentStatus}}</span>
+
+                                                <span class="buy" *ngIf="active.mode=='BUY'"><span class="tp_buy">{{active.timeframe}}</span> <i class="bi bi-caret-up-fill"></i> {{ 'my_profile.mode_buy' | translate }}</span>
+                                                <span class="buy" *ngIf="active.mode=='SELL'" style="color:#db3d3a;"><span class="tp_sell">{{active.timeframe}}</span> <i class="bi bi-caret-down-fill"></i> {{ 'my_profile.mode_sell' | translate }}</span>
+                                                <span class="buy" *ngIf="active.mode=='NEUTRAL'" style="color:#f58c64;"><span class="tp_neutral">{{active.timeframe}}</span> <i class="bi bi-dash-lg"></i> {{ 'my_profile.mode_neutral' | translate }}</span>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                                <div class="signal-bx1 text-start">
+                                                    <h5 [translate]="'my_profile.stop_loss'">Stop Loss</h5>
+                                                    <span style="background:#db3d3a;" class="text-white">{{active.STOP}}</span>
+                                                </div>
+                                                <div class="signal-bx1 text-center">
+                                                    <h5 [translate]="'my_profile.entry'">Entry</h5>
+                                                    <span style="background:#e7e7e7;">{{active.ENT}}</span>
+                                                </div>
+                                                <div class="signal-bx1 text-end">
+                                                    <h5 [translate]="'my_profile.take_profit'">Take Profit</h5>
+                                                    <span style="background:#1e7027;" class="text-white">{{active.T3}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>     
+                                <ng-container *ngIf="activeMoreShow == true">
+                                    <div class="text-center">
+                                        <button class="btn-primary sbmt-btn border-0 mt-5 mb-5" (click)="loadActiveSignalList(this.selActiveCategory)" [translate]="'my_profile.load_moresignal'">Load More Signals</button>
+                                    </div>
+                                </ng-container>                         
+                                <ng-container *ngIf="activeData == 1">
+                                    <div class="text-center p-4">
+                                        <h4 class="text-center" style="color:var(--theme-text);" [translate]="'my_profile.select_symbol'">Please Select Symbols and Timeframes from filters</h4>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="activeData == 2">
+                                    <div class="text-center p-4">
+                                        <mat-spinner></mat-spinner>
+                                        <h4 class="pt-4 text-center" style="color:var(--theme-text);" [translate]="'my_profile.signal_loading'">Signal Loading Please Wait</h4>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="activeData != 1 && activeData != 2 && activeData == 3">
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==1">
+                                        <img src="assets/images/no-record-found.png" class="img-fluid">
+                                        <h4 class="pt-4 text-center" style="color:var(--theme-text);" [translate]="'my_profile.noactive_signal'">No Active Signal Found</h4>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==2">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center" [translate]="'my_profile.sub_expired'">Your subscription has expired please subscribe again and then call to action.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'my_profile.view_plan'">View Plans</button>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==0">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center" [translate]="'my_profile.make_payment'">Make payment to unlock signals.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'my_profile.view_plan'">View Plans</button>
+                                    </div>  
+                                </ng-container>
+                                <ng-container *ngIf="activeData == 0 && filterFunction(activeDataList,this.selActiveCategory).length == 0">
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==1">
+                                        <img src="assets/images/no-record-found.png" class="img-fluid">
+                                        <h4 class="pt-4 text-center" style="color:var(--theme-text);" [translate]="'my_profile.noactive_signal'">No Active Signal Found</h4>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==2">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center">Your subscription has expired please subscribe again and then call to action.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'my_profile.view_plan'">View Plans</button>
+                                    </div>
+                                    <div class="text-center p-4" *ngIf="this.userSignalStatus==0">
+                                        <img src="assets/images/expired-img.svg" class="img-fluid" style="width:200px;">
+                                        <h4 style="color:var(--theme-text);font-size:17px;" class="pt-4 text-center">Make payment to unlock signals.</h4>
+                                        <button type="button" class="btn text-white fw-600 rounded-pill pt-1 pb-1 mt-3" style="background:#1f6f22;font-size:14px;" (click)="gotoSignalplan()" [translate]="'my_profile.view_plan'">View Plans</button>
+                                    </div>  
+                                </ng-container>
+                            </div>                        
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{ 'my_profile.tab_cancel' | translate }}">
+                    <div class="signal-tab">
+                        <ng-container *ngIf="cancelData == 3">
+                            <div class="text-center p-4">
+                                <img src="assets/images/no-record-found.png" class="img-fluid">
+                                <h4 class="pt-4 text-center" style="color:var(--theme-text);" [translate]="'my_profile.nocancel_signal'">No Canceled Signal Found</h4>
+                            </div>
+                        </ng-container>                        
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <!-- <div class="pagintion">
+                <button type="button" name="btnPrevious" id="btnPrevious" [disabled]="(btnPrevious==0)" (click)="filter('','','','','',-10)"><i class="las la-angle-left"></i></button>
+                <select name="signalCount" id="signalCount" (change)="filter('','','','','',0)">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+                <button type="button" name="btnNext" id="btnNext" [disabled]="btnNext==0" (click)="filter('','','','','',10)"><i class="las la-angle-right"></i></button>
+            </div> -->
+        </form>
+        <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+            <div class="signal-popup-bx text-center px-5 position-relative">
+                <div class="text-end">
+                    <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3" (click)="closePaynowpopup()"><i class="bi bi-x"></i></button>
+                </div>
+                <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+                <h4 class="text-center" [translate]="'my_profile.make_payment'">Make payment to unlock signal data.</h4>
+                <button class="border-0" (click)="gotoSignalplan()" [translate]="'my_profile.view_plan'">View Plans</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-bx3 h-100 position-relative pb-4" [ngStyle]="{'width': colhideshow ? '65%' : '0%'}">
+        <div class="tlt-bx d-flex align-items-center justify-content-between px-4">
+            <div class="d-flex align-items-center">
+                <h6 class="m-0">{{signalName}}</h6><span>{{signalType}}</span>
+            </div>
+            <button class="close-btn border-0 d-inline-flex align-items-center justify-content-center mt-3 mb-2 shadow" (click)="closesignaldetails()"><i class="bi bi-x fs-4 me-1"></i> {{ 'my_profile.close_btn' | translate }}</button>
+        </div>
+        <div *ngIf="!signalDets==true && loadContent==2" class="preloader w-100 text-center position-absolute top-0 start-0 end-0" style="height:1500px;padding-top:150px;z-index:1;background:var(--theme-background);">
+            <svg version="1.1" style="height:100px;width:105px;">
+                 <circle cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke="#753bbd" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="100, 200">
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 50 50" to="360 50 50" dur="2.5s" repeatCount="indefinite"/>
+                    <animate attributeName="stroke-dashoffset" values="0;-30;-124" dur="1.25s" repeatCount="indefinite"/>
+                    <animate attributeName="stroke-dasharray" values="0,200;110,200;110,200" dur="1.25s" repeatCount="indefinite"/>
+                </circle>
+            </svg>
+        </div>
+        <ng-container *ngIf="!signalDets==false && loadContent==1">
+            <!-- <div class="signaldtls1">
+                <iframe frameBorder="0" [src]="chartURL"></iframe>        
+            </div> -->
+            <div class="signaldtls2 d-flex flex-wrap">
+                <div class="tag border-bottom border-end">                    
+                    <h6 [translate]="'my_profile.tlt_symbol'">Symbol</h6>
+                    <span>{{signalDets.symbol}}</span>
+                </div>
+                <div class="tag border-bottom border-end">                    
+                    <h6 [translate]="'my_profile.tlt_timeframe'">timeframe</h6>
+                    <span>{{signalDets.timeframe}}</span>
+                </div>
+                <div class="tag border-bottom border-end">                    
+                    <h6 [translate]="'my_profile.entry'">Entry</h6>
+                    <span>{{signalDets.en}}</span>
+                </div>
+                <div class="tag border-bottom">
+                    <h6 [translate]="'my_profile.tlt_stop'">Stop</h6>
+                    <span>{{signalDets.s2}}</span>                   
+                </div>
+                <div class="tag border-end">                    
+                    <h6 [translate]="'my_profile.tlt_target1'">Target1</h6>
+                    <span>{{signalDets.T1}}</span>
+                </div>
+                <div class="tag border-end">                    
+                    <h6 [translate]="'my_profile.tlt_target2'">Target2</h6>
+                    <span>{{signalDets.T2}}</span>
+                </div>
+                <div class="tag border-end">                    
+                    <h6 [translate]="'my_profile.tlt_target3'">Target3</h6>
+                    <span>{{signalDets.T3}}</span>
+                </div>
+                <div class="tag">                    
+                    <h6 [translate]="'my_profile.tlt_current'">Current</h6>
+                    <span>{{signalDets.currRate}}</span>
+                </div>
+            </div>
+            <div class="signaldtls5">
+                <div class="row" style="margin:0px;">
+                    <div class="col-4">
+                        <div class="botm-chart">
+                            <div id="chartone" width="100" class="text-center">                        
+                            </div>
+                            <div class="botm-chart-bx">
+                                <h6 [translate]="'my_profile.tlt_trend'">Trend</h6>
+                                <span>{{signalDets.trend_value}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="botm-chart">
+                            <div id="charttwo" width="100" class="text-center"></div>
+                            <div class="botm-chart-bx">
+                                <h6 [translate]="'my_profile.tlt_statet'">State T</h6>
+                                <span>{{signalDets.stateT}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="botm-chart">
+                            <div id="chartthree" width="100" class="text-center"></div>
+                            <div class="botm-chart-bx">
+                                <h6 [translate]="'my_profile.tlt_statew'">State W</h6>
+                                <span >{{signalDets.stateW}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="signaldtls4 pl-3 pr-3 pb-1">
+                <p>{{signalDets.description}}</p>
+            </div>
+            <div class="signaldtls6">
+                <iframe [src]="chartURL2" frameborder="0" class="w-100" style="height:500px;"></iframe>
+            </div>
+            <div class="signaldtls3 d-flex flex-wrap pb-4">
+                <!-- <div class="tag border-bottom border-end">  -->
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_direction'">Direction</h6>
+                    <span style="text-transform: capitalize;" [innerHtml]="signalDets.directionLab"></span>
+                </div>
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_stratagy'">Strategy</h6>
+                    <span>{{signalDets.fullStrategy}}</span>
+                </div>
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_type'">Type</h6>
+                    <span>{{signalDets.fullType}}</span>
+                </div>
+
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_patten'">Patterns</h6>
+                    <span>{{signalDets.fullPattern}}</span>
+                </div>                
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_support1'">Support 1</h6>
+                    <span>{{signalDets.support1}}</span>
+                </div>
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_resistance1'">Resistance 1</h6>
+                    <span>{{signalDets.resistance1}}</span>
+                </div>
+
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_support2'">Support 2</h6>
+                    <span>{{signalDets.support2}}</span>
+                </div>
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_resistance2'">Resistance 2</h6>
+                    <span>{{signalDets.resistance2}}</span>
+                </div>    
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_quality'">Quality</h6>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="progress-bar" *ngIf="signalDets.trendQuality<=2" style="background-color:#dc3545;" role="progressbar" [ngStyle]="{'width':(signalDets.trendQuality) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" *ngIf="signalDets.trendQuality>=3 && signalDets.trendQuality<=9" style="background-color:#FFA500;" role="progressbar" [ngStyle]="{'width':(signalDets.trendQuality) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" *ngIf="signalDets.trendQuality==10" style="background-color:#28a745;" role="progressbar" [ngStyle]="{'width':(signalDets.trendQuality) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span class="ms-2">{{signalDets.trendQuality}}</span>
+                    </div>
+                </div>
+
+                <div class="tag border-bottom">                    
+                    <h6 [translate]="'my_profile.tlt_strength'">Strength</h6>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="progress-bar" *ngIf="signalDets.score<=2" style="background-color:#dc3545;" role="progressbar" [ngStyle]="{'width':(signalDets.score) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" *ngIf="signalDets.score>=3 && signalDets.score<=9" style="background-color:#FFA500;" role="progressbar" [ngStyle]="{'width':(signalDets.score) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" *ngIf="signalDets.score==10" style="background-color:#28a745;" role="progressbar" [ngStyle]="{'width':(signalDets.score) * 10 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span class="ms-2">{{signalDets.score}}</span>
+                    </div>
+                </div>
+                <div class="tag border-bottom" *ngIf="signalDets.actDate!=''">                    
+                    <h6 [translate]="'my_profile.activation_date'">Activation Date</h6>
+                    <span>{{signalDets.actDate | date:'dd.MM.yyyy hh:mm a':timeZone}}</span>
+                </div>
+                <div class="tag border-bottom" *ngIf="signalDets.incDate!=''">                    
+                    <h6 [translate]="'my_profile.incep_date'">Inception Date</h6>
+                    <span>{{signalDets.incDate | date:'dd.MM.yyyy hh:mm a':timeZone}}</span>
+                </div>
+
+                <div class="tag border-bottom" *ngIf="signalDets.t1Date!=''">                    
+                    <h6 [translate]="'my_profile.target1_date'">Target1 Date</h6>
+                    <span>{{signalDets.t1Date | date:'dd.MM.yyyy hh:mm a':timeZone}}</span>
+                </div>
+                <div class="tag border-bottom" *ngIf="signalDets.t2Date!=''">                    
+                    <h6 [translate]="'my_profile.target2_date'">Target2 Date</h6>
+                    <span>{{signalDets.t2Date | date:'dd.MM.yyyy hh:mm a':timeZone}}</span>
+                </div>
+                <div class="tag border-bottom" *ngIf="signalDets.t3Date!=''">                    
+                    <h6 [translate]="'my_profile.target3_date'">Target3 Date</h6>
+                    <span>{{signalDets.t3Date | date:'dd.MM.yyyy hh:mm a':timeZone}}</span>
+                </div>
+                
+                
+                <div class="tag border-bottom" *ngIf="signalDets.stopDate!=''">                    
+                    <h6 [translate]="'my_profile.stop_date'">Stop Date</h6>
+                    <span>{{signalDets.stopDate | date:'dd.MM.yyyy hh:mm a':timeZone}}</span>
+                </div>
+                <div class="tag border-bottom" *ngIf="signalDets.exitDate!=''">                    
+                    <h6 [translate]="'my_profile.exit_date'">Exit Date</h6>
+                    <span>{{signalDets.exitDate | date:'dd.MM.yyyy hh:mm a':timeZone}}</span>
+                </div>
+                <div class="tag">                    
+                    <h6></h6>
+                    <span></span>
+                </div>        
+        
+                <div class="row">    
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+        <div class="alert-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeAlertPopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="{{alertPopupImg}}" class="img-fluid" alt="">
+            <h4 class="text-center">{{alertPopupMsg}}</h4>            
+            <!-- <div class="d-flex align-items-center justify-content-center" *ngIf="showPopBtn==1">
+                <button class="border-0 bg-light text-dark me-2" (click)="closeAlertPopup()" [disabled]="btnDis==1" [translate]="'my_profile.popup_close'">Close</button>
+                <button (click)="delProfile(seletedProfile)" [disabled]="btnDis==1" class="border-0" [translate]="'my_profile.popup_delete'">Delete</button>                
+            </div>         -->
+        </div>
+    </div>
+
+
+    <div class="delete-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="deletePopup">
+        <div class="delete-popup-bx text-center px-4 position-relative">
+            <div class="text-end">
+                <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeDeletePopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+            </div>
+            <img src="{{deletePopupImg}}" class="img-fluid" alt="">
+            <h4 class="text-center">{{deletePopupMsg}}</h4>            
+            <div class="d-flex align-items-center justify-content-center" *ngIf="showPopBtn==1">
+                <button class="border-0 bg-light text-dark me-2" (click)="closeDeletePopup()" [disabled]="btnDis==1" [translate]="'my_profile.popup_close'">Close</button>
+                <button (click)="delProfile(seletedProfile)" [disabled]="btnDis==1" class="border-0" [translate]="'my_profile.popup_delete'">Delete</button>                
+            </div>        
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,55 @@
+<div class="bottom-navigation d-sm-none d-block position-fixed start-0 end-0 bottom-0">
+	<ul class="list-unstyled d-flex justify-content-center m-0">
+		<li class="list" (click)="footerMenubtn(1)" routerLinkActive="active" [class.active]="activeButton === 1">
+			<a routerLink="/home">
+				<span class="icon"><i class="bi bi-house-door"></i></span>
+				<span class="text">Home</span>
+			</a>
+		</li>
+		<li class="list" (click)="footerMenubtn(2)" routerLinkActive="active" [class.active]="activeButton === 2">
+			<a routerLink="/academy">
+				<span class="icon"><img src="assets/images/footer/academy.svg" class="img-fluid"></span>
+				<span class="text">Academy</span>
+			</a>
+		</li>
+		<li class="list" (click)="footerMenubtn(3)" routerLinkActive="active" [class.active]="activeButton === 3">
+			<a routerLink="/signal">
+				<span class="icon"><img src="assets/images/footer/signal.svg" class="img-fluid"></span>
+				<span class="text">Signals</span>
+			</a>
+		</li>
+		<li class="list" (click)="footerMenubtn(4)" routerLinkActive="active" [class.active]="activeButton === 4">
+			<a routerLink="/tools">
+				<span class="icon"><img src="assets/images/footer/tools.svg" class="img-fluid"></span>
+				<span class="text">Tools</span>
+			</a>
+		</li>
+		<li class="list" (click)="footerMenubtn(5)" routerLinkActive="active" [class.active]="activeButton === 5">
+			<a routerLink="/research">
+				<span class="icon"><img src="assets/images/footer/research.svg" class="img-fluid"></span>
+				<span class="text">Research</span>
+			</a>
+		</li>
+		<div class="indicator"></div>
+	</ul>
+	<!-- <a routerLink="/my-robots">
+		<i class="las la-robot"></i>
+		<span [translate]="'footer.my_robot'">My Robots</span>
+	</a>
+	<a (click)="createRobot()">
+		<i class="las la-plus-circle"></i>
+		<span [translate]="'footer.create_robot'">Create Robots</span>
+	</a>
+	<a routerLink="/ready-robot1">
+		<i class="las la-search"></i>
+		<span [translate]="'footer.find_robot'">Find Robots</span>
+	</a>
+	<a routerLink="/autotrade">
+		<i class="las la-coins"></i>
+		<span [translate]="'footer.autotrades'">Autotrades</span>
+	</a>
+	<a routerLink="/account">
+		<i class="las la-user-circle"></i>
+		<span [translate]="'footer.accounts'">Accounts</span>
+	</a> -->
+</div>

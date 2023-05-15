@@ -1,0 +1,284 @@
+<div id="hsc-chapter-list" class="d-flex bg-light">
+    <div class="col-bx1" [ngStyle]="{'width': listWidth ? '0%' : '40%'}">
+        <div class="hsc-chapter-list1 px-3 pb-3">
+            <div class="py-3">
+                <h4 class="m-0 fw-600" style="font-size:19px;color:var(--theme-text);" [translate]="'hsc_chapterlist.page_tlt'">Avramis Swing Masterclass</h4>
+            </div>
+            <div class="hsc2">
+                <ng-container *ngFor="let course of courseList;let ind=index;">
+                    <a *ngIf="ind <= this.courseCompleted" class="hsc2-bx" [className]="course.show===1 ? 'hsc2-bx' : 'hsc2-bx disable'" (click)="course.show===1 ? selectCourse(course) : disableCourse(course.course_id)">                                                    
+                        <div class="d-flex">
+                            <div class="vdo">
+                                <!-- <iframe *ngIf="course.show==1" [src]="course.fileSrc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                                <img [src]="course.imgSrc" class="img-fluid w-100 h-100">
+                            </div>
+                            <div class="cnct">
+                                <!-- <h6 class="fw-600">{{course.course_title}}</h6> -->
+                                <h6 class="fw-600" [innerHtml]="course.course_name"></h6>                                
+                                <!-- <p>{{course.course_description}}</p> -->
+                                <p>{{ (course.course_description.length>200)? (course.course_description | slice:0:85)+'...':(course.course_description) }}</p>
+                            </div>
+                        </div>
+                        <div *ngIf="course.show==1 && course.course_quiz_code!=0 && course.stars==0" class="dtls text-center" (click)="gotoQuiz(course)">
+                            <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                                <i class="bi bi-book-half"></i>
+                            </div>
+                            <h6 class="m-0 pt-1 text-center" [translate]="'hsc_chapterlist.start_test'">Start Test</h6>
+                        </div>
+                        <div *ngIf="course.show==1 && course.course_quiz_code!=0 && course.stars>0" class="dtls text-center" (click)="gotoQuiz(course)">
+                            <div *ngIf="course.stars==1" class="stars mb-2 d-flex justify-content-center">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                            </div>
+                            <div *ngIf="course.stars==2" class="stars mb-2 d-flex justify-content-center">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                            </div>
+                            <div *ngIf="course.stars==3" class="stars mb-2 d-flex justify-content-center">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                                <i class="bi bi-check-lg"></i>
+                            </div>
+                            <h6 class="m-0 pt-1 text-center">{{course.stars}} {{ 'hsc_chapterlist.list_star' | translate }}</h6>
+                        </div>
+                        <div *ngIf="course.show==0">
+                            <div class="dtls text-center">
+                                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                                    <i class="bi bi-lock-fill"></i>
+                                </div>
+                                <h6 class="m-0 pt-1 text-center" [translate]="'hsc_chapterlist.locked_tlt'">Locked</h6>
+                            </div>
+                            <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto p-3 text-center" *ngIf="visibleIndex === course.course_id">
+                                <i class="bi bi-x"></i>    
+                                <p style="font-weight:600;" [translate]="'hsc_chapterlist.locked_desc'" class="text-center">Get atleast 1 star in all above course to unlock this!</p>
+                                <span class="py-2 rounded d-inline-block w-100 mt-2 text-center" [translate]="'hsc_chapterlist.locked_btn'">LOCKED</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a *ngIf="this.courseCompleted==-1" class="hsc2-bx disable" (click)="disableCourse(course.course_id)">                                                    
+                        <div class="d-flex">
+                            <div class="vdo">                            
+                                <img [src]="course.imgSrc" class="img-fluid w-100 h-100">
+                            </div>
+                            <div class="cnct">
+                                <!-- <h6 class="fw-600">{{course.course_title}}</h6> -->
+                                <h6 class="fw-600" [innerHtml]="course.course_name"></h6>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dtls text-center">
+                                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                                    <i class="bi bi-lock-fill"></i>
+                                </div>
+                                <h6 class="m-0 pt-1 text-center" [translate]="'hsc_chapterlist.locked_tlt'">Locked</h6>
+                            </div>
+                            <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto p-3 text-center" *ngIf="visibleIndex === course.course_id">
+                                <i class="bi bi-x"></i>    
+                                <p style="font-weight:600;" [translate]="'hsc_chapterlist.locked_desc2'" class="text-center">Make payment to unlock videos!</p>
+                                <span class="py-2 rounded d-inline-block w-100 mt-2 text-center" [translate]="'hsc_chapterlist.locked_btn'">LOCKED</span>
+                            </div>
+                        </div>
+                    </a>
+                    <ng-container *ngIf="userStatus==1">
+                        <a matRipple class="hsc2-bx d-flex align-items-start justify-content-between" *ngIf="!course.seminarDets==false && course.course_show_webinar==1" (click)="(course.course_quiz_code!=0 && course.stars==0 && course.semBookStatus==0)==false ? gotoSeminardetails(course.seminarDets) : ''">
+                            <div class="vdo">
+                                <img [src]="course.seminarDets.imgSrc" class="img-fluid w-100 h-100">
+                            </div>
+                            <div class="cnct">                                
+                                <h6 class="fw-600" [innerHtml]="course.seminarDets.seminar_topic"></h6>
+                                <p *ngIf="course.semBookStatus==0" class="mb-1 text-capitalize fw-200" style="color:var(--theme-text);"><i><span class="duration"> {{ 'seminar_list.on' | translate }} {{course.seminarDets.comingDate}}</span></i></p>
+                                <p *ngIf="course.semBookStatus==1" class="mb-1 text-capitalize fw-200" style="color:var(--theme-text);"><i><span class="price"> {{ 'seminar_list.bookOn' | translate }} {{course.semBookDate}}</span></i></p>
+                                <p *ngIf="course.semBookStatus==2" class="mb-1 text-capitalize fw-200" style="color:var(--theme-text);"><i><span class="duration"> {{ 'seminar_list.on' | translate }} {{course.seminarDets.comingDate}}</span></i></p>
+                                <!-- <div class="d-flex align-items-center flex-wrap lang pt-1">
+                                    <span *ngFor="let lang of course.seminarDets.langList">{{lang.lang_name}}</span>                            
+                                </div> -->
+                                <div class="d-flex align-items-center pt-2">
+                                    <span class="duration fw-600 me-4">{{ 'seminar_list.duration' | translate }} {{course.seminarDets.seminar_duration}}</span>
+                                </div>
+            
+                            </div>
+                            <div *ngIf="(course.show==1 && course.course_quiz_code!=0 && course.stars>0 && course.semBookStatus==0)==true" class="dtls text-center">
+                                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#f7be41;color:#f7be41;">
+                                    <i class="bi bi-book-half"></i>
+                                </div>
+                                <h6 class="m-0 pt-1 text-center" [translate]="'hsc_chapterlist.book_now'">Book Now</h6>
+                            </div>
+                            <div *ngIf="(course.show==1 && course.course_quiz_code!=0 && course.stars>0 && course.semBookStatus==1)==true" class="dtls text-center">                        
+                                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                                    <i class="bi bi-check-lg"></i>
+                                </div>
+                                <h6 class="m-0 pt-1 text-center">{{ 'hsc_chapterlist.booked' | translate }}</h6>
+                            </div>
+                            <div *ngIf="(course.show==1 && course.course_quiz_code!=0 && course.stars>0 && course.semBookStatus==2)==true" class="dtls text-center">                        
+                                <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#1f6f22;color:#1f6f22;">
+                                    <i class="bi bi-check-lg"></i>
+                                </div>
+                                <h6 class="m-0 pt-1 text-center">{{ 'hsc_chapterlist.book_now' | translate }}</h6>
+                            </div>
+                            <div *ngIf="(course.course_quiz_code!=0 && course.stars==0 && course.semBookStatus==0)==true">
+                                <div class="dtls text-center">
+                                    <div class="circle d-flex align-items-center justify-content-center mx-auto" style="border-color:#999;color:#999;">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </div>
+                                    <h6 class="m-0 pt-1 text-center" [translate]="'hsc_chapterlist.locked_tlt'">Locked</h6>
+                                </div>
+                                <div class="tooltp position-absolute start-0 end-0 top-100 mx-auto bg-light p-3 text-center" *ngIf="visibleIndex === course.course_id">
+                                    <i class="bi bi-x"></i>    
+                                    <p style="font-weight:600;" [translate]="'hsc_chapterlist.locked_desc'">Get atleast 1 star in all above course to unlock this!</p>
+                                    <span class="py-2 rounded d-inline-block w-100 mt-2" [translate]="'hsc_chapterlist.locked_btn'">LOCKED</span>
+                                </div>
+                            </div>                
+                        </a>
+                        <a matRipple class="hsc2-bx align-items-start justify-content-between" *ngIf="(!course.seminarDets==true && course.course_show_webinar==1 && course.course_webinar_id!=0)==true">
+                            <!-- <div class="content p-3" style="width: 100%; text-align: center;">
+                                <h4 class="mb-1 duration text-capitalize fw-600">{{ 'seminar_list.nosud_title' | translate }}</h4>
+                                <p class="mb-1 text-capitalize fw-200" style="color:var(--theme-text);"><i>{{ 'seminar_list.nosud_msg' | translate }}</i></p>
+                               
+                            </div> -->
+
+                            <div class="cnct" style="width: 100%; text-align: center;">
+                                <!-- <h6 class="fw-600">{{course.course_title}}</h6> -->
+                                <h6 class="fw-600 duration">{{ 'seminar_list.nosud_title' | translate }}</h6>                                
+                                <p>{{ 'seminar_list.nosud_msg' | translate }}</p>
+                            </div>
+                        </a>
+                    </ng-container>
+                </ng-container>
+            </div>       
+        </div>
+    </div>
+    <div class="col-bx2 pb-2 bg-light" [ngStyle]="{'width': pdfWidth ? '100%' : '60%'}" *ngIf="detsType=='Course'">
+        <div class="bnt-tlt px-4 pt-4 pb-2">
+            <div class="d-flex align-items-end justify-content-between pb-3">
+                <h5 class="fw-600 mb-0">{{selectedCourse.course_title}}</h5>
+                <button mat-raised-button class="expand-btn shadow-none fs-5 p-0" (click)="fullscreenBtn()"><i [ngClass]="pdfWidth ? 'bi bi-fullscreen-exit' : 'bi bi-fullscreen'"></i><span *ngIf="pdfWidth == 0" [translate]="'hsc_chapterlist.expand'">Expand</span><span *ngIf="pdfWidth == 1" [translate]="'hsc_chapterlist.collapse'">Collapse</span></button>
+            </div>
+            <p *ngIf="selectedCourse.course_description!=''" class="fw-normal">{{selectedCourse.course_description}}</p>
+        </div>
+        <div *ngIf="userStatus==0" class="alert d-flex align-items-center justify-content-between mx-auto mt-2 mb-4">            
+            <div>
+                <h6 class="m-0 fw-600 pb-1" [translate]="'hsc_chapterlist.buy_question'">Do You Want To See Our Avramis Swing Masterclass Videos?</h6>
+                <p class="pt-1">{{ 'hsc_chapterlist.buy_video' | translate }} <span class="fw-600">{{currCode}} {{planCost | number}}</span></p>
+            </div>
+            <button class="rounded-pill border-0 text-white" (click)="gotoPaynowPopup()" [translate]="'hsc_chapterlist.buy_btn'">Buy Now</button>
+        </div>
+        <div class="bnr-vdo w-100" [ngStyle]="{'height': pdfWidth ? 'calc(90vh)' : '450px'}">
+            <img *ngIf="userStatus==0" [src]="selectedCourse.imgSrc" class="img-fluid w-100 h-100">
+            <iframe *ngIf="userStatus==1" [src]="selectedCourse.fileSrc" class="w-100 h-100" title="{{selectedCourse.course_title}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="hsc-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
+            <div class="signal-popup-bx text-center px-4 position-relative">
+                <div class="text-end">
+                    <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closePaynowpopup()"><i class="bi bi-x"></i></button>
+                </div>
+                <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+                <h4 class="text-center">{{payMsg}}</h4>
+                <div class="d-flex align-items-center justify-content-center">
+                    <button class="border-0 bg-light text-dark me-2" (click)="closePaynowpopup()" [translate]="'hsc_chapterlist.close_btn'">Close</button>
+                    <button *ngIf="payBtn==1" (click)="saveHSCPayment()" class="border-0" [translate]="'hsc_chapterlist.paynow_btn'">Pay Now</button>
+                    <button *ngIf="payBtn==0" (click)="gotoAddMoney()" class="border-0" [translate]="'hsc_chapterlist.addmoney_btn'">Add Money</button>
+                </div>
+            </div>
+        </div>
+        <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup2">
+            <div class="signal-popup-bx text-center px-4 position-relative">
+                <div class="text-end">
+                    <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closePaynowpopup2()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+                </div>
+                <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+                <h4 [translate]="'hsc_chapterlist.popup_tlt'">Take Quiz and Earn Tradepedium</h4>
+                <div class="d-flex align-items-center justify-content-center">
+                    <!-- <button class="border-0 bg-light me-2" (click)="closePaynowpopup()" style="color:var(--theme-text);">Close</button> -->
+                    <button (click)="gotoQuiz(selectedCourse)" class="border-0" [translate]="'hsc_chapterlist.popup_btn'">Goto Quiz</button>               
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-bx2 pb-2 bg-light" [ngStyle]="{'width': pdfWidth ? '100%' : '60%'}" *ngIf="detsType=='Webinar' && !selectedCourse==false">
+        <div class="semi-dtls1 px-3 pt-3" style="background-color: #ffffff;">
+            <div class="img d-flex align-items-center justify-content-center mb-3">
+                <img src="{{selectedCourse.imgSrc}}" class="img-fluid w-100">
+            </div>
+            <h4 class="mb-1 text-capitalize fw-600">{{selectedCourse.seminar_topic}}</h4>
+            <p class="mb-1 text-capitalize fw-200"><i>{{selectedCourse.seminar_type}} ({{selectedCourse.seminar_location}})</i></p>        
+            <p class="m-0 text-secondary">{{selectedCourse.seminar_short_description}}</p>
+            <!-- <span *ngIf="selectedCourse.seminar_type=='Group'" class="text-secondary d-block py-1"><b [translate]="'seminar_list.data_time'">Date & Time: </b><label class="fw-500 ms-1" style="color:#2da94f;">{{selectedCourse.seminar_dateandtime}}</label></span> -->
+            <span *ngIf="selectedCourse.seminar_location=='Venue'" class="text-secondary d-block py-1"><b [translate]="'seminar_list.place'">Place: </b><label class="fw-500 ms-1" style="color:#2da94f;">{{selectedCourse.seminar_place}}</label></span>        
+            <span class="text-secondary d-block py-1"><b [translate]="'seminar_list.about_tutor'">About Tutor: </b><label class="fw-500 ms-1" style="color:#2da94f;">{{selectedCourse.seminar_about_tutor}}</label></span>
+            <div class="d-flex align-items-center flex-wrap lang pt-1">
+                <span *ngFor="let lang of selectedCourse.langList">{{lang.lang_name}}</span>                            
+            </div>
+            <div class="d-flex align-items-center justify-content-start pt-3">
+                <span class="duration fw-600 me-4">{{ 'seminar_list.duration' | translate }} {{selectedCourse.seminar_duration}}</span>
+                <span class="price fw-600" *ngIf="selectedCourse.seminar_amount > 0">{{ 'seminar_list.fees' | translate }} {{currCode}} {{selectedCourse.seminar_amount | number}}</span>
+                <span class="price fw-600" *ngIf="selectedCourse.seminar_amount == 0">{{ 'seminar_list.fees' | translate }} {{ 'seminar_list.free' | translate }}</span>
+            </div>
+        </div>
+        <div class="semi-dtls2 px-3 pb-3" *ngIf="!selectedCourse.bookDets==true" style="background-color: #ffffff;">
+            <form [formGroup]="bookingForm" (ngSubmit)="gotoWebPaynowPopup()">    
+                <div class="frm-bx mb-4 pt-3">
+                    <span class="d-block pb-2 fw-bold" [translate]="'seminar_list.tlt_language'">Language</span>
+                    <mat-select class="p-3" style="color:var(--theme-text);" *ngIf="this.langLength > 1" formControlName="selectedLangCode" [ngClass]="{ 'is-invalid': submitted && valid.selectedLangCode.errors }">             
+                        <mat-option *ngFor="let lang of selectedCourse.langList" value="{{lang.lang_code}}">
+                            <!-- {{lang.lang_name}} -->
+                            <span *ngIf="lang.lang_code=='EN'">{{ 'seminar_list.English' | translate }}</span>
+                            <span *ngIf="lang.lang_code=='AR'">{{ 'seminar_list.Arabic' | translate }}</span>
+                            <span *ngIf="lang.lang_code=='ES'">{{ 'seminar_list.Spanish' | translate }}</span>
+                            <span *ngIf="lang.lang_code=='PO'">{{ 'seminar_list.Portuguese' | translate }}</span>
+                        </mat-option>                                   
+                    </mat-select>
+                    <span *ngIf="this.langLength == 1" class="d-block pb-2 fw-bold">{{this.selectedLang}}</span>
+                    <div *ngIf="submitted && valid.selectedLangCode.errors" class="invalid-feedback">
+                        <div *ngIf="valid.selectedLangCode.errors.required" [translate]="'seminar_list.msg_language'">Please Select Language</div>				                            
+                    </div>
+                </div>
+                <p class="m-0 p-0">{{dateTime}}</p>
+                <mat-button-toggle-group formControlName="selectedDateTime" (click)="selectDT()" aria-label="Font Style" class="d-flex flex-wrap border-0 mt-3 mb-4">
+                    <mat-button-toggle *ngFor="let slot of seminarSlots" [value]="slot">{{slot.date}} {{slot.sslot_time}}</mat-button-toggle>                    
+                </mat-button-toggle-group>
+                <div class="frm-bx mb-4 pt-2 text-center">
+                    <button [translate]="'seminar_list.enroll_btn'">Enroll Now</button>
+                </div>
+            </form>
+        </div>
+        <div class="semi-dtls2 px-3 pt-3" *ngIf="!selectedCourse.bookDets==false" style="background-color: #ffffff;">
+            <h4 class="mt-2 mb-1 text-capitalize fw-600 duration" style="text-align: center;"><span [translate]="'seminar_list.booked'">Already Enrolled</span></h4>
+            <span class="d-block py-1" style="color:var(--theme-text);"><b [translate]="'seminar_list.data_time'">Date & Time</b> : <label class="fw-500 ms-1" style="color:#2da94f;">{{selectedCourse.bookDets.sembook_date | date:'dd/MM/yyyy'}} - {{selectedCourse.bookDets.sembook_time}}</label></span>
+            <span class="d-block py-1" style="color:var(--theme-text);"><b [translate]="'seminar_list.tlt_language'">Language</b> : <label class="fw-500 ms-1" style="color:#2da94f;">{{selectedCourse.bookDets.lang_name}}</label></span>                      
+            <!-- <div class="frm-bx mb-4 pt-4 text-center" *ngIf="selectedCourse.seminar_location=='Webinar'">
+                <button type="button" (click)="goback()" [translate]="'seminar_list.goback'">Go Back</button>
+            </div> -->
+            <div class="frm-bx mb-4 pt-4 text-center" *ngIf="seminarDets.seminar_location!='Webinar'">
+                
+            </div>
+        </div>
+        <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showWebPopup">
+            <div class="signal-popup-bx text-center px-4 position-relative">
+                <div class="text-end">
+                    <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeWebPaynowpopup()" style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+                </div>
+                <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+                <h4 class="text-center">{{payMsg}}</h4>
+                <div class="d-flex align-items-center justify-content-center">
+                    <button class="border-0 bg-light me-2" (click)="closePaynowpopup()" style="color:var(--theme-text);" [translate]="'seminar_list.close_btn'">Close</button>
+                    <button *ngIf="payBtn==1" (click)="makeBooking()" class="border-0" [translate]="'seminar_list.paynow_btn'">Pay Now</button>
+                    <button *ngIf="payBtn==0" (click)="gotoAddMoney()" class="border-0" [translate]="'seminar_list.addmoney_btn'">Add Money</button>
+                </div>
+            </div>
+        </div>
+        <div class="alert-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="alertPopup">
+            <div class="alert-popup-bx text-center px-4 position-relative">
+                <div class="text-end">
+                    <button class="bg-transparent border-0 p-0 fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2"  style="color:var(--theme-text);"><i class="bi bi-x"></i></button>
+                </div>
+                <img src="assets/images/validation-error.png" class="img-fluid" alt="">
+                <h4 class="text-center">{{alertPopupMsg}}</h4>            
+            </div>
+        </div>
+    </div>    
+    <div class="col-bx2 pb-2 bg-light" [ngStyle]="{'width': pdfWidth ? '100%' : '60%'}" *ngIf="detsType=='Webinar' && !selectedCourse==true">
+        <div class="semi-dtls1 px-3 pt-5" style="text-align: center;">            
+            <h4 class="mb-1 text-capitalize fw-600 duration" style="font-size: 24px;">{{ 'seminar_list.nosud_title' | translate }}</h4>
+            <p class="m-0 text-secondary" style="font-size: 18px;">{{ 'seminar_list.nosud_msg' | translate }}</p>
+        </div>        
+    </div>    
+</div>
