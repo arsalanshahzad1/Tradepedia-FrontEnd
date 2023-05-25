@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 import { interval, Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
-
+import { environment } from '../../environments/environment';
 
 
 
@@ -17,6 +17,7 @@ import {TranslateService} from '@ngx-translate/core';
   providers: [DatePipe]
 })
 export class ChatComponent implements OnInit, OnDestroy {
+  IMG_URL:string = environment.imgUrl;
   userID:any="";
   userType:any="";
   userSub:any="";
@@ -328,7 +329,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       this._service.saveUserChat(chatDets)
       .subscribe(
         (data) => {
-          console.log("Chat Save Reuslt => ", data);     
+          console.log("Chat Save Reuslt => ", data);
+          data.lastChats.chat_on2 = (data.lastChats.chat_on.replace(" ","T"))+"Z";      
           this.userChatList.push(data.lastChats);  
           if(this.dateArr.includes(data.lastChats.date2)==false){
             this.dateArr.push(data.lastChats.date2);

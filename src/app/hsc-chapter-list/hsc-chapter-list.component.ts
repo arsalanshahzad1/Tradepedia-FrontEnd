@@ -121,7 +121,7 @@ export class HscChapterListComponent implements OnInit {
       if(type=="HSC"){
         //alert("in");
         if(this.selectedCourse.course_quiz_code!=0){
-          this.showPopup2 = 1;
+          // this.showPopup2 = 1;
         }          
       } 
     });

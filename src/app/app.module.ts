@@ -213,7 +213,8 @@ import { SquawkRoomPlanComponent } from './squawk-room-plan/squawk-room-plan.com
           {
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider(
-              '545167243354511'              
+              //'545167243354511'
+              '270272542059445'              
             )
           }
         ],

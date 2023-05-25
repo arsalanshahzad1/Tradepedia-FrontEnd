@@ -179,7 +179,7 @@ export class VideoChapterListComponent implements OnInit {
             lessonList[c].imgSrc = this.sanitizer.bypassSecurityTrustResourceUrl(lessonList[c].lesson_image);
 
             if(lessonList[c].lesson_vguides_code == this.videoID){
-              //this.guideList[i].showchplist = 1;
+              this.guideList[i].showchplist = 1;
             }
 
             for(let q=0;q<this.guideQuizDets.length;q++){
@@ -236,7 +236,9 @@ export class VideoChapterListComponent implements OnInit {
         } else {
           this.selectGuide(this.guideList[0].lessonList[0]);         
         }
-        
+
+        this.selectLesson({vguides_id:'3'})
+        this.selectLesson({vguides_id:'3'})
         //this.guideQuizDets.fileSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.guideQuizDets.lesson_url);
         //console.log(this.guideQuizDets);
       },
@@ -246,12 +248,25 @@ export class VideoChapterListComponent implements OnInit {
   }
 
   selectLesson(guide:any){
+    console.log('asdasas ====>', guide);
+    
     //this.router.navigate(['/academy/video-guide/'+guide.vguides_code+'/'+guide.vguides_lang]);
     //this.showchplist = !this.showchplist;
 
     for(let i=0;i<this.guideList.length;i++){
       if(guide.vguides_id == this.guideList[i].vguides_id){
         this.guideList[i].showchplist = 1;
+          console.log('ssssssssssss', this.guideList[i].lessonList);
+          
+          this.guideList[i].lessonList.forEach((element:any) => {
+            console.log('======>>>>', element.lesson_vguides_id)
+            if(element.lesson_vguides_id == '3'){
+              console.log('on e')
+              this.selectedGuide(element)
+            }
+            
+          });
+       
       } else {
         this.guideList[i].showchplist = 0;
       }

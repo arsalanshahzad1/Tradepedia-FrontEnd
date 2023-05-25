@@ -57,7 +57,7 @@
     <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="showPopup">
         <div class="signal-popup-bx text-center px-5 position-relative">
             <div class="text-end">
-                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3" (click)="closePaynowpopup()"><i class="bi bi-x"></i></button>
+                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3" (click)="closePaynowpopup()"><i class="bi bi-x" style="color:var(--theme-text);"></i></button>
             </div>
             <img src="assets/images/validation-error.png" class="img-fluid" alt="">
             <h4 class="pt-2">{{ 'share_point.msg1' | translate }} {{this.shareForm.value['sharePoints']}} {{currCode}} {{ 'share_point.msg2' | translate }} {{this.receiverName}}.</h4>

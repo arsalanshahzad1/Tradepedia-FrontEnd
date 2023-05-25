@@ -5,15 +5,17 @@
                 <div class="container-fluid">
                     <div class="d-flex">
                         <button mat-raised-button (click)="sidetoggle()" class="d-none align-items-center text-white fs-4 bg-transparent shadow-none"><i class="bi bi-list-ul"></i></button>
-                        <a class="navbar-brand ms-2">
+                        <a class="navbar-brand ms-2" (click)="gotoPage('/home')">
                             <img src="assets/images/logo.svg" class="img-fluid" *ngIf="themeLogo==1">
                             <img src="assets/images/logo-white.svg" class="img-fluid" *ngIf="themeLogo==0">
                         </a>
                     </div>
                     <div class="d-flex">
-                        <ng-marquee speed="drowsy" [stopOnHover]="true">
+                        <!-- <ng-marquee speed="drowsy" [stopOnHover]="true"> -->
+                        <marquee direction="{{currenttransTheme ? 'right' : 'left'}}"  scrollamount="5">
                             <mark style="background-color: #fff; padding: 0.2em; font-size: 16px; font-weight: 600;"><span [translate]="'header.top_scroll_msg'">LEARN TO EARN - Solve quizzes in academy to Earn tradepedium to unlock our signals and tools.</span></mark>
-                        </ng-marquee>
+                        </marquee>
+                        <!-- </ng-marquee> -->
                     </div>
                     <div class="d-flex align-items-center justify-content-end right-bx">
                         <button matRipple (click)="gotoPage('/chat')" class="notify-btn position-relative bg-transparent border-0"><img src="assets/images/header/chat.svg" class="img-fluid" style="width:22px;"> <span class="position-absolute" *ngIf="chatCount>0">{{chatCount}}</span> </button>
@@ -24,7 +26,7 @@
                         </button>
                         <div class="usr-prfl ms-3">
                             <button [matMenuTriggerFor]="menulang" class="bg-transparent text-white shadow-none border-0">
-                                <div style="height:35px;width:35px;background-image:url({{profileImage}});background-position:center;background-size:contain;" class="rounded-circle overflow-hidden"></div>
+                                <div style="height:35px;width:35px;background-image:url({{profileImage}});background-position:center;background-size:cover;" class="rounded-circle overflow-hidden"></div>
                             </button>
                             <mat-menu #menulang="matMenu" xPosition="before" class="shadow py-0 overflow-hidden mt-2">
                                 <button mat-menu-item (click)="gotoProfile()" class="fs-6 px-3 fw-600">

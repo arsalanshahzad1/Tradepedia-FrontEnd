@@ -278,11 +278,11 @@ export class QuizComponent implements OnInit {
         for(let i=0;i<this.questionList.length;i++){
                     
           //alert((this.questionList[i].question_title).length);
-          if((this.questionList[i].question_title).length <= this.questionMaxLen){
+          // if((this.questionList[i].question_title).length <= this.questionMaxLen){
             this.questionList[i].question_title = this.questionList[i].question_title+'<div style="text-align: center; width: 100%; height: 100%; vertical-align: middle; padding: 25px;"><img src="'+this.staticImage+'" style="min-height: 320px; max-height: 320px;"></div>';                    
-          } else {
-            this.questionList[i].question_title = this.questionList[i].question_title;                    
-          }
+          // } else {
+          //   this.questionList[i].question_title = this.questionList[i].question_title;                    
+          // }
           
           //alert(this.questionList[i].question_title);
           this.questionList[i].title = (this.questionList[i].question_title).replaceAll('[[QUIZ_IMAGES]]', this.quizImgpath);             

@@ -61,14 +61,14 @@
     <div class="signal-popup position-fixed top-0 end-0 bottom-0 start-0 d-flex align-items-center justify-content-center" *ngIf="msgPopup">
         <div class="signal-popup-bx text-center px-2 position-relative">
             <div class="text-end">
-                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeMsgPopup()"><i class="bi bi-x"></i></button>
+                <button class="bg-transparent border-0 p-0 text-dark fs-3 px-2 position-absolute top-0 mt-3 end-0 me-2" (click)="closeMsgPopup()"><i class="bi bi-x" style="color:var(--theme-text);"></i></button>
             </div>
             <img src="assets/images/validation-error.png" class="img-fluid" alt="">
             <h4 class="text-center" [translate]="'add_money.popupmsg'">Every 1st of the month you will be gifted Tradepedium based on  your net deposits 1 USD = 1 TRP</h4>
             <label *ngIf="languageSelected!='AR'" [translate]="'tools.xmacc_lab'">XM Account No :</label>
             <label *ngIf="languageSelected=='AR'" style="float: right;" [translate]="'tools.xmacc_lab'">XM Account No :</label>
             <input type="text" placeholder="{{ 'tools.form_text' | translate }}" [(ngModel)]="xmacno" class="mx-auto mb-2">
-            <p class="text-center"><span [translate]="'tools.link1'">If you do not have an MT4/MT5 account yet,</span> <a (click)="openExternalLink(this.xmacurl)" style="color: #0d6efd;"><span [translate]="'tools.link2'">you can click here to open</span></a>.</p>
+            <p class="text-center" style="color:var(--theme-text);"><span [translate]="'tools.link1'">If you do not have an MT4/MT5 account yet,</span> <a (click)="openExternalLink(this.xmacurl)" style="color: #0d6efd;"><span [translate]="'tools.link2'">you can click here to open</span></a>.</p>
             <div class="d-flex align-items-center justify-content-center">
                 <button class="border-0 bg-light ms-2 me-2" (click)="closeMsgPopup()" style="color:var(--theme-text);" [translate]="'tools.close_btn'">Close</button>
                 <button (click)="registerXmcode()" [disabled]="!xmacno" class="border-0" [translate]="'add_money.register'">Register</button>                

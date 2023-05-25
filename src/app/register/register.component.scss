@@ -16,7 +16,7 @@
             margin: 0px auto;
             .pg-tlt{
                 font-size: 35px;
-                color: var(--theme-text);
+                color: var(--theme-dark-bg-text);
             }
             .social-btn{
                 border-radius: 14px;
@@ -39,7 +39,7 @@
                 .frm-bx{
                     span{
                         font-size: 17px;
-                        color: var(--theme-text);
+                        color: var(--theme-dark-bg-text);
                     }
                     input, mat-select{
                         background: none;

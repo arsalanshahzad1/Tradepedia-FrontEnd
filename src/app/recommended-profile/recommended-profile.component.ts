@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-recommended-profile',
@@ -33,6 +34,7 @@ export class RecommendedProfileComponent implements OnInit {
     private router : Router,
     private route: ActivatedRoute,
     private cookieService: CookieService,
+    private translate: TranslateService,
   ) { 
     if(!localStorage.getItem("UserID")==true){      
       this.router.navigate(['/login']);
@@ -58,20 +60,35 @@ export class RecommendedProfileComponent implements OnInit {
       //alert(this.modelName);
       
       if(this.modelName=="Conservative"){
-        this.title="Conservative Target Allocation";
-        this.description="For investors who are predominately risk-averse. Primary focus is on portfolio stability and preservation of capital. Investors using this model should be willing to achieve investment returns (adjusted for inflation) that are low or, in some years, negative, in exchange for reduced risk of principal loss and a high level of liquidity. A typical portfolio will be heavily weighted toward cash and fixed income investments.";
+        this.title=this.translate.instant('find_profile.title1');
+        this.description=this.translate.instant('find_profile.desc1');
+        
+        // this.title="Conservative Target Allocation";
+        // this.description="For investors who are predominately risk-averse. Primary focus is on portfolio stability and preservation of capital. Investors using this model should be willing to achieve investment returns (adjusted for inflation) that are low or, in some years, negative, in exchange for reduced risk of principal loss and a high level of liquidity. A typical portfolio will be heavily weighted toward cash and fixed income investments.";
       } else if(this.modelName=="Moderately Conservative"){
-        this.title="Moderately Conservative Target Allocation";
-        this.description="For investors who are somewhat risk-averse. Primary focus is to achieve a modest level of portfolio appreciation with minimal principal loss and volatility. Investors using this model should be willing to absorb some level of volatility and principal loss. A typical portfolio will include primarily cash and fixed income investments with a modest allocation to equities.";
+        this.title=this.translate.instant('find_profile.title2');
+        this.description=this.translate.instant('find_profile.desc2');
+
+        // this.title="Moderately Conservative Target Allocation";
+        // this.description="For investors who are somewhat risk-averse. Primary focus is to achieve a modest level of portfolio appreciation with minimal principal loss and volatility. Investors using this model should be willing to absorb some level of volatility and principal loss. A typical portfolio will include primarily cash and fixed income investments with a modest allocation to equities.";
       } else if(this.modelName=="Moderate"){	
-        this.title="Moderate Target Allocation";
-        this.description="For investors who are willing to take a moderate level of risk. Primary emphasis is to strike a balance between portfolio stability and portfolio appreciation. Investors using this model should be willing to assume a moderate level of volatility and risk of principal loss. A typical portfolio will primarily include a balance of fixed income and equities.";
+        this.title=this.translate.instant('find_profile.title3');
+        this.description=this.translate.instant('find_profile.desc3');
+
+        // this.title="Moderate Target Allocation";
+        // this.description="For investors who are willing to take a moderate level of risk. Primary emphasis is to strike a balance between portfolio stability and portfolio appreciation. Investors using this model should be willing to assume a moderate level of volatility and risk of principal loss. A typical portfolio will primarily include a balance of fixed income and equities.";
       } else if(this.modelName=="Moderately Aggressive"){	
-        this.title="Moderately Aggressive Target Allocation";
-        this.description="For investors who are willing to take a fair amount of risk. Primary emphasis is on achieving portfolio appreciation over time. Investors using this model should be willing to assume a high level of portfolio volatility and risk of principal loss. A typical portfolio will have exposure to various asset classes but will be primarily weighted toward equities.";
+        this.title=this.translate.instant('find_profile.title4');
+        this.description=this.translate.instant('find_profile.desc4');
+
+        // this.title="Moderately Aggressive Target Allocation";
+        // this.description="For investors who are willing to take a fair amount of risk. Primary emphasis is on achieving portfolio appreciation over time. Investors using this model should be willing to assume a high level of portfolio volatility and risk of principal loss. A typical portfolio will have exposure to various asset classes but will be primarily weighted toward equities.";
       } else if(this.modelName=="Aggressive"){	
-        this.title="Aggressive Target Allocation";
-        this.description="For investors who are willing to take substantial risk. Primary emphasis is on achieving above-average portfolio appreciation over time. Investors using this model should be willing to assume a significant level of portfolio volatility and risk of principal loss. A typical portfolio will have exposure to various asset classes but will be heavily weighted toward equities.";
+        this.title=this.translate.instant('find_profile.title5');
+        this.description=this.translate.instant('find_profile.desc5');
+
+        // this.title="Aggressive Target Allocation";
+        // this.description="For investors who are willing to take substantial risk. Primary emphasis is on achieving above-average portfolio appreciation over time. Investors using this model should be willing to assume a significant level of portfolio volatility and risk of principal loss. A typical portfolio will have exposure to various asset classes but will be heavily weighted toward equities.";
       }            
       this.listAdminProfile();          
     } else {

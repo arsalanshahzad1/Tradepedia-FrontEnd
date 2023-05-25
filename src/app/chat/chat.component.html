@@ -103,12 +103,25 @@
                                                 <p class="m-0 text-end" style="line-height:26px;">{{msg.message}}</p>
                                                 <span class="ps-2 text-start d-block" style="font-size:11px;color:#7D8592;">{{msg.chat_on2 | date:'shortTime':timeZone}}</span>
                                             </div>
-                                            <div class="img-bx rounded-circle d-flex align-items-center justify-content-center text-white fs-4" style="background:#db3d3a;">{{(msg.userName.charAt(0)).toUpperCase()}}</div>
+                                            <div *ngIf="!msg.user_image" class="img-bx rounded-circle d-flex align-items-center justify-content-center text-white fs-4" style="background:#db3d3a;">
+                                                <span>
+                                                    {{(msg.userName.charAt(0)).toUpperCase()}}
+                                                </span>
+                                            </div>
+                                            <div *ngIf="msg.user_image" class="img-bx rounded-circle d-flex align-items-center justify-content-center text-white fs-4" style="background-image:url({{IMG_URL}}/users/{{msg.user_image}});">
+                                               
+                                            </div>
                                         </div>
                                     </ng-container>
                                     <ng-container *ngIf="msg.type === 'receive'">
                                         <div class="d-flex left-chat">
-                                            <div class="img-bx rounded-circle d-flex align-items-center justify-content-center text-white fs-4" style="background:#db3d3a;">{{(msg.userName.charAt(0)).toUpperCase()}}</div>
+                                            <div *ngIf="!msg.user_image" class="img-bx rounded-circle d-flex align-items-center justify-content-center text-white fs-4" style="background:#db3d3a;">
+                                                <span *ngIf="!msg.user_image">
+                                                    {{(msg.userName.charAt(0)).toUpperCase()}}
+                                                </span>
+                                            </div>
+                                            <div *ngIf="msg.user_image" class="img-bx rounded-circle d-flex align-items-center justify-content-center text-white fs-4" style="background-image:url({{IMG_URL}}/users/{{msg.user_image}});">
+                                            </div>
                                             <div class="ps-3">
                                                 <!-- <h6 class="text-start mb-1 fw-600">Messanger Name</h6> -->
                                                 <p class="m-0 text-start" style="line-height:26px;">{{msg.message}}</p>

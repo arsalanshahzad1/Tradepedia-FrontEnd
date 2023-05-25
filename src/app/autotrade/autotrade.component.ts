@@ -1880,7 +1880,7 @@ export class AutotradeComponent implements OnInit {
   }*/
   
 
-  doughnut(){           
+  doughnut(){         
         	
       let trendVal=this.signalDets.dir;      
       this.color=""; 
@@ -2135,7 +2135,22 @@ export class AutotradeComponent implements OnInit {
             .attr("text-anchor", "middle")
             //.text(function(d, i) { return data[i].value; });
             //.text(function(d, i) { return data[i].label; });   
-                                
+        setTimeout(() => {
+          const chartone:any = document.getElementById('chartone'); // Replace 'myDiv' with the ID of your <div> element
+          while (chartone.childElementCount > 1) {
+            chartone.removeChild(chartone.firstElementChild);
+          }
+
+          const charttwo:any = document.getElementById('charttwo'); // Replace 'myDiv' with the ID of your <div> element
+          while (charttwo.childElementCount > 1) {
+            charttwo.removeChild(charttwo.firstElementChild);
+          }
+
+          const chartthree:any = document.getElementById('chartthree'); // Replace 'myDiv' with the ID of your <div> element
+          while (chartthree.childElementCount > 1) {
+            chartthree.removeChild(chartthree.firstElementChild);
+          }
+        }, 1000);                             
   }
 
 

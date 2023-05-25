@@ -181,6 +181,9 @@ $total-items: 6;
             background: rgba(0,0,0,0.50);
             z-index: 3;
             animation: 0.3s show-popup;
+            p{
+                color: var(--theme-text);
+            }
             .signal-popup-bx{
                 background: var(--theme-background);
                 width: 500px;

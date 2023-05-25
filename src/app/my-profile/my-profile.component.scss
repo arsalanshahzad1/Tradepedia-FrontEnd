@@ -203,7 +203,8 @@
                 top: 168px;
                 right: 10px;
                 z-index: 1;
-                background: var(--light-grey) !important;
+                // background: var(--light-grey) !important;
+                background: transparent !important;
                 width: 54%;
                 transition: all 0.3s ease-in-out;
                 &.widthsize{
